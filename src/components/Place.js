@@ -1,14 +1,14 @@
 import React from "react"
-import './Login.css'
+import './Place.css'
 
-const Login = () => {
+const Place = () => {
 
   return(
        <div className="container">
-           <span>Login</span>
+           <span>Place</span>
        </div>
     )
 
 }
 
-export default Login
+export default Place

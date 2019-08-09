@@ -8,7 +8,7 @@ import SearchBar from './components/SearchBar'
 function App() {
   return (
     <div className="container">
-      <FloatingButton />
+      <FloatingButton>Se connecter</FloatingButton>
       <div className="titleSearchBarContainer">
         <MainTitle />
         <SearchBar />

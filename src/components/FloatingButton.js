@@ -1,10 +1,10 @@
 import React from "react"
 import './FloatingButton.css'
 
-const FloatingButton = () => {
+const FloatingButton = ({children}) => {
     return(
         <>           
-            <div className="button"><span className="text">Se connecter</span></div>          
+            <div className="button"><span className="text">{children}</span></div>          
         </>
     )
 }
