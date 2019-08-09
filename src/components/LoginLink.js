@@ -1,13 +1,13 @@
 import React from "react"
 import './LoginLink.css'
 
-const LoginLink = ({contain, location}) => {
+const LoginLink = ({contain, location, onClick}) => {
     if(contain === 'S\'inscrire' && location === "register"){
         return(
             <>
                 <div className="loginContainer">
                     <div className="textSubscriptionWrapper">
-                        <a href="/register" style={{ textDecoration: 'none', color: '#EFEFEF' }}>{contain}</a>
+                        <a href="/register" onClick={onClick} style={{ textDecoration: 'none', color: '#EFEFEF' }}>{contain}</a>
                     </div>
                     <div className="highlighting" />
                 </div>
@@ -20,7 +20,7 @@ const LoginLink = ({contain, location}) => {
             <>
                 <div className="loginContainer">
                     <div className="textLoginWrapper">
-                        <a href="/login" style={{ textDecoration: 'none', color:'#EFEFEF' }}>{contain}</a>
+                        <a href="/login" onClick={onClick} style={{ textDecoration: 'none', color:'#EFEFEF' }}>{contain}</a>
                     </div>
                     <div className="transparentHighlighting" />
                 </div>
@@ -32,7 +32,7 @@ const LoginLink = ({contain, location}) => {
             <>
                 <div className="loginContainer">
                     <div className="textLoginWrapper">
-                    <a href="/register" style={{ textDecoration: 'none', color: '#EFEFEF' }}>{contain}</a>
+                    <a href="/register" onClick={onClick} style={{ textDecoration: 'none', color: '#EFEFEF' }}>{contain}</a>
                     </div>
                     <div className="transparentHighlighting" />
                 </div>
@@ -44,7 +44,7 @@ const LoginLink = ({contain, location}) => {
             <>
                 <div className="loginContainer">
                     <div className="textLoginWrapper">
-                        <a href="/login" style={{ textDecoration: 'none', color: '#EFEFEF' }}>{contain}</a>
+                        <a href="/login" onClick={onClick} style={{ textDecoration: 'none', color: '#EFEFEF' }}>{contain}</a>
                     </div>
                     <div className="highlightingTwo" />
                 </div>

@@ -8,6 +8,7 @@ import Place from './components/Place'
 import Profile from './components/Profile'
 import Register from './components/Register'
 import HomePage from './components/HomePage'
+import NotFound from './components/NotFound'
 
 const Root = () => (
     <BrowserRouter>
@@ -17,7 +18,7 @@ const Root = () => (
             <Route exact path='/register' component={Register}></Route>
             <Route exact path='/profile/:id' component={Profile}></Route>
             <Route exact path='/place/:id' component={Place}></Route>
-            <Route component='notFound'></Route>
+            <Route component={NotFound}></Route>
         </Switch>
     </BrowserRouter>
 )

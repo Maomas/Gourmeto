@@ -1,4 +1,4 @@
-/*.container{
+.container{
     height: 1800px;
     display: flex;
     background: url(../images/background.jpg);
@@ -14,5 +14,5 @@
       align-content: center;
       justify-content: center;
       align-items: center;
-    }*/
+    }
     

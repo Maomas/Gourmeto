@@ -24,3 +24,43 @@ margin-left: 35px;
 .loginChoiceContainer{
 display:flex;
 }
+
+.formInput{
+    width: 495.5px;
+    height: 79px;
+    background: #EFEFEF;
+    padding: 10px;
+    border-radius: 219.444px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26.3333px;
+    line-height: 31px;
+    margin-top: 25px;
+    color: #000000;
+}
+
+button{
+    cursor:pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 496px;
+    height: 58.85px;
+    background: #C4C4C4;
+    mix-blend-mode: hard-light;
+    border: 1.0022px solid #FFFFFF;
+    backdrop-filter: blur(4.00879px);
+    border-radius: 7.40084px;
+    margin-top:30px;
+    }
+    
+    .textButton{
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 26.3333px;
+        line-height: 31px;
+        color: #FFFFFF;
+        border-radius: 4px;
+    }
