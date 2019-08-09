@@ -1,0 +1,57 @@
+.loginContainer{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.textSubscriptionWrapper{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 35.8333px;
+    line-height: 42px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    color: #FFFFFF;
+    width: 142px;
+    height: 43px;
+    cursor:pointer;
+}
+
+.textLoginWrapper{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 35.8333px;
+    line-height: 42px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    color: #FFFFFF;
+    width: 210.22px;
+    height: 43px;
+    cursor:pointer;
+}
+
+.highlighting{
+    background: #C4C4C4;
+    border-radius: 12.069px;
+    width: 146px;
+    height: 12px;
+}
+
+.highlightingTwo{
+    background: #C4C4C4;
+    border-radius: 12.069px;
+    width: 210px;
+    height: 12.07px;
+}
+
+.transparentHighlighting{
+    background: #C4C4C4;
+    border-radius: 12.069px;
+    width: 146px;
+    height: 12px;
+    visibility: hidden; 
+}

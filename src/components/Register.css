@@ -1,0 +1,26 @@
+.container{
+height:1500px;
+display: flex;
+background: url(../images/background.jpg);
+background-size: cover;
+box-shadow: inset 0px 10px 250px #000000;
+justify-content:center;
+}
+
+.inputsContainer{
+display:flex;
+flex-direction:column;
+margin-left: 45px;
+justify-content:center;
+}
+
+.loginContainer{
+display:flex;
+flex-direction:column;
+justify-content:center;
+margin-left: 35px;
+}
+
+.loginChoiceContainer{
+display:flex;
+}
