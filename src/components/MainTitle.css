@@ -1,0 +1,16 @@
+@font-face {
+    font-family: Satisfy;
+    src: url(../font-families/Satisfy-Regular.ttf);
+}
+  
+.title{
+font-family: Satisfy;
+font-style: normal;
+font-weight: normal;
+font-size: 148.396px;
+line-height: 214px;
+color: #EFEFEF;
+display:flex;
+justify-content: center;
+align-items:center;
+}
