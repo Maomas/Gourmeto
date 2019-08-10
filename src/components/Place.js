@@ -4,7 +4,6 @@ import background from '../images/background.jpg'
 import FloatingButton from "../components/FloatingButton"
 import {Redirect} from 'react-router-dom'
 import { ViewsNumber } from "./ViewsNumber"
-import { ProfileButton } from "./ProfileButton"
 import ViewForm from "./ViewForm"
 import ViewBoard from "./ViewBoard";
 
@@ -124,7 +123,6 @@ class Place extends Component{
                         <Title>{this.state.place}</Title>
                         <PlaceWrapper>{this.state.city}, {this.state.country}</PlaceWrapper>
                         <ViewsNumber viewsNumber={this.state.viewsNumber}/>
-                        <ProfileButton contain="Donner son avis" />
                     </PlaceDataContainer>
                 </PlaceContainer>   
                 <ViewForm length={340} addView={this.addView} id={this.state.id} place={this.state.place} url={this.state.url}/>  
