@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import background from '../images/background.jpg'
 
 const Container = styled.div`
-height:2000px;
 display: flex;
 background: url(${background});
 background-size: cover;
@@ -17,6 +16,7 @@ align-items: center;
 flex-direction: column;
 `
 const TitleSearchBarContainer = styled.div`
+  margin-top: 300px;
   display: flex;
   align-content: center;
   justify-content: center;

@@ -10,18 +10,18 @@ import ViewBoard from "./ViewBoard";
 
 
 const Container = styled.div`
-height:1800px;
 display: flex;
 justify-content: center;
 align-items: center;
 align-content:center;
 flex-direction: column;
 background: url(${background});
-background-size: cover;
+background-size: fixed;
 box-shadow: inset 0px 10px 250px #000000;
 `
 
 const PlaceContainer = styled.div`
+margin-top: 300px;
 display: flex;
 flex-direction: row;
 justify-content: space-evenly;

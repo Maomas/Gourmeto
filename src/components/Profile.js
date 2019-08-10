@@ -8,17 +8,17 @@ import {LikesNumber} from './LikesNumber'
 import {ProfileButton} from './ProfileButton'
 
 const Container = styled.div`
-height:1800px;
 display: flex;
 justify-content: center;
 align-items: center;
 align-content:center;
 flex-direction: column;
 background: url(${background});
-background-size: cover;
+background-size: fixed;
 box-shadow: inset 0px 10px 250px #000000;`
 
 const ProfileDataContainer = styled.div`
+margin-top: 300px;
 diplay:flex;
 margin-left: 10px;
 align-content:space-between;`
