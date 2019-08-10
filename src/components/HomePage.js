@@ -1,9 +1,29 @@
 import React, {Component} from "react"
-import './HomePage.css'
 import MainTitle from './MainTitle'
 import FloatingButton from './FloatingButton'
 import SearchBar from './SearchBar'
 import { Redirect } from 'react-router-dom'
+import styled from 'styled-components'
+import background from '../images/background.jpg'
+import { ViewsList } from "./ViewsList";
+
+const Container = styled.div`
+height:2000px;
+display: flex;
+background: url(${background});
+background-size: cover;
+box-shadow: inset 0px 10px 250px #000000;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+`
+const TitleSearchBarContainer = styled.div`
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+`
+
 
 
 class HomePage extends Component {
@@ -19,17 +39,19 @@ class HomePage extends Component {
   render(){
 
     if(this.state.goToLogin){
-      return <Redirect to={'/login'}></Redirect>
-  }
+      return <Redirect push to={'/login'}></Redirect>
+    }
 
     return(
-      <div className="container">
+      <Container>
       <a href="login" onClick={this.goToLogin} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Se connecter</FloatingButton></a>
-      <div className="titleSearchBarContainer">
+      <TitleSearchBarContainer>
         <MainTitle />
         <SearchBar />
-      </div>
-    </div>
+      </TitleSearchBarContainer>
+
+      <ViewsList />
+    </Container>
       )
   }
 }
