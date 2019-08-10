@@ -5,7 +5,6 @@ import SearchBar from './SearchBar'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import background from '../images/background.jpg'
-import { ViewsList } from "./ViewsList";
 
 const Container = styled.div`
 height:2000px;
@@ -50,8 +49,6 @@ class HomePage extends Component {
         <MainTitle />
         <SearchBar />
       </TitleSearchBarContainer>
-
-      <ViewsList />
     </Container>
       )
   }

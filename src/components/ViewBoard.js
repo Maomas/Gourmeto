@@ -66,10 +66,11 @@ display:flex;
 class ViewBoard extends Component{
 
 	state = {
-		name: 'William Dupont',
-		time: '9 minutes',
-		place: 'La Lorgnette',
-		description: 'Blablabla'
+		id: this.props.id,
+		name: this.props.name,
+		time: this.props.time,
+		place: this.props.place,
+		description: this.props.description
 	}
 
 	render(){

@@ -6,7 +6,6 @@ import {Redirect} from 'react-router-dom'
 import { ViewsNumber } from './ViewsNumber'
 import {LikesNumber} from './LikesNumber'
 import {ProfileButton} from './ProfileButton'
-import { ViewsList } from "./ViewsList"
 
 const Container = styled.div`
 height:1800px;
@@ -105,7 +104,6 @@ class Profile extends Component{
                         <a href="/profileUpdate/1" onClick={this.goToProfileUpdate} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Modifier le profil"/></a>
                     </ProfileDataContainer>
                 </ProfileContainer>
-                <ViewsList />
 			</Container>
 		    </>
 	    )

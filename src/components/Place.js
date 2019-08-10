@@ -5,8 +5,8 @@ import FloatingButton from "../components/FloatingButton"
 import {Redirect} from 'react-router-dom'
 import { ViewsNumber } from "./ViewsNumber"
 import { ProfileButton } from "./ProfileButton"
-import { ViewsList } from "./ViewsList"
 import ViewForm from "./ViewForm"
+import ViewBoard from "./ViewBoard";
 
 
 const Container = styled.div`
@@ -56,12 +56,27 @@ font-size: 32px;
 line-height: 37px;
 color: #EFEFEF;`
 
+const ListTitle = styled.div`
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 51.6px;
+line-height: 60px;
+margin-top: 200px;
+color: #EFEFEF;
+margin-bottom: 20px;`
+
+
+const ViewsList = styled.div`
+display:flex;
+flex-direction:column;`
+
 class Place extends Component{
 
     state = {
         goToHomePage: false,
         id: this.props.match.params.id,
-        name: 'La Lorgnette',
+        place: 'La Lorgnette',
         city: 'Mons',
         url: 'https://s3-media2.fl.yelpcdn.com/bphoto/Or501eN94R3wyOXfvdXxbQ/ls.jpg',
         country: 'Belgique',
@@ -82,6 +97,18 @@ class Place extends Component{
 
     render(){
 
+        const views = Object.keys(this.state.views)
+        .map(key => (
+            <ViewBoard
+                key={key}
+                id={this.state.views[key].id}
+                name='William Dupont'
+                time='0 minutes'
+                place={this.state.views[key].place}
+                description={this.state.views[key].view}
+            />
+        ))
+
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
         }
@@ -99,8 +126,11 @@ class Place extends Component{
                         <ProfileButton contain="Donner son avis" />
                     </PlaceDataContainer>
                 </PlaceContainer>   
-                <ViewForm length={340} addView={this.addView} id={this.state.id}/>
-                <ViewsList />        
+                <ViewForm length={340} addView={this.addView} id={this.state.id} place={this.state.place}/>  
+                 <ViewsList>
+                    <ListTitle>Avis</ListTitle>
+                    { views }
+                 </ViewsList>
             </Container>
         </>
         )

@@ -1,4 +1,4 @@
-import React from "react"
+import React,{Component} from "react"
 import styled from 'styled-components'
 import ViewBoard from './ViewBoard'
 
@@ -17,15 +17,19 @@ const ViewsListWrapper = styled.div`
 display:flex;
 flex-direction:column;`
 
-export const ViewsList = () => {
+class ViewsList extends Component {
 
-    return (
-        <>
-        <ViewsListWrapper>
-            <Title>Avis</Title>
-            <ViewBoard />
-        </ViewsListWrapper>
-           
-        </>
-    )
+    render(){
+
+        return (
+            <>
+            <ViewsListWrapper>
+                <Title>Avis</Title>
+                <ViewBoard />
+            </ViewsListWrapper>             
+            </>
+        )
+    }
 } 
+
+export default ViewsList
