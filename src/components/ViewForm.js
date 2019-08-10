@@ -58,27 +58,30 @@ class ViewForm extends Component{
     state = {
         view: '',
         length: this.props.length,
-        place: this.props.place
+        place: this.props.place,
+        url: this.props.url
     }
 
     createView = () => {
-        const {addView, id, length, place} = this.props
+        const {addView, id, length, place, url} = this.props
 
         const view = {
             id,
             view: this.state.view,
-            place: this.state.place
+            place: this.state.place,
+            url: this.state.url
         }
         addView(view)
         //Reset
-        this.setState({ view: '', length, place })
+        this.setState({ view: '', length, place, url })
     }
 
     handleChange = event => {
         const view = event.target.value
         const length = this.props.length - view.length
         const place = this.state.place
-        this.setState({ view, length, place })
+        const url = this.state.url
+        this.setState({ view, length, place, url })
     }
 
     handleSubmit = event => {

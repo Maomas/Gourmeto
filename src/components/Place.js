@@ -106,6 +106,7 @@ class Place extends Component{
                 time='0 minutes'
                 place={this.state.views[key].place}
                 description={this.state.views[key].view}
+                url={this.state.views[key].url}
             />
         ))
 
@@ -120,13 +121,13 @@ class Place extends Component{
                 <PlaceContainer>
                     <Image style={{ backgroundImage: `url(${this.state.url})` }} />
                     <PlaceDataContainer>
-                        <Title>{this.state.name}</Title>
+                        <Title>{this.state.place}</Title>
                         <PlaceWrapper>{this.state.city}, {this.state.country}</PlaceWrapper>
                         <ViewsNumber viewsNumber={this.state.viewsNumber}/>
                         <ProfileButton contain="Donner son avis" />
                     </PlaceDataContainer>
                 </PlaceContainer>   
-                <ViewForm length={340} addView={this.addView} id={this.state.id} place={this.state.place}/>  
+                <ViewForm length={340} addView={this.addView} id={this.state.id} place={this.state.place} url={this.state.url}/>  
                  <ViewsList>
                     <ListTitle>Avis</ListTitle>
                     { views }

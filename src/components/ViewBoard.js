@@ -70,7 +70,8 @@ class ViewBoard extends Component{
 		name: this.props.name,
 		time: this.props.time,
 		place: this.props.place,
-		description: this.props.description
+		description: this.props.description,
+		url: this.props.url
 	}
 
 	render(){
@@ -85,7 +86,7 @@ class ViewBoard extends Component{
 							<Text>il y a {this.state.time}</Text>
 						</Header>
 					</HeaderContainer>
-					<a href="/place/1" ><PlacePhoto /></a>
+					<a href="/place/1" ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
 					<a href="/place/1" style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>
 					<Text>{this.state.description}</Text>
 				</Container>
