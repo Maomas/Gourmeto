@@ -99,7 +99,7 @@ class Place extends Component{
                         <ProfileButton contain="Donner son avis" />
                     </PlaceDataContainer>
                 </PlaceContainer>   
-                <ViewForm addView={this.addView} id={this.state.id}/>
+                <ViewForm length={340} addView={this.addView} id={this.state.id}/>
                 <ViewsList />        
             </Container>
         </>

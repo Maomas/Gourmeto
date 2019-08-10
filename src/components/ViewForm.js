@@ -7,7 +7,7 @@ flex-direction:column;
 justify-content:center;
 padding:15px;
 width: 780px;
-height: 350px;
+height: 400px;
 margin-top: 30px;
 background: #EFEFEF;
 border-radius: 5px;
@@ -56,11 +56,12 @@ color: #000000;`
 class ViewForm extends Component{
 
     state = {
-        view: ''
+        view: '',
+        length: this.props.length
     }
 
     createView = () => {
-        const {addView, id} = this.props
+        const {addView, id, length} = this.props
 
         const view = {
             id,
@@ -68,12 +69,13 @@ class ViewForm extends Component{
         }
         addView(view)
         //Reset
-        this.setState({ view: ''})
+        this.setState({ view: '', length })
     }
 
     handleChange = event => {
         const view = event.target.value
-        this.setState({ view })
+        const length = this.props.length - view.length
+        this.setState({ view, length })
     }
 
     handleSubmit = event => {
@@ -81,11 +83,18 @@ class ViewForm extends Component{
         this.createView()
     }
 
+    handleKeyUp = event => {
+        if(event.key === 'Enter'){
+            this.createView()
+        }
+    }
+
     render(){
         return(
             <Container>
                 <Form onSubmit={this.handleSubmit}>
-                    <Input value={this.state.view} onChange={this.handleChange} maxLength='340' placeholder="Donnez votre avis sur ce lieu (maximum 340 caractères)." type="text" required/>
+                    <Input value={this.state.view} onChange={this.handleChange} onKeyUp={this.handleKeyUp} maxLength={this.props.length} placeholder="Donnez votre avis sur ce lieu (maximum 340 caractères)." type="text" required/>
+                    <Text>{this.state.length} caractères restants</Text>
                     <Button type='submit'><Text>Valider</Text></Button>
                 </Form>               
             </Container>
