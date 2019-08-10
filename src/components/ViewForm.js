@@ -67,6 +67,8 @@ class ViewForm extends Component{
             view: this.state.view
         }
         addView(view)
+        //Reset
+        this.setState({ view: ''})
     }
 
     handleChange = event => {

@@ -63,6 +63,7 @@ class Profile extends Component{
         goToProfileUpdate: false,
         name: 'William Dupont',
         city: 'Mons',
+        url: 'https://yt3.ggpht.com/a/AGF-l7_a8N-tT9HClU0K-Vje-79ELgI2T2OvYk1Dhg=s900-c-k-c0xffffffff-no-rj-mo',
         country: 'Belgique',
         viewsNumber: '2',
         likesNumber: '10'
@@ -93,7 +94,7 @@ class Profile extends Component{
             <Container>
                 <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
                 <ProfileContainer>
-                    <Image />
+                    <Image style={{ backgroundImage: `url(${this.state.url})` }}  />
                     <ProfileDataContainer>
                         <Title>{this.state.name}</Title>
                         <Place>{this.state.city}, {this.state.country}</Place>

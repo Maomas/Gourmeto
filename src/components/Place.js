@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom'
 import { ViewsNumber } from "./ViewsNumber"
 import { ProfileButton } from "./ProfileButton"
 import { ViewsList } from "./ViewsList"
-import ViewForm from "./ViewForm";
+import ViewForm from "./ViewForm"
 
 
 const Container = styled.div`
@@ -63,6 +63,7 @@ class Place extends Component{
         id: this.props.match.params.id,
         name: 'La Lorgnette',
         city: 'Mons',
+        url: 'https://s3-media2.fl.yelpcdn.com/bphoto/Or501eN94R3wyOXfvdXxbQ/ls.jpg',
         country: 'Belgique',
         viewsNumber: '5',
         views: {}
@@ -88,9 +89,9 @@ class Place extends Component{
         return(
         <>
             <Container>
-                <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
+                <a href="/" onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
                 <PlaceContainer>
-                    <Image />
+                    <Image style={{ backgroundImage: `url(${this.state.url})` }} />
                     <PlaceDataContainer>
                         <Title>{this.state.name}</Title>
                         <PlaceWrapper>{this.state.city}, {this.state.country}</PlaceWrapper>
