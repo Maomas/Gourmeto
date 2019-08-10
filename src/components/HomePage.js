@@ -31,6 +31,7 @@ class HomePage extends Component {
     goToLogin: false
   }
 
+
   goToLogin = event => {
     event.preventDefault()
         this.setState({ goToLogin: true})

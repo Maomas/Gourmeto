@@ -60,10 +60,18 @@ class Place extends Component{
 
     state = {
         goToHomePage: false,
+        id: this.props.match.params.id,
         name: 'La Lorgnette',
         city: 'Mons',
         country: 'Belgique',
-        viewsNumber: '5'
+        viewsNumber: '5',
+        views: {}
+    }
+
+    addView = view => {
+        const views = {...this.state.views}
+        views[`view-${Date.now()}`] = view
+        this.setState({views})
     }
 
     goToHomePage = event => {
@@ -90,7 +98,7 @@ class Place extends Component{
                         <ProfileButton contain="Donner son avis" />
                     </PlaceDataContainer>
                 </PlaceContainer>   
-                <ViewForm />
+                <ViewForm addView={this.addView} id={this.state.id}/>
                 <ViewsList />        
             </Container>
         </>

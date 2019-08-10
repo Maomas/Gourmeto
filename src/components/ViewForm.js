@@ -7,7 +7,7 @@ flex-direction:column;
 justify-content:center;
 padding:15px;
 width: 780px;
-height: 550px;
+height: 350px;
 margin-top: 30px;
 background: #EFEFEF;
 border-radius: 5px;
@@ -20,8 +20,9 @@ flex-direction:column;
 
 
 const Input = styled.textarea`
+resize: none;
 width: 760px;
-height: 425px;
+height: 250px;
 border-radius: 5px;
 font-family: Roboto;
 font-style: normal;
@@ -54,11 +55,35 @@ color: #000000;`
 
 class ViewForm extends Component{
 
+    state = {
+        view: ''
+    }
+
+    createView = () => {
+        const {addView, id} = this.props
+
+        const view = {
+            id,
+            view: this.state.view
+        }
+        addView(view)
+    }
+
+    handleChange = event => {
+        const view = event.target.value
+        this.setState({ view })
+    }
+
+    handleSubmit = event => {
+        event.preventDefault()
+        this.createView()
+    }
+
     render(){
         return(
             <Container>
-                <Form onSubmit={this.goToHomePage}>
-                    <Input placeholder="Donnez votre avis sur ce lieu." type="text" required/>
+                <Form onSubmit={this.handleSubmit}>
+                    <Input value={this.state.view} onChange={this.handleChange} maxLength='340' placeholder="Donnez votre avis sur ce lieu (maximum 340 caractères)." type="text" required/>
                     <Button type='submit'><Text>Valider</Text></Button>
                 </Form>               
             </Container>
