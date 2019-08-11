@@ -71,27 +71,34 @@ class ViewBoard extends Component{
 		time: this.props.time,
 		place: this.props.place,
 		description: this.props.description,
-		url: this.props.url
+		url: this.props.url,
+		userId: this.props.userId,
+		isUser: this.props.isUser
 	}
 
 	render(){
 
-		return (
-			<>
-				<Container>
-					<HeaderContainer>
-						<a href="/profile/1" ><Avatar /></a>
-						<Header>
-							<a href="/profile/1"  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.name}</StrongText></a>
-							<Text>il y a {this.state.time}</Text>
-						</Header>
-					</HeaderContainer>
-					<a href="/place/1" ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
-					<a href="/place/1" style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>
-					<Text>{this.state.description}</Text>
-				</Container>
-			</>
-		)
+		if(this.state.isUser(this.state.userId)) {		
+			return (
+				<>
+					<Container>
+						<HeaderContainer>
+							<a href="/profile/1" ><Avatar /></a>
+							<Header>
+								<a href="/profile/1"  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.name}</StrongText></a>
+								<Text>il y a {this.state.time}</Text>
+							</Header>
+						</HeaderContainer>
+						<a href="/place/1" ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
+						<a href="/place/1" style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>
+						<Text>{this.state.description}</Text>
+					</Container>
+				</>
+			)
+		}
+		else{
+			console.log("not current user viewboard");
+		}
 	}
 }
 

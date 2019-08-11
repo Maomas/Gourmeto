@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, {Component, createRef} from "react"
 import styled from "styled-components"
 import background from '../images/background.jpg'
 import FloatingButton from "../components/FloatingButton"
@@ -75,6 +75,8 @@ flex-direction:column;`
 
 class Place extends Component{
 
+    viewsRef = createRef()
+
     componentDidMount() {
         base.syncState('/', {
             context: this,
@@ -82,9 +84,16 @@ class Place extends Component{
         })
     }
 
+    //A chaque fois que le state est mis à jour, cette fonction est appelée
+    componentDidUpdate(){
+        const ref = this.viewsRef.current
+        ref.scrollTop = ref.scrollHeight
+    }
+
     state = {
         goToHomePage: false,
         id: this.props.match.params.id,
+        userId: '1',    //userId va être égal à l'id du current user lors de la mep de l'auth firebase
         place: 'La Lorgnette',
         city: 'Mons',
         url: 'https://s3-media2.fl.yelpcdn.com/bphoto/Or501eN94R3wyOXfvdXxbQ/ls.jpg',
@@ -104,6 +113,8 @@ class Place extends Component{
         this.setState({ goToHomePage: true})
     }
 
+    isUser = userId => userId === this.state.userId
+
     render(){
 
         const views = Object.keys(this.state.views)
@@ -111,6 +122,8 @@ class Place extends Component{
             <ViewBoard
                 key={key}
                 id={this.state.views[key].id}
+                userId={this.state.userId} 
+                isUser={this.isUser}
                 name='William Dupont'
                 time='0 minutes'
                 place={this.state.views[key].place}
@@ -136,7 +149,7 @@ class Place extends Component{
                     </PlaceDataContainer>
                 </PlaceContainer>   
                 <ViewForm length={340} addView={this.addView} id={this.state.id} place={this.state.place} url={this.state.url}/>  
-                 <ViewsList>
+                 <ViewsList ref={this.viewsRef}>
                     <ListTitle>Avis</ListTitle>
                     { views }
                  </ViewsList>
