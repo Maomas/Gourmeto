@@ -6,6 +6,7 @@ import {Redirect} from 'react-router-dom'
 import { ViewsNumber } from "./ViewsNumber"
 import ViewForm from "./ViewForm"
 import ViewBoard from "./ViewBoard";
+import base from '../base'
 
 
 const Container = styled.div`
@@ -70,7 +71,16 @@ const ViewsList = styled.div`
 display:flex;
 flex-direction:column;`
 
+
+
 class Place extends Component{
+
+    componentDidMount() {
+        base.syncState('/', {
+            context: this,
+            state: 'views'
+        })
+    }
 
     state = {
         goToHomePage: false,
