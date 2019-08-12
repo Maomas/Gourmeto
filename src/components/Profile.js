@@ -1,21 +1,18 @@
 import React, {Component} from "react"
 import styled from "styled-components"
 import FloatingButton from '../components/FloatingButton'
-import background from '../images/background.jpg'
 import {Redirect} from 'react-router-dom'
 import { ViewsNumber } from './ViewsNumber'
 import {LikesNumber} from './LikesNumber'
 import {ProfileButton} from './ProfileButton'
 
 const Container = styled.div`
+margin-top: 15%;
 display: flex;
 justify-content: center;
 align-items: center;
 align-content:center;
-flex-direction: column;
-background: url(${background});
-background-size: fixed;
-box-shadow: inset 0px 10px 250px #000000;`
+flex-direction: column;`
 
 const ProfileDataContainer = styled.div`
 margin-top: 300px;

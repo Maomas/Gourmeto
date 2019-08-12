@@ -4,17 +4,13 @@ import MainTitle from './MainTitle'
 import LoginLink from './LoginLink'
 import { Redirect } from 'react-router-dom'
 import styled from "styled-components"
-import background from '../images/background.jpg'
 import googleBrand from "../images/google-brands.svg"
 import facebookBrand from "../images/facebook-brands.svg"
 import SpecialButton from './SpecialButton'
 
 const Container = styled.div`
-height:1500px;
+margin-top: 15%;
 display: flex;
-background: url(${background});
-background-size: cover;
-box-shadow: inset 0px 10px 250px #000000;
 justify-content:center;
 `
 

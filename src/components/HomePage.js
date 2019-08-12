@@ -4,16 +4,16 @@ import FloatingButton from './FloatingButton'
 import SearchBar from './SearchBar'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
-import background from '../images/background.jpg'
+import ViewBoard from './ViewBoard'
+import base from '../base'
 
 const Container = styled.div`
+height:100%;
 display: flex;
-background: url(${background});
-background-size: cover;
-box-shadow: inset 0px 10px 250px #000000;
 justify-content: center;
 align-items: center;
 flex-direction: column;
+margin-bottom: 100px;
 `
 const TitleSearchBarContainer = styled.div`
   margin-top: 300px;
@@ -23,13 +23,39 @@ const TitleSearchBarContainer = styled.div`
   align-items: center;
 `
 
+const ListTitle = styled.div`
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 51.6px;
+line-height: 60px;
+margin-top: 200px;
+color: #EFEFEF;
+margin-bottom: 20px;`
+
+
+const ViewsList = styled.div`
+display:flex;
+flex-direction:column;`
+
 
 
 class HomePage extends Component {
+
   state = {
-    goToLogin: false
+    goToLogin: false,
+    views: {},
+    userId: '1'
   }
 
+  componentDidMount() {
+    base.syncState('/', {
+        context: this,
+        state: 'views'
+    })
+}
+
+isUser = userId => userId === this.state.userId
 
   goToLogin = event => {
     event.preventDefault()
@@ -37,6 +63,21 @@ class HomePage extends Component {
   }
 
   render(){
+
+    const views = Object.keys(this.state.views)
+        .map(key => (
+                <ViewBoard
+                key={key}
+                id={this.state.views[key].id}
+                userId={this.state.userId} 
+                isUser={this.isUser}
+                name='William Dupont'
+                time='0 minutes'
+                place={this.state.views[key].place}
+                description={this.state.views[key].view}
+                url={this.state.views[key].url}
+                />
+          ))
 
     if(this.state.goToLogin){
       return <Redirect push to={'/login'}></Redirect>
@@ -49,6 +90,10 @@ class HomePage extends Component {
         <MainTitle />
         <SearchBar />
       </TitleSearchBarContainer>
+      <ViewsList>
+        <ListTitle>Avis</ListTitle>
+          { views }
+        </ViewsList>
     </Container>
       )
   }

@@ -4,16 +4,10 @@ import MainTitle from './MainTitle'
 import LoginLink from './LoginLink'
 import {Redirect} from 'react-router-dom'
 import styled from 'styled-components'
-import background from '../images/background.jpg'
-
-
 
 const Container = styled.div`
-height:1500px;
+margin-top: 15%;
 display: flex;
-background: url(${background});
-background-size: cover;
-box-shadow: inset 0px 10px 250px #000000;
 justify-content:center;
 `
 
@@ -21,8 +15,7 @@ const InputsContainer = styled.div`
 display:flex;
 flex-direction:column;
 margin-left: 45px;
-justify-content:center;
-`
+justify-content:center;`
 
 const LoginContainer = styled.div`
 display:flex;

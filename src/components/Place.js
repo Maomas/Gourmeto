@@ -1,12 +1,18 @@
 import React, {Component, createRef} from "react"
 import styled from "styled-components"
-import background from '../images/background.jpg'
 import FloatingButton from "../components/FloatingButton"
 import {Redirect} from 'react-router-dom'
 import { ViewsNumber } from "./ViewsNumber"
 import ViewForm from "./ViewForm"
-import ViewBoard from "./ViewBoard";
+import ViewBoard from "./ViewBoard"
 import base from '../base'
+import '../animations.css'
+
+
+import {
+  CSSTransition,
+  TransitionGroup
+} from 'react-transition-group'
 
 
 const Container = styled.div`
@@ -15,9 +21,6 @@ justify-content: center;
 align-items: center;
 align-content:center;
 flex-direction: column;
-background: url(${background});
-background-size: fixed;
-box-shadow: inset 0px 10px 250px #000000;
 `
 
 const PlaceContainer = styled.div`
@@ -84,11 +87,6 @@ class Place extends Component{
         })
     }
 
-    //A chaque fois que le state est mis à jour, cette fonction est appelée
-    componentDidUpdate(){
-        const ref = this.viewsRef.current
-        ref.scrollTop = ref.scrollHeight
-    }
 
     state = {
         goToHomePage: false,
@@ -119,8 +117,11 @@ class Place extends Component{
 
         const views = Object.keys(this.state.views)
         .map(key => (
-            <ViewBoard
-                key={key}
+            <CSSTransition 
+            timemout={2000}
+            classNames='fade'
+            key={key}>
+                <ViewBoard
                 id={this.state.views[key].id}
                 userId={this.state.userId} 
                 isUser={this.isUser}
@@ -129,7 +130,9 @@ class Place extends Component{
                 place={this.state.views[key].place}
                 description={this.state.views[key].view}
                 url={this.state.views[key].url}
-            />
+                />
+            </CSSTransition>
+            
         ))
 
         if(this.state.goToHomePage){
@@ -149,10 +152,12 @@ class Place extends Component{
                     </PlaceDataContainer>
                 </PlaceContainer>   
                 <ViewForm length={340} addView={this.addView} id={this.state.id} place={this.state.place} url={this.state.url}/>  
-                 <ViewsList ref={this.viewsRef}>
-                    <ListTitle>Avis</ListTitle>
-                    { views }
-                 </ViewsList>
+                    <TransitionGroup className='views'>
+                        <ViewsList ref={this.viewsRef}>
+                            <ListTitle>Avis</ListTitle>
+                            { views }
+                        </ViewsList>
+                    </TransitionGroup>
             </Container>
         </>
         )
