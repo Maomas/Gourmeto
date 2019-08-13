@@ -2,16 +2,12 @@ import React from "react"
 import styled from 'styled-components'
 
 const Button = styled.div`
-position: absolute;
 width: 197px;
 height: 67px;
-left: 80%;
-top: 69px;
 cursor:pointer;
 display: flex;
 justify-content: center;
 align-items: center;
-
 background: #C4C4C4;
 mix-blend-mode: hard-light;
 border: 1px solid #FFFFFF;

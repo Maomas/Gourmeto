@@ -5,6 +5,7 @@ import SearchBar from './SearchBar'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import ViewBoard from './ViewBoard'
+import HelloUser from './HelloUser'
 import base from '../base'
 
 const Container = styled.div`
@@ -38,6 +39,16 @@ const ViewsList = styled.div`
 display:flex;
 flex-direction:column;`
 
+const Header = styled.div`
+position: absolute;
+left: 80%;
+top: 69px;
+width: 600px;
+display: flex;
+justify-content:center;
+align-items: center;
+`
+
 
 
 class HomePage extends Component {
@@ -45,7 +56,8 @@ class HomePage extends Component {
   state = {
     goToLogin: false,
     views: {},
-    userId: '1'
+    userId: '1',
+    pseudo: 'Willy'
   }
 
   componentDidMount() {
@@ -85,7 +97,10 @@ isUser = userId => userId === this.state.userId
 
     return(
       <Container>
-      <a href="login" onClick={this.goToLogin} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Se connecter</FloatingButton></a>
+      <Header>
+        <HelloUser pseudo={this.state.pseudo} />
+        <a href="login" onClick={this.goToLogin} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Se connecter</FloatingButton></a>
+      </Header>
       <TitleSearchBarContainer>
         <MainTitle />
         <SearchBar />

@@ -7,6 +7,9 @@ import styled from "styled-components"
 import googleBrand from "../images/google-brands.svg"
 import facebookBrand from "../images/facebook-brands.svg"
 import SpecialButton from './SpecialButton'
+import firebase from 'firebase/app'
+import base, {firebaseApp} from '../base'
+import 'firebase/auth'
 
 const Container = styled.div`
 margin-top: 15%;
@@ -76,11 +79,35 @@ color: #FFFFFF;
 border-radius: 4px;
 `
 
+const Header = styled.div`
+position: absolute;
+left: 80%;
+top: 69px;
+width: 600px;
+display: flex;
+justify-content:center;
+align-items: center;
+`
+
 class Login extends Component {
     state = {
         email: '',
         goToHomePage: false,
-        goToRegister: false
+        goToRegister: false,
+        uid: null
+    }
+
+    handleAuth = async authData => {
+        console.log(authData)
+    } 
+
+    authenticate = () => {
+        console.log('je passe')
+        const authProvider = new firebase.auth.FacebookAuthProvider()
+        firebaseApp
+        .auth()
+        .signInWithPopup(authProvider)
+        .then(this.handleAuth)
     }
 
     handleChange = event => {
@@ -107,9 +134,12 @@ class Login extends Component {
             return <Redirect to={'/register'}></Redirect>
         }
 
+
         return(
             <Container>
-                <a href="/" onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
+                <Header>
+                    <a href="/" onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
+                </Header>
                 <MainTitle />
                 <InputsContainer>
                     <LoginChoiceContainer>
@@ -133,10 +163,10 @@ class Login extends Component {
                         type='password'
                         required
                         />
-                        <Button type='submit'><Text>Se connecter</Text></Button>
-                    </Form>
+                        <Button type='submit'><Text>Se connecter</Text></Button>                       
+                    </Form>                        
                     <SpecialButton contain="Connectez-vous avec Google" icon={googleBrand}/>
-                    <SpecialButton contain="Connectez-vous avec Facebook" icon={facebookBrand}/>
+                    <SpecialButton onClick={this.authenticate} contain="Connectez-vous avec Facebook" icon={facebookBrand}/>
                 </InputsContainer>
             </Container>
         )

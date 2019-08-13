@@ -11,6 +11,16 @@ display: flex;
 justify-content:center;
 `
 
+const Header = styled.div`
+position: absolute;
+left: 80%;
+top: 69px;
+width: 600px;
+display: flex;
+justify-content:center;
+align-items: center;
+`
+
 const InputsContainer = styled.div`
 display:flex;
 flex-direction:column;
@@ -103,7 +113,9 @@ class Register extends Component{
 
         return(
             <Container>
-                <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
+                <Header>
+                    <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
+                </Header>
                 <MainTitle />
                 <InputsContainer>
                     <LoginChoiceContainer>

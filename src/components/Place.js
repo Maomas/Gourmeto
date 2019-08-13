@@ -1,4 +1,4 @@
-import React, {Component, createRef} from "react"
+import React, {Component} from "react"
 import styled from "styled-components"
 import FloatingButton from "../components/FloatingButton"
 import {Redirect} from 'react-router-dom'
@@ -7,6 +7,7 @@ import ViewForm from "./ViewForm"
 import ViewBoard from "./ViewBoard"
 import base from '../base'
 import '../animations.css'
+import 'firebase/auth'
 
 
 import {
@@ -21,6 +22,16 @@ justify-content: center;
 align-items: center;
 align-content:center;
 flex-direction: column;
+`
+
+const Header = styled.div`
+position: absolute;
+left: 80%;
+top: 69px;
+width: 600px;
+display: flex;
+justify-content:center;
+align-items: center;
 `
 
 const PlaceContainer = styled.div`
@@ -78,7 +89,6 @@ flex-direction:column;`
 
 class Place extends Component{
 
-    viewsRef = createRef()
 
     componentDidMount() {
         base.syncState('/', {
@@ -142,7 +152,9 @@ class Place extends Component{
         return(
         <>
             <Container>
-                <a href="/" onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
+                <Header>
+                    <a href="/" onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
+                </Header>
                 <PlaceContainer>
                     <Image style={{ backgroundImage: `url(${this.state.url})` }} />
                     <PlaceDataContainer>

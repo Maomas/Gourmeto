@@ -32,10 +32,10 @@ height: 50px;
 margin-left: 5px;
 `
 
-const SpecialButton = ({contain, link, icon}) => {
+const SpecialButton = ({contain, link, icon, onClick}) => {
     return(
         <>
-         <a href={link} style={{ textDecoration: 'none', color:'#EFEFEF' }}><Button><Icon><img src={icon} alt=""></img></Icon><Text>{contain}</Text></Button></a>        
+         <a href={link} style={{ textDecoration: 'none', color:'#EFEFEF' }}><Button onClick={onClick}><Icon><img src={icon} alt=""></img></Icon><Text>{contain}</Text></Button></a>        
         </>
     )
 }

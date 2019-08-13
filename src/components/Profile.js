@@ -51,6 +51,16 @@ font-size: 32px;
 line-height: 37px;
 color: #EFEFEF;`
 
+const Header = styled.div`
+position: absolute;
+left: 80%;
+top: 69px;
+width: 600px;
+display: flex;
+justify-content:center;
+align-items: center;
+`
+
 
 class Profile extends Component{
 
@@ -88,7 +98,9 @@ class Profile extends Component{
         return(
             <>
             <Container>
-                <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
+                <Header>
+                    <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
+                </Header>
                 <ProfileContainer>
                     <Image style={{ backgroundImage: `url(${this.state.url})` }}  />
                     <ProfileDataContainer>
