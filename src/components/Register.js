@@ -35,11 +35,12 @@ const LoginContainer = styled.div`
 display:flex;
 flex-direction:column;
 justify-content:center;
-margin-left: 35px;
+margin-left: 20px;
 `
 
 const LoginChoiceContainer = styled.div`
 display:flex;
+justify-content:center;
 `
 
 const Form = styled.form`
