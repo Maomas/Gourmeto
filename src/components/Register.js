@@ -4,6 +4,10 @@ import MainTitle from './MainTitle'
 import LoginLink from './LoginLink'
 import {Redirect} from 'react-router-dom'
 import styled from 'styled-components'
+//import firebase from 'firebase/app'
+import /*base,*/ {firebaseApp} from '../base'
+import 'firebase/auth'
+
 
 const Container = styled.div`
 margin-top: 15%;
@@ -85,9 +89,16 @@ border-radius: 4px;
 
 class Register extends Component{
 
+
     state = {
         goToRegister: false,
-        goToHomePage: false
+        goToHomePage: false,
+        name: '',
+        email: '',
+        city: '',
+        country: '',
+        password: '',
+        newUser: {}
     }
 
     goToLogin = event => {
@@ -98,6 +109,37 @@ class Register extends Component{
     goToHomePage = event => {
         event.preventDefault()
         this.setState({ goToHomePage: true})
+    }
+
+    handleChangeName = event => {
+        const name = event.target.value
+        this.setState({ name })
+    }
+
+    handleChangeEmail = event => {
+        const email = event.target.value
+        this.setState({ email })
+    }
+
+    handleChangeCountry = event => {
+        const country = event.target.value
+        this.setState({ country })
+    }
+
+    handleChangeCity = event => {
+        const city = event.target.value
+        this.setState({ city })
+    }
+
+    handleChangePassword = event => {
+        const password = event.target.value
+        this.setState({ password })
+    }
+
+    handleSubmit = event => {
+        event.preventDefault() 
+        firebaseApp.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        this.setState({ goToHomePage: true })
     }
     
 
@@ -126,28 +168,38 @@ class Register extends Component{
                             <LoginLink contain="Se connecter" onClick={this.goToLogin}  location="register"/>
                         </LoginContainer>
                     </LoginChoiceContainer>
-                    <Form onSubmit={this.goToHomePage}>
+                    <Form onSubmit={this.handleSubmit}>
                        <Input
+                       value={this.state.name}
+                       onChange={this.handleChangeName}
                        placeholder='Nom complet'
                        type="text"
                        required
                        />
                        <Input
+                       value={this.state.email}
+                       onChange={this.handleChangeEmail}
                        placeholder='Email'
                        type="email"
                        required
                        />
                        <Input
+                       value={this.state.city}
+                       onChange={this.handleChangeCity}
                        placeholder='Ville'
                        type="text"
                        required
                        />
                        <Input
+                       value={this.state.country}
+                       onChange={this.handleChangeCountry}
                        placeholder='Pays'
                        type="text"
                        required
                        />
                        <Input
+                       value={this.state.password}
+                       onChange={this.handleChangePassword}
                        placeholder='Mot de passe'
                        type='password'
                        required
