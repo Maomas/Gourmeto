@@ -91,31 +91,59 @@ align-items: center;
 
 class Login extends Component {
 
+
     state = {
         goToHomePage: false,
         goToRegister: false,
-        user: {}
+        isAdmin: false,
+        currentUser: {},
+        facebookAuth: false,
+        googleAuth: false
     }
 
-    handleAuth = async authData => {
-        const user = {
+    handleAuthFacebook = async authData => {
+        const currentUser = {
             uid: authData.user.uid,
             name: authData.user.displayName,
             email: authData.user.email,
             url: authData.user.photoURL,
             isLoggedIn: true
         }
-        this.setState({user: user})
-        base.syncState(`/users/user-${this.state.user.uid}`, {context: this,state: 'user'})
+        this.setState({currentUser: currentUser, facebookAuth: true, googleAuth: false})
+        await base.post(`/users/facebook/user-${this.state.currentUser.uid}/name`, {data: this.state.currentUser.name})
+        await base.post(`/users/facebook/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
+        await base.post(`/users/facebook/user-${this.state.currentUser.uid}/url`, {data: this.state.currentUser.url})
     }
 
+    handleAuthGoogle = async authData => {
+        const currentUser = {
+            uid: authData.user.uid,
+            name: authData.user.displayName,
+            email: authData.user.email,
+            url: authData.user.photoURL,
+            isLoggedIn: true
+        }
+        this.setState({currentUser: currentUser, googleAuth: true, facebookAuth: false})
+        await base.post(`/users/google/user-${this.state.currentUser.uid}/name`, {data: this.state.currentUser.name})
+        await base.post(`/users/google/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
+        await base.post(`/users/google/user-${this.state.currentUser.uid}/url`, {data: this.state.currentUser.url})
 
-    authenticate = () => {
-        const authProvider = new firebase.auth.FacebookAuthProvider()
+    }
+
+    authenticateGoogle = () => {
+        const authProviderGoogle = new firebase.auth.GoogleAuthProvider()
         firebaseApp
         .auth()
-        .signInWithPopup(authProvider)
-        .then(this.handleAuth)
+        .signInWithPopup(authProviderGoogle)
+        .then(this.handleAuthGoogle)
+    }
+
+    authenticateFacebook = () => {
+        const authProviderFacebook = new firebase.auth.FacebookAuthProvider()
+        firebaseApp
+        .auth()
+        .signInWithPopup(authProviderFacebook)
+        .then(this.handleAuthFacebook)
     }
 
     handleChange = event => {
@@ -140,6 +168,10 @@ class Login extends Component {
         }
         if(this.state.goToRegister){
             return <Redirect to={'/register'}></Redirect>
+        }
+
+        if(this.state.currentUser.uid){
+            return <Redirect to={'/'}></Redirect>
         }
 
 
@@ -172,8 +204,8 @@ class Login extends Component {
                         />
                         <Button type='submit'><Text>Se connecter</Text></Button>                       
                     </Form>                        
-                    <SpecialButton contain="Connectez-vous avec Google" icon={googleBrand}/>
-                    <SpecialButton onClick={this.authenticate} contain="Connectez-vous avec Facebook" icon={facebookBrand}/>
+                    <SpecialButton contain="Connectez-vous avec Google" onClick={this.authenticateGoogle} icon={googleBrand}/>
+                    <SpecialButton onClick={this.authenticateFacebook} contain="Connectez-vous avec Facebook" icon={facebookBrand}/>
                 </InputsContainer>
             </Container>
         )
