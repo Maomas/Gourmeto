@@ -91,7 +91,7 @@ class Place extends Component{
 
 
     componentDidMount() {
-        base.syncState('/', {
+        base.syncState('/views', {
             context: this,
             state: 'views'
         })

@@ -12,10 +12,10 @@ border-radius: 4px;
 margin-right: 10px;
 `
 
-const HelloUser = ({pseudo}) => {
+const HelloUser = ({name}) => {
 
     return(
-       <Text>Bonjour, {pseudo}</Text> 
+       <Text>Bonjour, {name}</Text> 
     )
 
 }

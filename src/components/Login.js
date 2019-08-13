@@ -90,19 +90,27 @@ align-items: center;
 `
 
 class Login extends Component {
+
     state = {
-        email: '',
         goToHomePage: false,
         goToRegister: false,
-        uid: null
+        user: {}
     }
 
     handleAuth = async authData => {
-        console.log(authData)
-    } 
+        const user = {
+            uid: authData.user.uid,
+            name: authData.user.displayName,
+            email: authData.user.email,
+            url: authData.user.photoURL,
+            isLoggedIn: true
+        }
+        this.setState({user: user})
+        base.syncState(`/users/user-${this.state.user.uid}`, {context: this,state: 'user'})
+    }
+
 
     authenticate = () => {
-        console.log('je passe')
         const authProvider = new firebase.auth.FacebookAuthProvider()
         firebaseApp
         .auth()
@@ -152,7 +160,6 @@ class Login extends Component {
                     </LoginChoiceContainer>
                     <Form onSubmit={this.goToHomePage}>
                         <Input
-                        value={this.state.email}
                         onChange={this.handleChange}
                         placeholder='Email'
                         type="email"

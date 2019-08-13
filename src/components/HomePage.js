@@ -5,7 +5,6 @@ import SearchBar from './SearchBar'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import ViewBoard from './ViewBoard'
-import HelloUser from './HelloUser'
 import base from '../base'
 
 const Container = styled.div`
@@ -56,12 +55,11 @@ class HomePage extends Component {
   state = {
     goToLogin: false,
     views: {},
-    userId: '1',
-    pseudo: 'Willy'
+    userId: '1'
   }
 
   componentDidMount() {
-    base.syncState('/', {
+    base.syncState('/views', {
         context: this,
         state: 'views'
     })
@@ -98,7 +96,6 @@ isUser = userId => userId === this.state.userId
     return(
       <Container>
       <Header>
-        <HelloUser pseudo={this.state.pseudo} />
         <a href="login" onClick={this.goToLogin} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Se connecter</FloatingButton></a>
       </Header>
       <TitleSearchBarContainer>

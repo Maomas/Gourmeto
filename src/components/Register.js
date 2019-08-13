@@ -128,11 +128,6 @@ class Register extends Component{
                     </LoginChoiceContainer>
                     <Form onSubmit={this.goToHomePage}>
                        <Input
-                       placeholder='Pseudo'
-                       type="text"
-                       required
-                       />
-                       <Input
                        placeholder='Nom complet'
                        type="text"
                        required

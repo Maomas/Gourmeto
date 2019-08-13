@@ -72,7 +72,6 @@ class ViewForm extends Component{
             url: this.state.url
         }
         addView(view)
-        //Reset
         this.setState({ view: '', length, place, url })
     }
 
