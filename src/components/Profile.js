@@ -15,7 +15,6 @@ align-content:center;
 flex-direction: column;`
 
 const ProfileDataContainer = styled.div`
-margin-top: 300px;
 diplay:flex;
 margin-left: 10px;
 align-content:space-between;`

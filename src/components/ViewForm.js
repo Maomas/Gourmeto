@@ -55,24 +55,31 @@ color: #000000;`
 
 class ViewForm extends Component{
 
+
     state = {
         view: '',
         length: this.props.length,
         place: this.props.place,
-        url: this.props.url
+        url: this.props.url,
+        uid: this.props.uid,
+        userName: this.props.userName,
+        urlUser: this.props.urlUser
     }
 
     createView = () => {
-        const {addView, id, length, place, url} = this.props
+        const {addView, id, length, place, url, uid, userName, urlUser } = this.props
 
         const view = {
             id,
             view: this.state.view,
             place: this.state.place,
-            url: this.state.url
+            url: this.state.url,
+            uid: this.props.uid,
+            userName: this.props.userName,
+            urlUser: this.props.urlUser
         }
         addView(view)
-        this.setState({ view: '', length, place, url })
+        this.setState({ view: '', length, place, url, uid, userName, urlUser })
     }
 
     handleChange = event => {
@@ -80,7 +87,10 @@ class ViewForm extends Component{
         const length = this.props.length - view.length
         const place = this.state.place
         const url = this.state.url
-        this.setState({ view, length, place, url })
+        const uid = this.props.uid
+        const userName = this.props.userName
+        const urlUser = this.props.urlUser
+        this.setState({ view, length, place, url, uid, userName, urlUser })
     }
 
     handleSubmit = event => {
@@ -95,15 +105,15 @@ class ViewForm extends Component{
     }
 
     render(){
-        return(
-            <Container>
-                <Form onSubmit={this.handleSubmit}>
-                    <Input value={this.state.view} onChange={this.handleChange} onKeyUp={this.handleKeyUp} maxLength={this.props.length} placeholder="Donnez votre avis sur ce lieu (maximum 340 caractères)." type="text" required/>
-                    <Text>{this.state.length} caractères restants</Text>
-                    <Button type='submit'><Text>Valider</Text></Button>
-                </Form>               
-            </Container>
-        )
+            return(
+                <Container>
+                    <Form onSubmit={this.handleSubmit}>
+                        <Input value={this.state.view} onChange={this.handleChange} onKeyUp={this.handleKeyUp} maxLength={this.props.length} placeholder="Donnez votre avis sur ce lieu (maximum 340 caractères)." type="text" required/>
+                        <Text>{this.state.length} caractères restants</Text>
+                        <Button type='submit'><Text>Valider</Text></Button>
+                    </Form>               
+                </Container>
+            )
     }
 }
 

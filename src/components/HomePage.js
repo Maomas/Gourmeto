@@ -98,18 +98,19 @@ isUser = uid => uid === this.state.currentUser.uid
   }
 
   render(){
-
     const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard
                 key={key}
                 id={this.state.views[key].id}
+                uid={this.state.views[key].uid} 
                 isUser={this.isUser}
-                name='William Dupont'
+                name={this.state.views[key].userName}
                 time='0 minutes'
                 place={this.state.views[key].place}
                 description={this.state.views[key].view}
                 url={this.state.views[key].url}
+                urlUser={this.state.views[key].urlUser}
                 />
           ))
 
