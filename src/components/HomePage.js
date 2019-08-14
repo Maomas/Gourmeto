@@ -58,8 +58,6 @@ class HomePage extends Component {
     goToLogin: false,
     views: {},
     currentUser: {},
-    facebookAuth: false,
-    googleAuth: false
   }
 
   componentDidMount() {
@@ -68,13 +66,14 @@ class HomePage extends Component {
         state: 'views'
     })
     firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-          this.handleAuthFacebook({ user })
-      }
+        if(user){
+          this.handleAuth({ user })
+        }        
   })
 }
 
-handleAuthFacebook = async authData => {
+
+handleAuth = async authData => {
   const currentUser = {
       uid: authData.user.uid,
       name: authData.user.displayName,
@@ -82,7 +81,7 @@ handleAuthFacebook = async authData => {
       url: authData.user.photoURL,
       isLoggedIn: true
   }
-  this.setState({currentUser: currentUser, facebookAuth: true, googleAuth: false})
+  this.setState({currentUser: currentUser})
 }
 
 logout = async () => {

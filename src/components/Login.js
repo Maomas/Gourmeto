@@ -104,7 +104,13 @@ class Login extends Component {
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                this.handleAuthFacebook({ user })
+                if(this.state.facebookAuth){
+                    this.handleAuthFacebook({ user })
+                }
+                else if(this.state.googleAuth){
+                    this.handleAuthGoogle({ user })
+                }
+
             }
         })
     }
