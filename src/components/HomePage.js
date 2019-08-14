@@ -6,6 +6,8 @@ import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import ViewBoard from './ViewBoard'
 import base from '../base'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 const Container = styled.div`
 height:100%;
@@ -55,7 +57,9 @@ class HomePage extends Component {
   state = {
     goToLogin: false,
     views: {},
-    userId: '1'
+    currentUser: {},
+    facebookAuth: false,
+    googleAuth: false
   }
 
   componentDidMount() {
@@ -63,9 +67,30 @@ class HomePage extends Component {
         context: this,
         state: 'views'
     })
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+          this.handleAuthFacebook({ user })
+      }
+  })
 }
 
-isUser = userId => userId === this.state.userId
+handleAuthFacebook = async authData => {
+  const currentUser = {
+      uid: authData.user.uid,
+      name: authData.user.displayName,
+      email: authData.user.email,
+      url: authData.user.photoURL,
+      isLoggedIn: true
+  }
+  this.setState({currentUser: currentUser, facebookAuth: true, googleAuth: false})
+}
+
+logout = async () => {
+  await firebase.auth().signOut()
+  this.setState({currentUser: {}})
+}
+
+isUser = uid => uid === this.state.currentUser.uid
 
   goToLogin = event => {
     event.preventDefault()
@@ -79,7 +104,6 @@ isUser = userId => userId === this.state.userId
                 <ViewBoard
                 key={key}
                 id={this.state.views[key].id}
-                userId={this.state.userId} 
                 isUser={this.isUser}
                 name='William Dupont'
                 time='0 minutes'
@@ -96,7 +120,11 @@ isUser = userId => userId === this.state.userId
     return(
       <Container>
       <Header>
-        <a href="login" onClick={this.goToLogin} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Se connecter</FloatingButton></a>
+        {this.state.currentUser.uid ? (
+          <FloatingButton onClick={this.logout}>Se déconnecter</FloatingButton>
+        ) : (
+          <a href="login" onClick={this.goToLogin} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Se connecter</FloatingButton></a>
+        )}
       </Header>
       <TitleSearchBarContainer>
         <MainTitle />

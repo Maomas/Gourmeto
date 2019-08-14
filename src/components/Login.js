@@ -101,6 +101,14 @@ class Login extends Component {
         googleAuth: false
     }
 
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.handleAuthFacebook({ user })
+            }
+        })
+    }
+
     handleAuthFacebook = async authData => {
         const currentUser = {
             uid: authData.user.uid,

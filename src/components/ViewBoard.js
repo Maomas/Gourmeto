@@ -72,13 +72,10 @@ class ViewBoard extends Component{
 		place: this.props.place,
 		description: this.props.description,
 		url: this.props.url,
-		userId: this.props.userId,
 		isUser: this.props.isUser
 	}
 
 	render(){
-
-		if(this.state.isUser(this.state.userId)) {		
 			return (
 				<>
 					<Container>
@@ -95,10 +92,6 @@ class ViewBoard extends Component{
 					</Container>
 				</>
 			)
-		}
-		else{
-			console.log("not current user viewboard");
-		}
 	}
 }
 

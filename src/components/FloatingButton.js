@@ -28,10 +28,10 @@ border-radius: 4px
 
 
 
-const FloatingButton = ({children}) => {
+const FloatingButton = ({children, onClick}) => {
     return(
         <>           
-            <Button><Text className="text">{children}</Text></Button>          
+            <Button onClick={onClick}><Text className="text">{children}</Text></Button>          
         </>
     )
 }
