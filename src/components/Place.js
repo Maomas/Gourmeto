@@ -87,7 +87,7 @@ class Place extends Component{
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                this.handleAuthFacebook({ user })
+                this.handleAuth({ user })
             }
         })
         base.syncState('/views', {
@@ -109,7 +109,7 @@ class Place extends Component{
     }
 
 
-    handleAuthFacebook = async authData => {
+    handleAuth = async authData => {
         const currentUser = {
             uid: authData.user.uid,
             name: authData.user.displayName,
@@ -117,7 +117,7 @@ class Place extends Component{
             url: authData.user.photoURL,
             isLoggedIn: true
         }
-        this.setState({currentUser: currentUser, facebookAuth: true, googleAuth: false})
+        this.setState({currentUser: currentUser})
       }
 
 

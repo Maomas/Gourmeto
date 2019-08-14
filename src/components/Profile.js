@@ -5,6 +5,9 @@ import {Redirect} from 'react-router-dom'
 import { ViewsNumber } from './ViewsNumber'
 import {LikesNumber} from './LikesNumber'
 import {ProfileButton} from './ProfileButton'
+import base from '../base'
+import 'firebase/auth'
+import firebase from 'firebase/app'
 
 const Container = styled.div`
 margin-top: 15%;
@@ -63,12 +66,38 @@ align-items: center;
 
 class Profile extends Component{
 
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.handleAuth({ user })
+            }
+        })
+        base.syncState(`/users/user-${this.state.id}/name`, {context: this,state: 'name'})
+        base.syncState(`/users/user-${this.state.id}/url`, {context: this,state: 'url'})
+        base.syncState(`/users/user-${this.state.id}/email`, {context: this,state: 'email'})
+        
+    }
+
+    handleAuth = async authData => {
+        const currentUser = {
+            uid: authData.user.uid,
+            name: authData.user.displayName,
+            email: authData.user.email,
+            url: authData.user.photoURL,
+            isLoggedIn: true
+        }
+        this.setState({currentUser: currentUser, facebookAuth: true, googleAuth: false})
+      }
+
     state = {
+        id: this.props.match.params.id,
         goToHomePage: false,
         goToProfileUpdate: false,
-        name: 'William Dupont',
+        currentUser: {},
+        email: '',
+        name: '',
         city: 'Mons',
-        url: 'https://yt3.ggpht.com/a/AGF-l7_a8N-tT9HClU0K-Vje-79ELgI2T2OvYk1Dhg=s900-c-k-c0xffffffff-no-rj-mo',
+        url: '',
         country: 'Belgique',
         viewsNumber: '2',
         likesNumber: '10'
@@ -109,7 +138,7 @@ class Profile extends Component{
                             <ViewsNumber viewsNumber={this.state.viewsNumber} />
                             <LikesNumber likesNumber={this.state.likesNumber} />
                         </ViewsLikesContainer>
-                        <a href="/profileUpdate/1" onClick={this.goToProfileUpdate} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Modifier le profil"/></a>
+                        <a href={`/profileUpdate/${this.state.uid}`} onClick={this.goToProfileUpdate} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Modifier le profil"/></a>
                     </ProfileDataContainer>
                 </ProfileContainer>
 			</Container>

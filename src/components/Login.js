@@ -96,26 +96,19 @@ class Login extends Component {
         goToHomePage: false,
         goToRegister: false,
         isAdmin: false,
-        currentUser: {},
-        facebookAuth: false,
-        googleAuth: false
+        currentUser: {}
+
     }
 
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                if(this.state.facebookAuth){
-                    this.handleAuthFacebook({ user })
-                }
-                else if(this.state.googleAuth){
-                    this.handleAuthGoogle({ user })
-                }
-
+                this.handleAuth({ user })
             }
         })
     }
 
-    handleAuthFacebook = async authData => {
+    handleAuth = async authData => {
         const currentUser = {
             uid: authData.user.uid,
             name: authData.user.displayName,
@@ -123,25 +116,10 @@ class Login extends Component {
             url: authData.user.photoURL,
             isLoggedIn: true
         }
-        this.setState({currentUser: currentUser, facebookAuth: true, googleAuth: false})
-        await base.post(`/users/facebook/user-${this.state.currentUser.uid}/name`, {data: this.state.currentUser.name})
-        await base.post(`/users/facebook/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
-        await base.post(`/users/facebook/user-${this.state.currentUser.uid}/url`, {data: this.state.currentUser.url})
-    }
-
-    handleAuthGoogle = async authData => {
-        const currentUser = {
-            uid: authData.user.uid,
-            name: authData.user.displayName,
-            email: authData.user.email,
-            url: authData.user.photoURL,
-            isLoggedIn: true
-        }
-        this.setState({currentUser: currentUser, googleAuth: true, facebookAuth: false})
-        await base.post(`/users/google/user-${this.state.currentUser.uid}/name`, {data: this.state.currentUser.name})
-        await base.post(`/users/google/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
-        await base.post(`/users/google/user-${this.state.currentUser.uid}/url`, {data: this.state.currentUser.url})
-
+        this.setState({currentUser: currentUser})
+        await base.post(`/users/user-${this.state.currentUser.uid}/name`, {data: this.state.currentUser.name})
+        await base.post(`/users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
+        await base.post(`/users/user-${this.state.currentUser.uid}/url`, {data: this.state.currentUser.url})
     }
 
     authenticateGoogle = () => {
@@ -149,7 +127,7 @@ class Login extends Component {
         firebaseApp
         .auth()
         .signInWithPopup(authProviderGoogle)
-        .then(this.handleAuthGoogle)
+        .then(this.handleAuth)
     }
 
     authenticateFacebook = () => {
@@ -157,7 +135,7 @@ class Login extends Component {
         firebaseApp
         .auth()
         .signInWithPopup(authProviderFacebook)
-        .then(this.handleAuthFacebook)
+        .then(this.handleAuth)
     }
 
     handleChange = event => {
