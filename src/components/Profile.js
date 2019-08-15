@@ -75,6 +75,8 @@ class Profile extends Component{
         base.syncState(`/users/user-${this.state.id}/name`, {context: this,state: 'name'})
         base.syncState(`/users/user-${this.state.id}/url`, {context: this,state: 'url'})
         base.syncState(`/users/user-${this.state.id}/email`, {context: this,state: 'email'})
+        base.syncState(`/users/user-${this.state.id}/likesNumber`, {context: this,state: 'likesNumber'})
+        base.syncState(`/users/user-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})
         
     }
 
@@ -86,7 +88,10 @@ class Profile extends Component{
             url: authData.user.photoURL,
             isLoggedIn: true
         }
-        this.setState({currentUser: currentUser, facebookAuth: true, googleAuth: false})
+        this.setState({currentUser: currentUser})
+        if (this.state.id === this.state.currentUser.uid) {
+            this.setState({isUser: true})
+        }
       }
 
     state = {
@@ -99,9 +104,11 @@ class Profile extends Component{
         city: 'Mons',
         url: '',
         country: 'Belgique',
-        viewsNumber: '2',
-        likesNumber: '10'
+        viewsNumber: '',
+        likesNumber: '',
+        isUser: false
     }
+
 
     goToHomePage = event => {
         event.preventDefault()
@@ -114,13 +121,12 @@ class Profile extends Component{
     }
 
     render(){
-
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
         }
 
         if(this.state.goToProfileUpdate){
-            return <Redirect push to={'/profileUpdate/1'}></Redirect>
+            return <Redirect push to={`/profileUpdate/${this.state.id}`}></Redirect>
         }
         
         return(
@@ -137,8 +143,12 @@ class Profile extends Component{
                         <ViewsLikesContainer>
                             <ViewsNumber viewsNumber={this.state.viewsNumber} />
                             <LikesNumber likesNumber={this.state.likesNumber} />
-                        </ViewsLikesContainer>
-                        <a href={`/profileUpdate/${this.state.uid}`} onClick={this.goToProfileUpdate} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Modifier le profil"/></a>
+                        </ViewsLikesContainer> 
+                        {this.state.isUser ? (
+                            <a href={`/profileUpdate/${this.state.id}`} onClick={this.goToProfileUpdate} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Modifier le profil"/></a>  
+                        ) : (
+                            <span></span>
+                        )}                        
                     </ProfileDataContainer>
                 </ProfileContainer>
 			</Container>

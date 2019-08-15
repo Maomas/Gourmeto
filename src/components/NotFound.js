@@ -23,6 +23,16 @@ const GlobalStyles = createGlobalStyle`
   }
 `
 
+const Header = styled.div`
+position: absolute;
+left: 80%;
+top: 69px;
+width: 600px;
+display: flex;
+justify-content:center;
+align-items: center;
+`
+
 const Title = styled.div`
 font-family: Satisfy;
 font-style: normal;
@@ -61,7 +71,7 @@ goToHomePage = event => {
   }
     return(
         <>
-         <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
+        <Header><a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a></Header>
         <Container>
             <GlobalStyles />
             <Title>Oups !</Title>

@@ -114,12 +114,22 @@ class Login extends Component {
             name: authData.user.displayName,
             email: authData.user.email,
             url: authData.user.photoURL,
+            likesNumber: '0',
+            viewsNumber: '0',
             isLoggedIn: true
         }
         this.setState({currentUser: currentUser})
-        await base.post(`/users/user-${this.state.currentUser.uid}/name`, {data: this.state.currentUser.name})
-        await base.post(`/users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
-        await base.post(`/users/user-${this.state.currentUser.uid}/url`, {data: this.state.currentUser.url})
+        /*await base.syncState(`/users/user-${this.state.currentUser.uid}/name`, {context: this,state: 'currentUser.name'})
+        await base.syncState(`/users/user-${this.state.currentUser.uid}/email`, {context: this,state: 'currentUser.email'})
+        await base.syncState(`/users/user-${this.state.currentUser.uid}/url`, {context: this,state: 'currentUser.url'})
+        await base.syncState(`/users/user-${this.state.currentUser.uid}/likesNumber`, {context: this, state: 'currentUser.likesNumber'})
+        await base.syncState(`/users/user-${this.state.currentUser.uid}/likesNumber`, {context: this, state: 'currentUser.viewsNumber'})*/
+
+        await base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
+        await base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
+        await base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})
+        await base.post(`users/user-${this.state.currentUser.uid}/likesNumber`,{ data: this.state.currentUser.likesNumber})
+        await base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
     }
 
     authenticateGoogle = () => {

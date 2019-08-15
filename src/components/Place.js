@@ -94,6 +94,11 @@ class Place extends Component{
             context: this,
             state: 'views'
         })
+        /*base.syncState(`/places/place-${this.state.id}/place`, {context: this,state: 'place'})
+        base.syncState(`/places/place-${this.state.id}/city`, {context: this, state: `city`})
+        base.syncState(`/places/place-${this.state.id}/country`, {context: this, state: `conutry`})
+        base.syncState(`/places/place-${this.state.id}/viewsNumber`, {context: this, state: `viewsNumber`})
+        base.syncState(`/places/place-${this.state.id}/url`, {context: this, state: `url`})*/
     }
 
     state = {
