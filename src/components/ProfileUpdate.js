@@ -3,9 +3,6 @@ import React, {Component} from "react"
 import styled from "styled-components"
 import FloatingButton from '../components/FloatingButton'
 import {Redirect} from 'react-router-dom'
-import { ViewsNumber } from './ViewsNumber'
-import {LikesNumber} from './LikesNumber'
-import {ProfileButton} from './ProfileButton'
 import base from '../base'
 import 'firebase/auth'
 import firebase from 'firebase/app'
@@ -18,18 +15,40 @@ align-items: center;
 align-content:center;
 flex-direction: column;`
 
+const Button = styled.button`
+cursor:pointer;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 519.5px;
+height: 58.85px;
+background: #C4C4C4;
+mix-blend-mode: hard-light;
+border: 1.0022px solid #FFFFFF;
+backdrop-filter: blur(4.00879px);
+border-radius: 7.40084px;
+margin-top:30px
+`
+const Text = styled.span`
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 26.3333px;
+line-height: 31px;
+color: #FFFFFF;
+border-radius: 4px;
+`
+
 const ProfileDataContainer = styled.div`
 diplay:flex;
 margin-left: 10px;
-align-content:space-between;`
+align-content:space-between;
+margin-left: 50px;`
 
 const ProfileContainer = styled.div`
 display: flex;
 flex-direction: row;
 justify-content: space-evenly;`
-
-const ViewsLikesContainer = styled.div`
-display: flex;`
 
 const Image = styled.div`
 width: 360px;
@@ -46,13 +65,25 @@ font-size: 64px;
 line-height: 75px;
 color: #EFEFEFEF;`
 
-const Place = styled.div`
+const Form = styled.form`
+display: flex;
+flex-direction:column;
+`
+
+const Input = styled.input`
+width: 495.5px;
+height: 79px;
+background: #EFEFEF;
+padding: 10px;
+border-radius: 219.444px;
 font-family: Roboto;
 font-style: normal;
 font-weight: normal;
-font-size: 32px;
-line-height: 37px;
-color: #EFEFEF;`
+font-size: 26.3333px;
+line-height: 31px;
+margin-top: 25px;
+color: #000000;
+`
 
 const Header = styled.div`
 position: absolute;
@@ -114,12 +145,48 @@ class ProfileUpdate extends Component {
                 <ProfileContainer>
                     <Image style={{ backgroundImage: `url(${this.state.url})` }}  />
                     <ProfileDataContainer>
-                        <Title>{this.state.name}</Title>
-                        <Place>{this.state.city}, {this.state.country}</Place>
-                        <ViewsLikesContainer>
-                            <ViewsNumber viewsNumber={this.state.viewsNumber} />
-                            <LikesNumber likesNumber={this.state.likesNumber} />
-                        </ViewsLikesContainer>
+                        <Form onSubmit={this.goToHomePage}>
+                        <Title>Modifier le profil</Title>
+                            <Input
+                            value={this.state.name}
+                            onChange={this.handleChange}
+                            placeholder='Nom'
+                            type="text"
+                            required
+                            />
+                            <Input
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                            placeholder='Email'
+                            type="email"
+                            required
+                            />
+                            <Input
+                            value={this.state.city}
+                            onChange={this.handleChange}
+                            placeholder='Ville'
+                            type="text"
+                            required
+                            />
+                            <Input
+                            value={this.state.country}
+                            onChange={this.handleChange}
+                            placeholder='Pays'
+                            type="text"
+                            required
+                            />
+                            <Input
+                            placeholder='Mot de passe'
+                            type='password'
+                            required
+                            />
+                            <Input
+                            placeholder='Valider le mot de passe'
+                            type='password'
+                            required
+                            />
+                            <Button type='submit'><Text>Modifier</Text></Button>                       
+                        </Form>   
                     </ProfileDataContainer>
                 </ProfileContainer>
 			</Container>

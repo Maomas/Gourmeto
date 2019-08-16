@@ -67,10 +67,9 @@ class ViewForm extends Component{
     }
 
     createView = () => {
-        const {addView, id, length, place, url, uid, userName, urlUser } = this.props
+        const {addView, length, place, url, uid, userName, urlUser } = this.props
 
         const view = {
-            id,
             view: this.state.view,
             place: this.state.place,
             url: this.state.url,

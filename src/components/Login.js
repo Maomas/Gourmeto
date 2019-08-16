@@ -119,11 +119,6 @@ class Login extends Component {
             isLoggedIn: true
         }
         this.setState({currentUser: currentUser})
-        /*await base.syncState(`/users/user-${this.state.currentUser.uid}/name`, {context: this,state: 'currentUser.name'})
-        await base.syncState(`/users/user-${this.state.currentUser.uid}/email`, {context: this,state: 'currentUser.email'})
-        await base.syncState(`/users/user-${this.state.currentUser.uid}/url`, {context: this,state: 'currentUser.url'})
-        await base.syncState(`/users/user-${this.state.currentUser.uid}/likesNumber`, {context: this, state: 'currentUser.likesNumber'})
-        await base.syncState(`/users/user-${this.state.currentUser.uid}/likesNumber`, {context: this, state: 'currentUser.viewsNumber'})*/
 
         await base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
         await base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
@@ -176,7 +171,6 @@ class Login extends Component {
             return <Redirect to={'/'}></Redirect>
         }
 
-
         return(
             <Container>
                 <Header>
@@ -200,8 +194,9 @@ class Login extends Component {
                         required
                         />
                         <Input
+                        onChange={this.handleChange}
                         placeholder='Mot de passe'
-                        type='password'
+                        type="password"
                         required
                         />
                         <Button type='submit'><Text>Se connecter</Text></Button>                       

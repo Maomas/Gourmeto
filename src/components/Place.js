@@ -140,6 +140,7 @@ class Place extends Component{
     isUser = uid => uid === this.state.currentUser.uid
 
     render(){
+        console.log(this.state.currentUser)
         const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard
@@ -175,7 +176,11 @@ class Place extends Component{
                         <ViewsNumber viewsNumber={this.state.viewsNumber}/>
                     </PlaceDataContainer>
                 </PlaceContainer>   
-                <ViewForm length={340} addView={this.addView} id={this.state.id} place={this.state.place} url={this.state.url} uid={this.state.currentUser.uid} userName={this.state.currentUser.name} urlUser={this.state.currentUser.url} /> 
+                {this.state.currentUser.uid ? (
+                    <ViewForm length={340} addView={this.addView} id={this.state.id} place={this.state.place} url={this.state.url} uid={this.state.currentUser.uid} userName={this.state.currentUser.name} urlUser={this.state.currentUser.url} />
+                ) : (
+                    <span></span>
+                )} 
                     <ViewsList>
                         <ListTitle>Avis</ListTitle>
                         { views }
