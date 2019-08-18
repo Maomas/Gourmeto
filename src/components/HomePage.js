@@ -78,8 +78,7 @@ handleAuth = async authData => {
       uid: authData.user.uid,
       name: authData.user.displayName,
       email: authData.user.email,
-      url: authData.user.photoURL,
-      isLoggedIn: true
+      url: authData.user.photoURL
   }
   this.setState({currentUser: currentUser})
 }

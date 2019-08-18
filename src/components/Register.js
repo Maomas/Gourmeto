@@ -90,9 +90,8 @@ border-radius: 4px;
 
 class Register extends Component{
 
-
     state = {
-        goToRegister: false,
+        goToLogin: false,
         goToHomePage: false,
         email: '',
         name: '',
@@ -101,8 +100,20 @@ class Register extends Component{
         country: 'Belgique',
         viewsNumber: '',
         likesNumber: '',
-        uid:''
+        errorCode: '',
+        errorMessage: '',
+        provider: '',
+        isMounted: false
     }
+
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.handleAuth({ user })
+            }
+        })
+    }
+
 
     goToLogin = event => {
         event.preventDefault()
@@ -141,32 +152,38 @@ class Register extends Component{
 
     handleSubmit = event => {
         event.preventDefault() 
-        firebaseApp.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+            var errorCode = error.code
+            console.log(errorCode)
+            var errorMessage = error.message
+            console.log(errorMessage)
+        });
     }
 
     handleAuth = async authData => {
-        this.setState({uid: authData.user.uid})
-        await base.post(`users/user-${this.state.uid}/name`, { data: this.state.name})
-        await base.post(`users/user-${this.state.uid}/email`, { data: this.state.email})
-        await base.post(`users/user-${this.state.uid}/url`,{ data: this.state.url})
-        await base.post(`users/user-${this.state.uid}/country`,{ data: this.state.country})
-        await base.post(`users/user-${this.state.uid}/city`,{ data: this.state.city})
-        await base.post(`users/user-${this.state.uid}/viewsNumber`,{ data: this.state.viewsNumber})
-        await base.post(`users/user-${this.state.uid}/likesNumber`,{ data: this.state.likesNumber})
-        this.setState({ goToHomePage: true})
-
+        const currentUser = {
+            uid: authData.user.uid,
+            name: this.state.name,
+            email: authData.user.email,
+            url: '',
+            city: this.state.city,
+            country: this.state.country,
+            likesNumber: '0',
+            viewsNumber: '0',
+            provider: 'none'
+        }
+        this.setState({currentUser: currentUser})
+        await base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
+        await base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
+        await base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})
+        await base.post(`users/user-${this.state.currentUser.uid}/city`,{ data: this.state.currentUser.city})
+        await base.post(`users/user-${this.state.currentUser.uid}/country`,{ data: this.state.currentUser.country})
+        await base.post(`users/user-${this.state.currentUser.uid}/likesNumber`,{ data: this.state.currentUser.likesNumber})
+        await base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
+        await base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})
+        this.setState({goToHomePage: true})
     }
 
-    componentDidMount() {
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                this.handleAuth({ user })
-            }    
-                  
-        })
-           
-    }
-    
 
     render(){
 

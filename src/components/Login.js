@@ -96,8 +96,10 @@ class Login extends Component {
         goToHomePage: false,
         goToRegister: false,
         isAdmin: false,
-        currentUser: {}
-
+        currentUser: {},
+        email: '',
+        password: '',
+        provider: ''
     }
 
     componentDidMount() {
@@ -106,6 +108,9 @@ class Login extends Component {
                 this.handleAuth({ user })
             }
         })
+    }
+    componentWillMount() {
+        this.setState({isMounted: false})
     }
 
     handleAuth = async authData => {
@@ -116,19 +121,22 @@ class Login extends Component {
             url: authData.user.photoURL,
             likesNumber: '0',
             viewsNumber: '0',
-            isLoggedIn: true
-        }
+            isLoggedIn: true,
+            provider: this.state.provider,
+            isMounted: false
+            }
         this.setState({currentUser: currentUser})
-
         await base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
         await base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
         await base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})
         await base.post(`users/user-${this.state.currentUser.uid}/likesNumber`,{ data: this.state.currentUser.likesNumber})
         await base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
-    }
+        await base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})
+     }
 
     authenticateGoogle = () => {
         const authProviderGoogle = new firebase.auth.GoogleAuthProvider()
+        this.setState({provider: 'google'})
         firebaseApp
         .auth()
         .signInWithPopup(authProviderGoogle)
@@ -137,15 +145,21 @@ class Login extends Component {
 
     authenticateFacebook = () => {
         const authProviderFacebook = new firebase.auth.FacebookAuthProvider()
+        this.setState({provider: 'facebook'})
         firebaseApp
         .auth()
         .signInWithPopup(authProviderFacebook)
         .then(this.handleAuth)
     }
 
-    handleChange = event => {
+    handleChangeEmail = event => {
         const email = event.target.value
         this.setState({email})
+    }
+
+    handleChangePassword = event => {
+        const password = event.target.value
+        this.setState({password})
     }
 
     goToHomePage = event => {
@@ -156,6 +170,16 @@ class Login extends Component {
     goToRegister = event => {
         event.preventDefault()
         this.setState({ goToRegister: true})
+    }
+
+    handleSubmit = event => {
+        event.preventDefault()
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+            var errorCode = error.code
+            console.log(errorCode)
+            var errorMessage = error.message;
+            console.log(errorMessage)
+          });
     }
 
     render(){
@@ -186,15 +210,15 @@ class Login extends Component {
                             <LoginLink push contain="Se connecter" location="login" />
                         </LoginContainer>
                     </LoginChoiceContainer>
-                    <Form onSubmit={this.goToHomePage}>
+                    <Form onSubmit={this.handleSubmit}>
                         <Input
-                        onChange={this.handleChange}
+                        onChange={this.handleChangeEmail}
                         placeholder='Email'
                         type="email"
                         required
                         />
                         <Input
-                        onChange={this.handleChange}
+                        onChange={this.handleChangePassword}
                         placeholder='Mot de passe'
                         type="password"
                         required
