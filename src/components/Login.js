@@ -102,16 +102,13 @@ class Login extends Component {
         provider: ''
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 this.handleAuth({ user })
             }
         })
-    }
-    componentWillMount() {
-        this.setState({isMounted: false})
-    }
+    }*/
 
     handleAuth = async authData => {
         const currentUser = {
@@ -121,16 +118,19 @@ class Login extends Component {
             url: authData.user.photoURL,
             likesNumber: '0',
             viewsNumber: '0',
-            isLoggedIn: true,
+            country: '',
+            city: '',
             provider: this.state.provider,
-            isMounted: false
-            }
+
+        }
         this.setState({currentUser: currentUser})
         await base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
         await base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
         await base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})
         await base.post(`users/user-${this.state.currentUser.uid}/likesNumber`,{ data: this.state.currentUser.likesNumber})
         await base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
+        await base.post(`users/user-${this.state.currentUser.uid}/country`, { data: this.state.currentUser.country})
+        await base.post(`users/user-${this.state.currentUser.uid}/city`, { data: this.state.currentUser.city})
         await base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})
      }
 
@@ -180,6 +180,7 @@ class Login extends Component {
             var errorMessage = error.message;
             console.log(errorMessage)
           });
+          this.setState({goToHomePage: true})
     }
 
     render(){

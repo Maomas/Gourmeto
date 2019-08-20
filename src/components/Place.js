@@ -94,17 +94,13 @@ class Place extends Component{
             context: this,
             state: 'views'
         })
-        /*base.syncState(`/places/place-${this.state.id}/place`, {context: this,state: 'place'})
-        base.syncState(`/places/place-${this.state.id}/city`, {context: this, state: `city`})
-        base.syncState(`/places/place-${this.state.id}/country`, {context: this, state: `conutry`})
-        base.syncState(`/places/place-${this.state.id}/viewsNumber`, {context: this, state: `viewsNumber`})
-        base.syncState(`/places/place-${this.state.id}/url`, {context: this, state: `url`})*/
     }
 
     state = {
         goToHomePage: false,
         id: this.props.match.params.id,
         currentUser: {},
+        name: '',
         place: 'La Lorgnette',
         city: 'Mons',
         url: 'https://s3-media2.fl.yelpcdn.com/bphoto/Or501eN94R3wyOXfvdXxbQ/ls.jpg',
@@ -115,15 +111,26 @@ class Place extends Component{
 
 
     handleAuth = async authData => {
-        const currentUser = {
+        let currentUser = {
             uid: authData.user.uid,
-            name: authData.user.displayName,
+            name: '',
             email: authData.user.email,
             url: authData.user.photoURL,
-            isLoggedIn: true
         }
         this.setState({currentUser: currentUser})
-      }
+        var userId = this.state.currentUser.uid;
+        return firebase.database().ref('/users/user-' + userId).once('value').then(snapshot => {
+           var name = (snapshot.val() && snapshot.val().name);
+           this.setState({name: name})
+           currentUser = {
+               uid: this.state.currentUser.uid,
+               name: this.state.name,
+               email: this.state.currentUser.email,
+               url: this.state.currentUser.url
+           }
+           this.setState({currentUser: currentUser})
+        });
+    }
 
 
     addView = view => {
@@ -140,7 +147,6 @@ class Place extends Component{
     isUser = uid => uid === this.state.currentUser.uid
 
     render(){
-        console.log(this.state.currentUser)
         const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard

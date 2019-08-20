@@ -56,6 +56,7 @@ class HomePage extends Component {
 
   state = {
     goToLogin: false,
+    goToProfile: false,
     views: {},
     currentUser: {},
   }
@@ -94,6 +95,10 @@ isUser = uid => uid === this.state.currentUser.uid
     event.preventDefault()
         this.setState({ goToLogin: true})
   }
+  goToProfile = event => {
+    event.preventDefault()
+        this.setState({ goToProfile: true})
+  }
 
   render(){
     const views = Object.keys(this.state.views)
@@ -116,11 +121,18 @@ isUser = uid => uid === this.state.currentUser.uid
       return <Redirect push to={'/login'}></Redirect>
     }
 
+    if(this.state.goToProfile){
+      return <Redirect push to={`/profile/${this.state.currentUser.uid}`}></Redirect>
+    }
+
     return(
       <Container>
       <Header>
         {this.state.currentUser.uid ? (
+          <>
+          <FloatingButton onClick={this.goToProfile}>Mon Profil</FloatingButton>
           <FloatingButton onClick={this.logout}>Se déconnecter</FloatingButton>
+          </>
         ) : (
           <a href="login" onClick={this.goToLogin} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Se connecter</FloatingButton></a>
         )}

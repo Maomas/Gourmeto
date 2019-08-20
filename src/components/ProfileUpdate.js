@@ -6,6 +6,8 @@ import {Redirect} from 'react-router-dom'
 import base from '../base'
 import 'firebase/auth'
 import firebase from 'firebase/app'
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
 const Container = styled.div`
 margin-top: 15%;
@@ -23,6 +25,21 @@ align-items: center;
 width: 519.5px;
 height: 58.85px;
 background: #C4C4C4;
+mix-blend-mode: hard-light;
+border: 1.0022px solid #FFFFFF;
+backdrop-filter: blur(4.00879px);
+border-radius: 7.40084px;
+margin-top:30px
+`
+
+const RedButton = styled.button`
+cursor:pointer;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 519.5px;
+height: 58.85px;
+background: #D51515;
 mix-blend-mode: hard-light;
 border: 1.0022px solid #FFFFFF;
 backdrop-filter: blur(4.00879px);
@@ -70,6 +87,11 @@ display: flex;
 flex-direction:column;
 `
 
+const ImageContainer = styled.form`
+display: flex;
+flex-direction:column;
+`
+
 const Input = styled.input`
 width: 495.5px;
 height: 79px;
@@ -108,8 +130,11 @@ class ProfileUpdate extends Component {
         base.syncState(`/users/user-${this.state.id}/name`, {context: this,state: 'name'})
         base.syncState(`/users/user-${this.state.id}/url`, {context: this,state: 'url'})
         base.syncState(`/users/user-${this.state.id}/email`, {context: this,state: 'email'})
+        base.syncState(`/users/user-${this.state.id}/city`, {context: this,state: 'city'})
+        base.syncState(`/users/user-${this.state.id}/country`, {context: this,state: 'country'})
         base.syncState(`/users/user-${this.state.id}/likesNumber`, {context: this,state: 'likesNumber'})
-        base.syncState(`/users/user-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})    
+        base.syncState(`/users/user-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'}) 
+        base.syncState(`/users/user-${this.state.id}/provider`, {context: this, state: 'provider'})   
     }
 
     state = {
@@ -117,11 +142,15 @@ class ProfileUpdate extends Component {
         currentUser: {},
         email: '',
         name: '',
-        city: 'Mons',
+        city: '',
         url: '',
-        country: 'Belgique',
+        country: '',
         viewsNumber: '',
-        likesNumber: ''
+        likesNumber: '',
+        password: '',
+        provider: '',
+        goToHomePage: false,
+        goToProfile: false
     }
     
     handleAuth = async authData => {
@@ -129,13 +158,134 @@ class ProfileUpdate extends Component {
             uid: authData.user.uid,
             name: authData.user.displayName,
             email: authData.user.email,
-            url: authData.user.photoURL,
-            isLoggedIn: true
+            url: authData.user.photoURL
         }
         this.setState({currentUser: currentUser})
       }
 
+      
+    logout = async () => {
+        await firebase.auth().signOut()
+        this.setState({currentUser: {}})
+    }
+
+      handleDelete = event => {
+        confirmAlert({
+            title: 'Suppression du compte',
+            message: 'Etes-vous sûr de vouloir supprimer votre compte ?',
+            buttons: [
+              {
+                label: 'Oui',
+                onClick: () => {
+                    event.preventDefault()
+                    var user = firebase.auth().currentUser
+                    user.delete().then(function() {
+                        var userId = user.uid;
+                        firebase.database().ref('/users/user-' + userId).remove()
+                        console.log('user deleted.')
+                    }).catch(function(error) {
+                        console.log(error)
+                    });
+                    this.logout()
+                    this.setState({ goToHomePage: true })
+                }
+              },
+              {
+                label: 'Annuler',
+                onClick: () => {}
+              }
+            ]
+          });
+      }
+
+    goToHomePage = event => {
+        event.preventDefault()
+        this.setState({ goToHomePage: true})
+    }
+
+    goToProfile = event => {
+        event.preventDefault()
+        this.setState({ goToProfile: true})
+    }
+
+    handleSubmit = event => {
+        event.preventDefault()   
+        var user = firebase.auth().currentUser
+        user.updateProfile({displayName: this.state.name}).then(function(){
+            base.syncState(`/users/user-${this.state.id}/name`, {context: this,state: 'name'})
+            console("update successful")
+        }).catch(function(error){
+            console.log(error)
+        });
+        user.updateEmail(this.state.email).then(function() {
+            base.syncState(`/users/user-${this.state.id}/email`, {context: this,state: 'email'})
+            console.log("update successful")
+          }).catch(function(error) {
+            console.log(error)
+        });
+        user.updatePassword(this.state.password).then(function() {
+            console.log("update successful")
+        }).catch(function(error) {
+            console.log(error)
+        });  
+        base.syncState(`/users/user-${this.state.id}/city`, {context: this,state: 'city'})
+        base.syncState(`/users/user-${this.state.id}/country`, {context: this,state: 'country'})
+        this.setState({goToProfile: true})
+    }
+
+    handleChangeImage = event => {
+        const url = event.target.value
+        this.setState({ url })
+    }
+
+    handleChangeName = event => {
+        const name = event.target.value
+        this.setState({ name })
+    }
+
+    handleChangeEmail = event => {
+        const email = event.target.value
+        this.setState({ email })
+    }
+
+    handleChangeCountry = event => {
+        const country = event.target.value
+        this.setState({ country })
+    }
+
+    handleChangeCity = event => {
+        const city = event.target.value
+        this.setState({ city })
+    }
+
+    handleChangePassword = event => {
+        const password = event.target.value
+        this.setState( { password })
+    }
+
     render(){
+
+        let inputImage, inputPassword;
+
+        if(this.state.goToHomePage){
+            return <Redirect push to={'/'}></Redirect>
+        }
+        if(this.state.goToProfile){
+            return <Redirect push to={`/profile/${this.state.currentUser.uid}`}></Redirect>
+        }
+        if(this.state.provider==='google' || this.state.provider==='facebook'){
+            inputImage = <span></span>
+            inputPassword = <span></span>
+        } else{
+            console.log(this.state.provider)
+            inputImage = <Input type="file" onChange={this.handleChangeImage}/>
+            inputPassword = <Input
+            value={this.state.password}
+            onChange={this.handleChangePassword}
+            placeholder='Mot de passe'
+            type='password'
+            />
+        }
         return(
             <>
             <Container>
@@ -143,49 +293,42 @@ class ProfileUpdate extends Component {
                     <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
                 </Header>
                 <ProfileContainer>
-                    <Image style={{ backgroundImage: `url(${this.state.url})` }}  />
+                    <ImageContainer>
+                        <Image style={{ backgroundImage: `url(${this.state.url})` }}  />
+                        {inputImage}
+                    </ImageContainer>
                     <ProfileDataContainer>
-                        <Form onSubmit={this.goToHomePage}>
+                        <Form onSubmit={this.handleSubmit}>
                         <Title>Modifier le profil</Title>
                             <Input
                             value={this.state.name}
-                            onChange={this.handleChange}
+                            onChange={this.handleChangeName}
                             placeholder='Nom'
                             type="text"
                             required
                             />
                             <Input
                             value={this.state.email}
-                            onChange={this.handleChange}
+                            onChange={this.handleChangeEmail}
                             placeholder='Email'
                             type="email"
                             required
                             />
                             <Input
                             value={this.state.city}
-                            onChange={this.handleChange}
+                            onChange={this.handleChangeCity}
                             placeholder='Ville'
                             type="text"
-                            required
                             />
                             <Input
                             value={this.state.country}
-                            onChange={this.handleChange}
+                            onChange={this.handleChangeCountry}
                             placeholder='Pays'
                             type="text"
-                            required
                             />
-                            <Input
-                            placeholder='Mot de passe'
-                            type='password'
-                            required
-                            />
-                            <Input
-                            placeholder='Valider le mot de passe'
-                            type='password'
-                            required
-                            />
-                            <Button type='submit'><Text>Modifier</Text></Button>                       
+                            {inputPassword}
+                            <Button type='submit'><Text>Modifier</Text></Button> 
+                            <RedButton onClick={this.handleDelete}><Text>Supprimer</Text></RedButton>                         
                         </Form>   
                     </ProfileDataContainer>
                 </ProfileContainer>

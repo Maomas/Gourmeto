@@ -10,7 +10,6 @@ body {
 html{
   background-image: url(./images/background.jpg);
   background-size: cover;
-  box-shadow: inset 0px 10px 250px #000000;
   background-attachment: fixed;
 }
 

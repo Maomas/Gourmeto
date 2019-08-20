@@ -75,6 +75,8 @@ class Profile extends Component{
         base.syncState(`/users/user-${this.state.id}/name`, {context: this,state: 'name'})
         base.syncState(`/users/user-${this.state.id}/url`, {context: this,state: 'url'})
         base.syncState(`/users/user-${this.state.id}/email`, {context: this,state: 'email'})
+        base.syncState(`/users/user-${this.state.id}/city`, {context: this,state: 'city'})
+        base.syncState(`/users/user-${this.state.id}/country`, {context: this,state: 'country'})
         base.syncState(`/users/user-${this.state.id}/likesNumber`, {context: this,state: 'likesNumber'})
         base.syncState(`/users/user-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})
         
@@ -86,7 +88,6 @@ class Profile extends Component{
             name: authData.user.displayName,
             email: authData.user.email,
             url: authData.user.photoURL,
-            isLoggedIn: true
         }
         this.setState({currentUser: currentUser})
         if (this.state.id === this.state.currentUser.uid) {
@@ -101,9 +102,9 @@ class Profile extends Component{
         currentUser: {},
         email: '',
         name: '',
-        city: 'Mons',
+        city: '',
         url: '',
-        country: 'Belgique',
+        country: '',
         viewsNumber: '',
         likesNumber: '',
         isUser: false
@@ -128,6 +129,18 @@ class Profile extends Component{
         if(this.state.goToProfileUpdate){
             return <Redirect push to={`/profileUpdate/${this.state.id}`}></Redirect>
         }
+
+        let place;
+
+        if(this.state.city && !this.state.country) {
+            place = <Place>{this.state.city}</Place>
+        } else if(this.state.country && !this.state.city) {
+            place = <Place>{this.state.country}</Place>
+        } else if(this.state.country && this.state.city){
+            place = <Place>{this.state.city}, {this.state.country}</Place>
+        } else {
+            place = <Place></Place>
+        }
         
         return(
             <>
@@ -139,7 +152,7 @@ class Profile extends Component{
                     <Image style={{ backgroundImage: `url(${this.state.url})` }}  />
                     <ProfileDataContainer>
                         <Title>{this.state.name}</Title>
-                        <Place>{this.state.city}, {this.state.country}</Place>
+                        {place}
                         <ViewsLikesContainer>
                             <ViewsNumber viewsNumber={this.state.viewsNumber} />
                             <LikesNumber likesNumber={this.state.likesNumber} />
@@ -148,11 +161,11 @@ class Profile extends Component{
                             <a href={`/profileUpdate/${this.state.id}`} onClick={this.goToProfileUpdate} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Modifier le profil"/></a>  
                         ) : (
                             <span></span>
-                        )}                        
+                        )}                
                     </ProfileDataContainer>
                 </ProfileContainer>
 			</Container>
-		    </>
+            </>
 	    )
     }
 
