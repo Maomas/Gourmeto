@@ -5,7 +5,7 @@ import LoginLink from './LoginLink'
 import {Redirect} from 'react-router-dom'
 import styled from 'styled-components'
 import firebase from 'firebase/app'
-import base, {firebaseApp} from '../base'
+import base from '../base'
 import 'firebase/auth'
 
 
@@ -87,6 +87,16 @@ color: #FFFFFF;
 border-radius: 4px;
 `
 
+const Error = styled.div`
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 26.3333px;
+line-height: 31px;
+color: #D51515;
+border-radius: 4px;
+`
+
 
 class Register extends Component{
 
@@ -102,8 +112,8 @@ class Register extends Component{
         country: '',
         viewsNumber: '',
         likesNumber: '',
-        errorCode: '',
-        errorMessage: '',
+        mailErrorCode: null,
+        passwordErrorCode: null,
         provider: 'none'
     }
 
@@ -175,15 +185,28 @@ class Register extends Component{
     handleSubmit = event => {
         event.preventDefault()
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .catch(function(error) {
+        .then(e => {
+            this.setState({goToHomePage: true})
+        })
+        .catch(error => {
             var errorCode = error.code
-            console.log(errorCode)
-            var errorMessage = error.message
-            console.log(errorMessage)
+            console.log('errorCode :' +errorCode)
+            console.log(JSON.stringify(errorCode))
+            if(errorCode==="auth/email-already-in-use"){
+                this.setState({mailErrorCode: "L'adresse mail est déjà utilisée."})
+            }
+            else if(errorCode==="auth/weak-password"){
+                this.setState({passwordErrorCode: "Le mot de passe choisi est trop faible."})
+            }
+            else{
+                this.setState({mailErrorCode: "L'email que vous avez saisi est invalide."})
+            }
         });        
     }
 
     render(){
+
+        let mailError, passwordError;
 
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
@@ -192,6 +215,9 @@ class Register extends Component{
         if(this.state.goToLogin){
             return <Redirect push to={'/login'}></Redirect>
         }
+
+        mailError = <Error>{this.state.mailErrorCode}</Error>
+        passwordError = <Error>{this.state.passwordErrorCode}</Error>
 
         return(
             <Container>
@@ -221,6 +247,7 @@ class Register extends Component{
                        type="email"
                        required
                        />
+                       {mailError}
                        <Input
                        onChange={this.handleChangeCity}
                        placeholder='Ville'
@@ -239,6 +266,7 @@ class Register extends Component{
                        type='password'
                        required
                        />
+                       {passwordError}
                        <Button type='submit'><Text>S'inscrire</Text></Button>
                     </Form>
                 </InputsContainer>

@@ -186,7 +186,10 @@ class Login extends Component {
             console.log('errorCode :' +errorCode)
             console.log(JSON.stringify(errorCode))
             if(errorCode==="auth/user-not-found"){
-                this.setState({errorCode: "Aucun utilisateur ne possède cette adresse email.  Veuillez réessayer."})
+                this.setState({errorCode: "Aucun utilisateur ne possède cette adresse email."})
+            }
+            else if(errorCode="auth/wrong-password"){
+                this.setState({errorCode: "Le mot de passe que vous avez rentré est incorrect."})
             }
           });
     }
