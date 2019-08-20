@@ -116,7 +116,6 @@ class Register extends Component{
     }
 
     handleAuth = async authData => {
-        console.log('je passe')
         const currentUser = {
             uid: authData.user.uid,
             name: this.state.name,
@@ -181,8 +180,7 @@ class Register extends Component{
             console.log(errorCode)
             var errorMessage = error.message
             console.log(errorMessage)
-        });
-        this.setState({goToHomePage: true})
+        });        
     }
 
     render(){

@@ -54,6 +54,8 @@ align-items: center;
 
 class HomePage extends Component {
 
+  _isMounted = false;
+
   state = {
     goToLogin: false,
     goToProfile: false,
@@ -62,6 +64,7 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     base.syncState('/views', {
         context: this,
         state: 'views'
@@ -73,6 +76,11 @@ class HomePage extends Component {
   })
 }
 
+componentWillUnmount() {
+  this._isMounted = false;
+}
+
+
 
 handleAuth = async authData => {
   const currentUser = {
@@ -81,7 +89,10 @@ handleAuth = async authData => {
       email: authData.user.email,
       url: authData.user.photoURL
   }
-  this.setState({currentUser: currentUser})
+  if(this._isMounted){
+    this.setState({currentUser: currentUser})
+  }
+  
 }
 
 logout = async () => {

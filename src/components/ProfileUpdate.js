@@ -186,8 +186,8 @@ class ProfileUpdate extends Component {
                     }).catch(function(error) {
                         console.log(error)
                     });
-                    this.logout()
                     this.setState({ goToHomePage: true })
+                    this.logout()
                 }
               },
               {
@@ -327,9 +327,9 @@ class ProfileUpdate extends Component {
                             type="text"
                             />
                             {inputPassword}
-                            <Button type='submit'><Text>Modifier</Text></Button> 
-                            <RedButton onClick={this.handleDelete}><Text>Supprimer</Text></RedButton>                         
+                            <Button type='submit'><Text>Modifier</Text></Button>                      
                         </Form>   
+                        <RedButton onClick={this.handleDelete}><Text>Supprimer</Text></RedButton>    
                     </ProfileDataContainer>
                 </ProfileContainer>
 			</Container>

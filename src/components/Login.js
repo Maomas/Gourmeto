@@ -89,6 +89,16 @@ justify-content:center;
 align-items: center;
 `
 
+const Error = styled.div`
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 26.3333px;
+line-height: 31px;
+color: #D51515;
+border-radius: 4px;
+`
+
 class Login extends Component {
 
 
@@ -99,16 +109,9 @@ class Login extends Component {
         currentUser: {},
         email: '',
         password: '',
-        provider: ''
+        provider: '',
+        errorCode: null
     }
-
-    /*componentDidMount() {
-        firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-                this.handleAuth({ user })
-            }
-        })
-    }*/
 
     handleAuth = async authData => {
         const currentUser = {
@@ -174,20 +177,28 @@ class Login extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(e => {
+            this.setState({goToHomePage: true})
+        })
+        .catch(error => {
             var errorCode = error.code
-            console.log(errorCode)
-            var errorMessage = error.message;
-            console.log(errorMessage)
+            console.log('errorCode :' +errorCode)
+            console.log(JSON.stringify(errorCode))
+            if(errorCode==="auth/user-not-found"){
+                this.setState({errorCode: "Aucun utilisateur ne possède cette adresse email.  Veuillez réessayer."})
+            }
           });
-          this.setState({goToHomePage: true})
     }
 
     render(){
 
+        let error;
+
         if(this.state.goToHomePage){
             return <Redirect to={'/'}></Redirect>
         }
+
         if(this.state.goToRegister){
             return <Redirect to={'/register'}></Redirect>
         }
@@ -195,6 +206,8 @@ class Login extends Component {
         if(this.state.currentUser.uid){
             return <Redirect to={'/'}></Redirect>
         }
+        error = <Error>{this.state.errorCode}</Error>
+        
 
         return(
             <Container>
@@ -224,6 +237,7 @@ class Login extends Component {
                         type="password"
                         required
                         />
+                        {error}
                         <Button type='submit'><Text>Se connecter</Text></Button>                       
                     </Form>                        
                     <SpecialButton contain="Connectez-vous avec Google" onClick={this.authenticateGoogle} icon={googleBrand}/>
