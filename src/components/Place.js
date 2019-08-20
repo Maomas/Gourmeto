@@ -94,6 +94,11 @@ class Place extends Component{
             context: this,
             state: 'views'
         })
+        base.syncState(`/places/place-${this.state.id}/name`, {context: this,state: 'place'})
+        base.syncState(`/places/place-${this.state.id}/url`, {context: this,state: 'url'})
+        base.syncState(`/places/place-${this.state.id}/city`, {context: this,state: 'city'})
+        base.syncState(`/places/place-${this.state.id}/country`, {context: this,state: 'country'})
+        base.syncState(`/places/place-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})
     }
 
     state = {
@@ -101,12 +106,12 @@ class Place extends Component{
         id: this.props.match.params.id,
         currentUser: {},
         name: '',
-        place: 'La Lorgnette',
-        city: 'Mons',
-        url: 'https://s3-media2.fl.yelpcdn.com/bphoto/Or501eN94R3wyOXfvdXxbQ/ls.jpg',
-        country: 'Belgique',
-        viewsNumber: '5',
-        views: {}
+        place: '',
+        city: '',
+        url: '',
+        country: '',
+        viewsNumber: '',
+        views: {},
     }
 
 
@@ -167,7 +172,6 @@ class Place extends Component{
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
         }
-
         return(
         <>
             <Container>

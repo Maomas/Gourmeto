@@ -60,14 +60,25 @@ class HomePage extends Component {
     goToLogin: false,
     goToProfile: false,
     views: {},
+    places: {},
     currentUser: {},
+    search: ''
   }
+    
+    updateSearch(event){
+      this.setState({search: event.target.value.substr(0,20)});
+    }
+
 
   componentDidMount() {
     this._isMounted = true;
     base.syncState('/views', {
         context: this,
         state: 'views'
+    })
+    base.syncState('/places', {
+      context: this,
+      state:'places'
     })
     firebase.auth().onAuthStateChanged(user => {
         if(user){

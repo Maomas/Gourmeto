@@ -188,7 +188,7 @@ class Login extends Component {
             if(errorCode==="auth/user-not-found"){
                 this.setState({errorCode: "Aucun utilisateur ne possède cette adresse email."})
             }
-            else if(errorCode="auth/wrong-password"){
+            else{
                 this.setState({errorCode: "Le mot de passe que vous avez rentré est incorrect."})
             }
           });

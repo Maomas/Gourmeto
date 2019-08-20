@@ -89,8 +89,8 @@ class ViewBoard extends Component{
 								<Text>il y a {this.state.time}</Text>
 							</Header>
 						</HeaderContainer>
-						<a href="/place/1" ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
-						<a href="/place/1" style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>
+						<a href={`/place/${this.state.id}`} ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
+						<a href={`/place/${this.state.id}`}  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>
 						<Text>{this.state.description}</Text>
 					</Container>
 				</>

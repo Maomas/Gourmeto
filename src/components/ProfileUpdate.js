@@ -277,7 +277,6 @@ class ProfileUpdate extends Component {
             inputImage = <span></span>
             inputPassword = <span></span>
         } else{
-            console.log(this.state.provider)
             inputImage = <Input type="file" onChange={this.handleChangeImage}/>
             inputPassword = <Input
             value={this.state.password}
