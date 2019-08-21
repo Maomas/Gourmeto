@@ -73,8 +73,8 @@ class ViewForm extends Component{
         const view = {
             id: this.state.id,
             view: this.state.view,
-            place: this.state.place,
-            url: this.state.url,
+            place: this.props.place,
+            url: this.props.url,
             uid: this.props.uid,
             userName: this.props.userName,
             urlUser: this.props.urlUser

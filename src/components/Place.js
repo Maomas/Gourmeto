@@ -111,6 +111,7 @@ class Place extends Component{
         url: '',
         country: '',
         viewsNumber: '',
+        urlUser: '',
         views: {},
     }
 
@@ -126,14 +127,17 @@ class Place extends Component{
         var userId = this.state.currentUser.uid;
         return firebase.database().ref('/users/user-' + userId).once('value').then(snapshot => {
            var name = (snapshot.val() && snapshot.val().name);
+           var urlUser = (snapshot.val() && snapshot.val().url)
            this.setState({name: name})
+           this.setState({urlUser: urlUser})
            currentUser = {
                uid: this.state.currentUser.uid,
                name: this.state.name,
                email: this.state.currentUser.email,
-               url: this.state.currentUser.url
+               url: this.state.urlUser
            }
            this.setState({currentUser: currentUser})
+           console.log("currentUser url"+this.state.currentUser.url)
         });
     }
 

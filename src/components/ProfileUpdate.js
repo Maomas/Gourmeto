@@ -9,6 +9,7 @@ import firebase from 'firebase/app'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
+
 const Container = styled.div`
 margin-top: 15%;
 display: flex;
@@ -83,11 +84,6 @@ line-height: 75px;
 color: #EFEFEFEF;`
 
 const Form = styled.form`
-display: flex;
-flex-direction:column;
-`
-
-const ImageContainer = styled.form`
 display: flex;
 flex-direction:column;
 `
@@ -277,7 +273,7 @@ class ProfileUpdate extends Component {
             inputImage = <span></span>
             inputPassword = <span></span>
         } else{
-            inputImage = <Input type="file" onChange={this.handleChangeImage}/>
+            inputImage = <Input type="text" onChange={this.handleChangeImage} placeholder="Lien de l'avatar"/>
             inputPassword = <Input
             value={this.state.password}
             onChange={this.handleChangePassword}
@@ -292,10 +288,7 @@ class ProfileUpdate extends Component {
                     <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
                 </Header>
                 <ProfileContainer>
-                    <ImageContainer>
-                        <Image style={{ backgroundImage: `url(${this.state.url})` }}  />
-                        {inputImage}
-                    </ImageContainer>
+                    <Image style={{ backgroundImage: `url(${this.state.url})`, backgroundColor: "white" }}  />
                     <ProfileDataContainer>
                         <Form onSubmit={this.handleSubmit}>
                         <Title>Modifier le profil</Title>
@@ -325,6 +318,7 @@ class ProfileUpdate extends Component {
                             placeholder='Pays'
                             type="text"
                             />
+                            {inputImage}
                             {inputPassword}
                             <Button type='submit'><Text>Modifier</Text></Button>                      
                         </Form>   

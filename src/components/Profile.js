@@ -122,6 +122,7 @@ class Profile extends Component{
     }
 
     render(){
+
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
         }
@@ -149,7 +150,7 @@ class Profile extends Component{
                     <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
                 </Header>
                 <ProfileContainer>
-                    <Image style={{ backgroundImage: `url(${this.state.url})` }}  />
+                    <Image style={{ backgroundImage: `url(${this.state.url})`, backgroundColor: "white" }}  />
                     <ProfileDataContainer>
                         <Title>{this.state.name}</Title>
                         {place}
