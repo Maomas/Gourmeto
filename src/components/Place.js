@@ -112,7 +112,7 @@ class Place extends Component{
         country: '',
         viewsNumber: '',
         urlUser: '',
-        views: {},
+        views: {}
     }
 
 
@@ -121,7 +121,7 @@ class Place extends Component{
             uid: authData.user.uid,
             name: '',
             email: authData.user.email,
-            url: authData.user.photoURL,
+            url: authData.user.photoURL
         }
         this.setState({currentUser: currentUser})
         var userId = this.state.currentUser.uid;
@@ -137,7 +137,6 @@ class Place extends Component{
                url: this.state.urlUser
            }
            this.setState({currentUser: currentUser})
-           console.log("currentUser url"+this.state.currentUser.url)
         });
     }
 
@@ -146,6 +145,8 @@ class Place extends Component{
         const views = {...this.state.views}
         views[`view-${Date.now()}`] = view
         this.setState({views})
+        var viewsNumber = parseInt(this.state.viewsNumber) + 1
+        this.setState({viewsNumber: viewsNumber.toString()})
     }
 
     goToHomePage = event => {
@@ -163,7 +164,7 @@ class Place extends Component{
                 id={this.state.views[key].id}
                 isUser={this.isUser}
                 name={this.state.views[key].userName}
-                time='0 minutes'
+                time={this.state.views[key].time}
                 place={this.state.views[key].place}
                 description={this.state.views[key].view}
                 url={this.state.views[key].url}

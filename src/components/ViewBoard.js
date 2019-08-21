@@ -86,7 +86,7 @@ class ViewBoard extends Component{
 							<a href={`/profile/${this.state.uid}`} ><Avatar style={{ backgroundImage: `url(${this.state.urlUser})`, backgroundColor: "white" }}/></a>
 							<Header>
 								<a href={`/profile/${this.state.uid}`}  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.name}</StrongText></a>
-								<Text>il y a {this.state.time}</Text>
+								<Text>Le {this.state.time}</Text>
 							</Header>
 						</HeaderContainer>
 						<a href={`/place/${this.state.id}`} ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>

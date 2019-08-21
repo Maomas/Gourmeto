@@ -55,6 +55,14 @@ color: #000000;`
 
 class ViewForm extends Component{
 
+    componentDidMount(){
+        setInterval( () => {
+            this.setState({
+              time: new Date().toLocaleString()
+            })
+          },1000)
+    }
+
 
     state = {
         view: '',
@@ -64,11 +72,13 @@ class ViewForm extends Component{
         url: this.props.url,
         uid: this.props.uid,
         userName: this.props.userName,
-        urlUser: this.props.urlUser
+        urlUser: this.props.urlUser,
+        time: null
     }
 
+
     createView = () => {
-        const {addView, id, length, place, url, uid, userName, urlUser } = this.props
+        const {addView, id, length, place, url, uid, userName, urlUser, time } = this.props
 
         const view = {
             id: this.state.id,
@@ -77,10 +87,11 @@ class ViewForm extends Component{
             url: this.props.url,
             uid: this.props.uid,
             userName: this.props.userName,
-            urlUser: this.props.urlUser
+            urlUser: this.props.urlUser,
+            time: this.state.time
         }
         addView(view)
-        this.setState({ view: '', id, length, place, url, uid, userName, urlUser })
+        this.setState({ view: '', id, length, place, url, uid, userName, urlUser, time })
     }
 
     handleChange = event => {
@@ -92,7 +103,8 @@ class ViewForm extends Component{
         const uid = this.props.uid
         const userName = this.props.userName
         const urlUser = this.props.urlUser
-        this.setState({ view, id, length, place, url, uid, userName, urlUser })
+        const time = this.state.time
+        this.setState({ view, id, length, place, url, uid, userName, urlUser, time })
     }
 
     handleSubmit = event => {

@@ -273,7 +273,7 @@ class ProfileUpdate extends Component {
             inputImage = <span></span>
             inputPassword = <span></span>
         } else{
-            inputImage = <Input type="text" onChange={this.handleChangeImage} placeholder="Lien de l'avatar"/>
+            inputImage = <Input type="text" value={this.state.url} onChange={this.handleChangeImage} placeholder="Lien de l'avatar"/>
             inputPassword = <Input
             value={this.state.password}
             onChange={this.handleChangePassword}
