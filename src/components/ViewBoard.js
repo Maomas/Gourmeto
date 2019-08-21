@@ -10,6 +10,7 @@ height: 450px;
 background: #EFEFEF;
 border-radius: 5px;
 margin-top:20px;
+word-wrap: break-word;
 `
 
 const PlacePhoto = styled.div`

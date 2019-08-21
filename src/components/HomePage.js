@@ -131,7 +131,7 @@ isUser = uid => uid === this.state.currentUser.uid
                 uid={this.state.views[key].uid} 
                 isUser={this.isUser}
                 name={this.state.views[key].userName}
-                time='0 minutes'
+                time={this.state.views[key].time}
                 place={this.state.views[key].place}
                 description={this.state.views[key].view}
                 url={this.state.views[key].url}
