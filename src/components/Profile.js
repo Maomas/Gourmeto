@@ -72,13 +72,20 @@ class Profile extends Component{
                 this.handleAuth({ user })
             }
         })
-        base.syncState(`/users/user-${this.state.id}/name`, {context: this,state: 'name'})
-        base.syncState(`/users/user-${this.state.id}/url`, {context: this,state: 'url'})
-        base.syncState(`/users/user-${this.state.id}/email`, {context: this,state: 'email'})
-        base.syncState(`/users/user-${this.state.id}/city`, {context: this,state: 'city'})
-        base.syncState(`/users/user-${this.state.id}/country`, {context: this,state: 'country'})
-        base.syncState(`/users/user-${this.state.id}/likesNumber`, {context: this,state: 'likesNumber'})
-        base.syncState(`/users/user-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})
+        firebase.database().ref('/users/user-' + this.state.id).once('value').then(snapshot => {
+            if(!snapshot.val()){
+                this.setState({goToNotFound:true})
+            }
+            else{
+                base.syncState(`/users/user-${this.state.id}/name`, {context: this,state: 'name'})
+                base.syncState(`/users/user-${this.state.id}/url`, {context: this,state: 'url'})
+                base.syncState(`/users/user-${this.state.id}/email`, {context: this,state: 'email'})
+                base.syncState(`/users/user-${this.state.id}/city`, {context: this,state: 'city'})
+                base.syncState(`/users/user-${this.state.id}/country`, {context: this,state: 'country'})
+                base.syncState(`/users/user-${this.state.id}/likesNumber`, {context: this,state: 'likesNumber'})
+                base.syncState(`/users/user-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})
+            }
+        })
         
     }
 
@@ -98,6 +105,7 @@ class Profile extends Component{
     state = {
         id: this.props.match.params.id,
         goToHomePage: false,
+        goToNotFound: false,
         goToProfileUpdate: false,
         currentUser: {},
         email: '',
@@ -121,10 +129,15 @@ class Profile extends Component{
         this.setState({goToProfileUpdate: true})
     }
 
+
     render(){
 
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
+        }
+
+        if(this.state.goToNotFound){
+            return <Redirect push to={'/userNotFound'}></Redirect>
         }
 
         if(this.state.goToProfileUpdate){

@@ -114,6 +114,7 @@ class Login extends Component {
     }
 
     handleAuth = async authData => {
+        console.log(authData)
         const currentUser = {
             uid: authData.user.uid,
             name: authData.user.displayName,

@@ -85,6 +85,18 @@ flex-direction:column;`
 class Place extends Component{
 
     componentDidMount() {
+        firebase.database().ref('/places/place-' + this.state.id).once('value').then(snapshot => {
+            if(!snapshot.val()){
+                this.setState({goToNotFound:true})
+            }
+            else{
+                base.syncState(`/places/place-${this.state.id}/name`, {context: this,state: 'place'})
+                base.syncState(`/places/place-${this.state.id}/url`, {context: this,state: 'url'})
+                base.syncState(`/places/place-${this.state.id}/city`, {context: this,state: 'city'})
+                base.syncState(`/places/place-${this.state.id}/country`, {context: this,state: 'country'})
+                base.syncState(`/places/place-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})
+            }
+        })
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 this.handleAuth({ user })
@@ -94,15 +106,11 @@ class Place extends Component{
             context: this,
             state: 'views'
         })
-        base.syncState(`/places/place-${this.state.id}/name`, {context: this,state: 'place'})
-        base.syncState(`/places/place-${this.state.id}/url`, {context: this,state: 'url'})
-        base.syncState(`/places/place-${this.state.id}/city`, {context: this,state: 'city'})
-        base.syncState(`/places/place-${this.state.id}/country`, {context: this,state: 'country'})
-        base.syncState(`/places/place-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})
     }
 
     state = {
         goToHomePage: false,
+        goToNotFound: false,
         id: this.props.match.params.id,
         currentUser: {},
         name: '',
@@ -176,6 +184,10 @@ class Place extends Component{
 
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
+        }
+
+        if(this.state.goToNotFound){
+            return <Redirect push to={'/placeNotFound'}></Redirect>
         }
         return(
         <>

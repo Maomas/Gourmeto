@@ -75,8 +75,7 @@ class ViewBoard extends Component{
 		url: this.props.url,
 		uid: this.props.uid,
 		userName: this.props.userName,
-		urlUser: this.props.urlUser,
-		isUser: this.props.isUser
+		urlUser: this.props.urlUser
 	}
 
 	render(){

@@ -9,6 +9,15 @@ import base from '../base'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
+const SearchBarResults = styled.div`
+display:flex;
+flex-direction:column;
+display:none;
+position:absolute;
+margin-top: 102px;
+width: 730px;
+`
+
 const Container = styled.div`
 height:100%;
 display: flex;
@@ -50,6 +59,41 @@ justify-content:center;
 align-items: center;
 `
 
+const SearchBarContainer = styled.div`
+display: flex;
+flex-direction: column;
+margin-left: 70px;
+`
+
+const SearchResult = styled.div`
+display: flex;
+background-color: #EFEFEF;
+padding:10px;
+border: 1px solid #C4C4C4;
+cursor:pointer;
+flex-direction:row;
+height: 50px;
+align-items:center;
+`
+
+const StrongText = styled.span`
+font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 30px;
+line-height: 19px;
+color: #000000;
+`
+
+const Text = styled.span`
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 30px;
+line-height: 19px;
+color: #000000;
+`
+
 
 
 class HomePage extends Component {
@@ -62,13 +106,10 @@ class HomePage extends Component {
     views: {},
     places: {},
     currentUser: {},
-    search: ''
+    search: '',
+    isSearchBarOnFocus: false
   }
     
-    updateSearch(event){
-      this.setState({search: event.target.value.substr(0,20)});
-    }
-
 
   componentDidMount() {
     this._isMounted = true;
@@ -91,7 +132,11 @@ componentWillUnmount() {
   this._isMounted = false;
 }
 
-
+searchingFor(search){
+  return x => {
+    return this.state.places[x].name.toLowerCase().includes(search.toLowerCase()) || !search;
+  }
+}
 
 handleAuth = async authData => {
   const currentUser = {
@@ -108,28 +153,50 @@ handleAuth = async authData => {
 
 logout = async () => {
   await firebase.auth().signOut()
-  this.setState({currentUser: {}})
+  
+}
+
+handleFocus = event => {
+  event.preventDefault()
+  this.setState({isSearchBarOnFocus: true})
+}
+
+handleBlur = event => {
+  event.preventDefault()
+  this.setState({isSearchBarOnFocus: false})
 }
 
 isUser = uid => uid === this.state.currentUser.uid
 
   goToLogin = event => {
     event.preventDefault()
-        this.setState({ goToLogin: true})
+    this.setState({ goToLogin: true})
   }
   goToProfile = event => {
     event.preventDefault()
-        this.setState({ goToProfile: true})
+    this.setState({ goToProfile: true})
   }
 
+  handleSearch = event => {
+    event.preventDefault()
+    this.setState({search: event.target.value})
+  }
+
+
   render(){
+    
+      const places = Object.keys(this.state.places)
+      .filter(this.searchingFor(this.state.search))
+      .map(key => (
+        <SearchResult><a href={`/place/${key.substring(6)}`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><StrongText>{this.state.places[key].name}&nbsp;&nbsp;</StrongText><Text>{this.state.places[key].city}, {this.state.places[key].country}</Text></a></SearchResult>
+      ))
+
     const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard
                 key={key}
                 id={this.state.views[key].id}
                 uid={this.state.views[key].uid} 
-                isUser={this.isUser}
                 name={this.state.views[key].userName}
                 time={this.state.views[key].time}
                 place={this.state.views[key].place}
@@ -161,7 +228,18 @@ isUser = uid => uid === this.state.currentUser.uid
       </Header>
       <TitleSearchBarContainer>
         <MainTitle />
-        <SearchBar />
+        <SearchBarContainer>
+          <SearchBar onChange={this.handleSearch} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
+          {this.state.isSearchBarOnFocus ? (
+            <SearchBarResults style={{display: 'block'}}>
+              {places}
+            </SearchBarResults>
+          ) : (
+            <SearchBarResults>
+              {places}
+            </SearchBarResults>
+          )}
+        </SearchBarContainer>
       </TitleSearchBarContainer>
       <ViewsList>
         <ListTitle>Avis</ListTitle>

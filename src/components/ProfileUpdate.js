@@ -123,14 +123,21 @@ class ProfileUpdate extends Component {
                 this.handleAuth({ user })
             }
         })
-        base.syncState(`/users/user-${this.state.id}/name`, {context: this,state: 'name'})
-        base.syncState(`/users/user-${this.state.id}/url`, {context: this,state: 'url'})
-        base.syncState(`/users/user-${this.state.id}/email`, {context: this,state: 'email'})
-        base.syncState(`/users/user-${this.state.id}/city`, {context: this,state: 'city'})
-        base.syncState(`/users/user-${this.state.id}/country`, {context: this,state: 'country'})
-        base.syncState(`/users/user-${this.state.id}/likesNumber`, {context: this,state: 'likesNumber'})
-        base.syncState(`/users/user-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'}) 
-        base.syncState(`/users/user-${this.state.id}/provider`, {context: this, state: 'provider'})   
+        firebase.database().ref('/users/user-' + this.state.id).once('value').then(snapshot => {
+            if(!snapshot.val()){
+                this.setState({goToNotFound:true})
+            }
+            else{
+                base.syncState(`/users/user-${this.state.id}/name`, {context: this,state: 'name'})
+                base.syncState(`/users/user-${this.state.id}/url`, {context: this,state: 'url'})
+                base.syncState(`/users/user-${this.state.id}/email`, {context: this,state: 'email'})
+                base.syncState(`/users/user-${this.state.id}/city`, {context: this,state: 'city'})
+                base.syncState(`/users/user-${this.state.id}/country`, {context: this,state: 'country'})
+                base.syncState(`/users/user-${this.state.id}/likesNumber`, {context: this,state: 'likesNumber'})
+                base.syncState(`/users/user-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'}) 
+                base.syncState(`/users/user-${this.state.id}/provider`, {context: this, state: 'provider'})   
+            }
+        })
     }
 
     state = {
@@ -146,7 +153,8 @@ class ProfileUpdate extends Component {
         password: '',
         provider: '',
         goToHomePage: false,
-        goToProfile: false
+        goToProfile: false,
+        goToNotFound: false
     }
     
     handleAuth = async authData => {
@@ -266,6 +274,10 @@ class ProfileUpdate extends Component {
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
         }
+        if(this.state.goToNotFound){
+            return <Redirect push to={'/userNotFound'}></Redirect>
+        }
+
         if(this.state.goToProfile){
             return <Redirect push to={`/profile/${this.state.currentUser.uid}`}></Redirect>
         }
