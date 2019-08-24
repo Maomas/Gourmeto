@@ -114,7 +114,9 @@ class Register extends Component{
         likesNumber: '',
         mailErrorCode: null,
         passwordErrorCode: null,
-        provider: 'none'
+        provider: 'none',
+        isAdmin: false,
+        users: {}
     }
 
     componentDidMount() {
@@ -123,9 +125,19 @@ class Register extends Component{
                 this.handleAuth({ user })
             }
         })
+        base.syncState('/users', {
+			context: this,
+			state: 'users'
+		})
     }
 
     handleAuth = async authData => {
+        if(Object.keys(this.state.users).length === 0){
+            this.setState({isAdmin: true})
+        }
+        else{
+            this.setState({isAdmin: false})
+        }
         const currentUser = {
             uid: authData.user.uid,
             name: this.state.name,
@@ -135,13 +147,15 @@ class Register extends Component{
             viewsNumber: '0',
             country: this.state.country,
             city: this.state.city,
-            provider: this.state.provider
+            provider: this.state.provider,
+            isAdmin: this.state.isAdmin
         }
         base.post(`users/user-${currentUser.uid}/name`,{ data: currentUser.name})
         base.post(`users/user-${currentUser.uid}/email`, {data: currentUser.email})
         base.post(`users/user-${currentUser.uid}/url`,{ data: currentUser.url})
         base.post(`users/user-${currentUser.uid}/city`,{ data: currentUser.city})
         base.post(`users/user-${currentUser.uid}/country`,{ data: currentUser.country})
+        base.post(`users/user-${currentUser.uid}/isAdmin`,{ data: currentUser.isAdmin})
         base.post(`users/user-${currentUser.uid}/likesNumber`,{ data: currentUser.likesNumber})
         base.post(`users/user-${currentUser.uid}/viewsNumber`,{ data: currentUser.viewsNumber})
         base.post(`users/user-${currentUser.uid}/provider`,{ data: currentUser.provider})

@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import heart from "../images/heart.svg"
 import redHeart from "../images/redHeart.svg"
 import base from '../base'
-import firebase from 'firebase/app'
 import 'firebase/auth'
 
 const Container = styled.div`
@@ -82,9 +81,7 @@ class ViewBoard extends Component{
 	componentDidMount() {
 		base.syncState('/likes', {
 			context: this,
-			state: 'likes',
-			like: '',
-			id: ''
+			state: 'likes'
 		})
 	}
 
@@ -100,14 +97,16 @@ class ViewBoard extends Component{
 		urlUser: this.props.urlUser,
 		likes: {},
 		isLiked: false,
-		like:''
+		like:'',
+		likeId: '',
+		user: {}
 	}
 
 	handleClick = event => {
 		event.preventDefault()
 		console.log(this.state.like)
 		if(this.state.isLiked){
-			this.deleteLike(this.state.id)
+			this.deleteLike(this.state.likeId)
 			this.setState({isLiked: false})
 		}
 		else{
@@ -124,7 +123,7 @@ class ViewBoard extends Component{
 	addLike = like => {
 		const likes = {...this.state.likes}
 		likes[`like-${Date.now()}`] = like
-		this.setState({id: `like-${Date.now()}`})
+		this.setState({likeId: `like-${Date.now()}`})
         this.setState({likes})
 	}
 

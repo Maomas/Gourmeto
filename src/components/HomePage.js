@@ -98,11 +98,10 @@ color: #000000;
 
 class HomePage extends Component {
 
-  _isMounted = false;
-
   state = {
     goToLogin: false,
     goToProfile: false,
+    goToHomePage: false,
     views: {},
     places: {},
     likes: {},
@@ -113,7 +112,6 @@ class HomePage extends Component {
     
 
   componentDidMount() {
-    this._isMounted = true;
     base.syncState('/views', {
         context: this,
         state: 'views'
@@ -133,10 +131,6 @@ class HomePage extends Component {
   })
 }
 
-componentWillUnmount() {
-  this._isMounted = false;
-}
-
 searchingFor(search){
   return x => {
     return this.state.places[x].name.toLowerCase().includes(search.toLowerCase()) || !search;
@@ -150,15 +144,13 @@ handleAuth = async authData => {
       email: authData.user.email,
       url: authData.user.photoURL
   }
-  if(this._isMounted){
-    this.setState({currentUser: currentUser})
-  }
+  this.setState({currentUser: currentUser})
   
 }
 
 logout = async () => {
   await firebase.auth().signOut()
-  
+  this.setState({currentUser: {}})
 }
 
 handleFocus = event => {
@@ -193,7 +185,7 @@ isUser = uid => uid === this.state.currentUser.uid
       const places = Object.keys(this.state.places)
       .filter(this.searchingFor(this.state.search))
       .map(key => (
-        <SearchResult><a href={`/place/${key.substring(6)}`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><StrongText>{this.state.places[key].name}&nbsp;&nbsp;</StrongText><Text>{this.state.places[key].city}, {this.state.places[key].country}</Text></a></SearchResult>
+        <SearchResult><a href={`/place/place-${key.substring(6)}`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><StrongText>{this.state.places[key].name}&nbsp;&nbsp;</StrongText><Text>{this.state.places[key].city}, {this.state.places[key].country}</Text></a></SearchResult>
       ))
 
     const views = Object.keys(this.state.views)

@@ -110,11 +110,25 @@ class Login extends Component {
         email: '',
         password: '',
         provider: '',
-        errorCode: null
+        errorCode: null,
+        users: {}
     }
 
+    componentDidMount(){
+        base.syncState('/users', {
+			context: this,
+			state: 'users'
+		})
+    }
+
+
     handleAuth = async authData => {
-        console.log(authData)
+        if(Object.keys(this.state.users).length === 0){
+            this.setState({isAdmin: true})
+        }
+        else{
+            this.setState({isAdmin: false})
+        }
         const currentUser = {
             uid: authData.user.uid,
             name: authData.user.displayName,
@@ -124,8 +138,8 @@ class Login extends Component {
             viewsNumber: '0',
             country: '',
             city: '',
-            provider: this.state.provider,
-
+            isAdmin: this.state.isAdmin,
+            provider: this.state.provider
         }
         this.setState({currentUser: currentUser})
         await base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
@@ -135,6 +149,7 @@ class Login extends Component {
         await base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
         await base.post(`users/user-${this.state.currentUser.uid}/country`, { data: this.state.currentUser.country})
         await base.post(`users/user-${this.state.currentUser.uid}/city`, { data: this.state.currentUser.city})
+        await base.post(`users/user-${this.state.currentUser.uid}/isAdmin`, { data: this.state.currentUser.isAdmin})
         await base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})
      }
 
@@ -184,8 +199,6 @@ class Login extends Component {
         })
         .catch(error => {
             var errorCode = error.code
-            console.log('errorCode :' +errorCode)
-            console.log(JSON.stringify(errorCode))
             if(errorCode==="auth/user-not-found"){
                 this.setState({errorCode: "Aucun utilisateur ne possède cette adresse email."})
             }
