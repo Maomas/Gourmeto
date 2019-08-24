@@ -105,6 +105,7 @@ class HomePage extends Component {
     goToProfile: false,
     views: {},
     places: {},
+    likes: {},
     currentUser: {},
     search: '',
     isSearchBarOnFocus: false
@@ -117,6 +118,10 @@ class HomePage extends Component {
         context: this,
         state: 'views'
     })
+    base.syncState('/likes', {
+      context: this,
+      state: 'likes'
+  })
     base.syncState('/places', {
       context: this,
       state:'places'

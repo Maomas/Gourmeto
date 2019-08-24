@@ -1,5 +1,10 @@
 import React, {Component} from "react"
 import styled from 'styled-components'
+import heart from "../images/heart.svg"
+import redHeart from "../images/redHeart.svg"
+import base from '../base'
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 const Container = styled.div`
 display: flex;
@@ -11,6 +16,13 @@ background: #EFEFEF;
 border-radius: 5px;
 margin-top:20px;
 word-wrap: break-word;
+`
+
+const Like = styled.img`
+height: 60px;
+width: 60px;
+margin-left: 150px;
+margin-top: 10px;
 `
 
 const PlacePhoto = styled.div`
@@ -66,6 +78,16 @@ display:flex;
 
 class ViewBoard extends Component{
 
+
+	componentDidMount() {
+		base.syncState('/likes', {
+			context: this,
+			state: 'likes',
+			like: '',
+			id: ''
+		})
+	}
+
 	state = {
 		id: this.props.id,
 		name: this.props.name,
@@ -75,7 +97,41 @@ class ViewBoard extends Component{
 		url: this.props.url,
 		uid: this.props.uid,
 		userName: this.props.userName,
-		urlUser: this.props.urlUser
+		urlUser: this.props.urlUser,
+		likes: {},
+		isLiked: false,
+		like:''
+	}
+
+	handleClick = event => {
+		event.preventDefault()
+		console.log(this.state.like)
+		if(this.state.isLiked){
+			this.deleteLike(this.state.id)
+			this.setState({isLiked: false})
+		}
+		else{
+			const like = {
+				uid: this.props.uid,
+				placeId: this.state.id
+			}
+			this.addLike(like)
+			this.setState({like})
+			this.setState({isLiked: true})
+		}
+	}
+
+	addLike = like => {
+		const likes = {...this.state.likes}
+		likes[`like-${Date.now()}`] = like
+		this.setState({id: `like-${Date.now()}`})
+        this.setState({likes})
+	}
+
+	deleteLike = key => {
+		const likes = {...this.state.likes}
+		likes[key] = null
+		this.setState({likes})
 	}
 
 	render(){
@@ -88,6 +144,11 @@ class ViewBoard extends Component{
 								<a href={`/profile/${this.state.uid}`}  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.name}</StrongText></a>
 								<Text>Le {this.state.time}</Text>
 							</Header>
+							{this.state.isLiked ? (
+								<Like src={redHeart}  onClick={this.handleClick} alt="like"></Like>
+							) : (
+								<Like onClick={this.handleClick} src={heart} alt="unlike"></Like>
+							)}
 						</HeaderContainer>
 						<a href={`/place/${this.state.id}`} ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
 						<a href={`/place/${this.state.id}`}  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>
