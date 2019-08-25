@@ -82,6 +82,7 @@ class Profile extends Component{
                 base.syncState(`/users/user-${this.state.id}/email`, {context: this,state: 'email'})
                 base.syncState(`/users/user-${this.state.id}/city`, {context: this,state: 'city'})
                 base.syncState(`/users/user-${this.state.id}/country`, {context: this,state: 'country'})
+                base.syncState(`/users/user-${this.state.id}/isAdmin`, {context: this,state: 'isAdmin'})
                 base.syncState(`/users/user-${this.state.id}/likesNumber`, {context: this,state: 'likesNumber'})
                 base.syncState(`/users/user-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})
             }
@@ -115,7 +116,7 @@ class Profile extends Component{
         country: '',
         viewsNumber: '',
         likesNumber: '',
-        isUser: false
+        isAdmin: ''
     }
 
 
@@ -131,6 +132,12 @@ class Profile extends Component{
 
 
     render(){
+
+        let adminButton;
+
+        if(this.state.isAdmin){
+            adminButton = <a href={`/admin`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Menu Admin"/></a>
+        }
 
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
@@ -172,10 +179,11 @@ class Profile extends Component{
                             <LikesNumber likesNumber={this.state.likesNumber} />
                         </ViewsLikesContainer> 
                         {this.state.isUser ? (
-                            <a href={`/profileUpdate/${this.state.id}`} onClick={this.goToProfileUpdate} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Modifier le profil"/></a>  
+                            <a href={`/profileUpdate/${this.state.id}`} onClick={this.goToProfileUpdate} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Modifier le profil"/></a>
                         ) : (
                             <span></span>
-                        )}                
+                        )}  
+                        {adminButton}              
                     </ProfileDataContainer>
                 </ProfileContainer>
 			</Container>

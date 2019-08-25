@@ -118,7 +118,7 @@ class Login extends Component {
         base.syncState('/users', {
 			context: this,
 			state: 'users'
-		})
+        })
     }
 
 
@@ -142,6 +142,14 @@ class Login extends Component {
             provider: this.state.provider
         }
         this.setState({currentUser: currentUser})
+        firebase.database().ref('/users/user-' + this.state.currentUser.uid).once('value').then(snapshot => {
+            if(snapshot.val().isAdmin){
+                this.setState({isAdmin: snapshot.val().isAdmin})
+            }
+            else{
+                base.post(`users/user-${this.state.currentUser.uid}/isAdmin`, { data: this.state.currentUser.isAdmin})
+            }
+        })
         await base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
         await base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
         await base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})
@@ -149,7 +157,6 @@ class Login extends Component {
         await base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
         await base.post(`users/user-${this.state.currentUser.uid}/country`, { data: this.state.currentUser.country})
         await base.post(`users/user-${this.state.currentUser.uid}/city`, { data: this.state.currentUser.city})
-        await base.post(`users/user-${this.state.currentUser.uid}/isAdmin`, { data: this.state.currentUser.isAdmin})
         await base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})
      }
 

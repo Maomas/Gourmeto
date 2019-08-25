@@ -12,7 +12,7 @@ import 'firebase/auth'
 const SearchBarResults = styled.div`
 display:flex;
 flex-direction:column;
-display:none;
+visibility:hidden;
 position:absolute;
 margin-top: 102px;
 width: 730px;
@@ -228,7 +228,7 @@ isUser = uid => uid === this.state.currentUser.uid
         <SearchBarContainer>
           <SearchBar onChange={this.handleSearch} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
           {this.state.isSearchBarOnFocus ? (
-            <SearchBarResults style={{display: 'block'}}>
+            <SearchBarResults style={{visibility: 'visible'}}>
               {places}
             </SearchBarResults>
           ) : (

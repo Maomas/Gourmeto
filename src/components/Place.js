@@ -94,7 +94,7 @@ class Place extends Component{
                 base.syncState(`/places/place-${this.state.id}/url`, {context: this,state: 'url'})
                 base.syncState(`/places/place-${this.state.id}/city`, {context: this,state: 'city'})
                 base.syncState(`/places/place-${this.state.id}/country`, {context: this,state: 'country'})
-                base.syncState(`/places/place-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})
+                base.syncState(`/places/place-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumberPlace'})
             }
         })
         firebase.auth().onAuthStateChanged(user => {
@@ -118,7 +118,8 @@ class Place extends Component{
         city: '',
         url: '',
         country: '',
-        viewsNumber: '',
+        viewsNumberPlace: '',
+        viewsNumberUser: '',
         urlUser: '',
         views: {}
     }
@@ -135,9 +136,11 @@ class Place extends Component{
         var userId = this.state.currentUser.uid;
         return firebase.database().ref('/users/user-' + userId).once('value').then(snapshot => {
            var name = (snapshot.val() && snapshot.val().name);
-           var urlUser = (snapshot.val() && snapshot.val().url)
+           var urlUser = (snapshot.val() && snapshot.val().url);
+           var viewsNumberUser = (snapshot.val() && snapshot.val().viewsNumber)
            this.setState({name: name})
            this.setState({urlUser: urlUser})
+           this.setState({viewsNumberUser: viewsNumberUser})
            currentUser = {
                uid: this.state.currentUser.uid,
                name: this.state.name,
@@ -153,8 +156,10 @@ class Place extends Component{
         const views = {...this.state.views}
         views[`view-${Date.now()}`] = view
         this.setState({views})
-        var viewsNumber = parseInt(this.state.viewsNumber) + 1
-        this.setState({viewsNumber: viewsNumber.toString()})
+        var viewsNumberUser = parseInt(this.state.viewsNumberUser) + 1
+        var viewsNumberPlace = parseInt(this.state.viewsNumberPlace) + 1
+        this.setState({viewsNumberPlace: viewsNumberPlace.toString()})
+        this.setState({viewsNumberUser: viewsNumberUser.toString()})
     }
 
     goToHomePage = event => {
@@ -200,7 +205,7 @@ class Place extends Component{
                     <PlaceDataContainer>
                         <Title>{this.state.place}</Title>
                         <PlaceWrapper>{this.state.city}, {this.state.country}</PlaceWrapper>
-                        <ViewsNumber viewsNumber={this.state.viewsNumber}/>
+                        <ViewsNumber viewsNumber={this.state.viewsNumberPlace}/>
                     </PlaceDataContainer>
                 </PlaceContainer>   
                 {this.state.currentUser.uid ? (
