@@ -150,6 +150,7 @@ class Login extends Component {
                 base.post(`users/user-${this.state.currentUser.uid}/isAdmin`, { data: this.state.currentUser.isAdmin})
             }
         })
+        await base.post(`users/user-${this.state.currentUser.uid}/id`,{ data: this.state.currentUser.uid})
         await base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
         await base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
         await base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})

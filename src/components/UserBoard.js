@@ -1,6 +1,10 @@
 import React, {Component} from "react"
 import styled from 'styled-components'
 import 'firebase/auth'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
+import 'firebase/auth'
+import firebase from 'firebase/app'
 
 const Container = styled.div`
 display: flex;
@@ -81,6 +85,7 @@ display:flex;
 class UserBoard extends Component {
 
     state = {
+        id: this.props.id,
         name: this.props.name,
         city: this.props.city,
         country: this.props.country,
@@ -91,8 +96,30 @@ class UserBoard extends Component {
         viewsNumber: this.props.viewsNumber
     }
 
-    render(){
+    handleDelete = event => {
+        confirmAlert({
+            title: 'Suppression de l\'utilisateur',
+            message: 'Etes-vous sûr de vouloir supprimer cet utilisateur ?',
+            buttons: [
+              {
+                label: 'Oui',
+                onClick: () => {
+                    event.preventDefault()
+                    var userId = this.state.id;
+                    firebase.database().ref('/users/user-' + userId).remove().catch(function(error) {
+                        console.log(error)
+                    });
+                }
+              },
+              {
+                label: 'Annuler',
+                onClick: () => {}
+              }
+            ]
+          });
+      }
 
+    render(){
         let city, country, role, button;
 
         if(this.state.isAdmin){
@@ -101,7 +128,7 @@ class UserBoard extends Component {
         }
         else{
             role='Utilisateur basique'
-            button=<Button><TextButton>Supprimer l'utilisateur</TextButton></Button>
+            button=<Button onClick={this.handleDelete}><TextButton>Supprimer l'utilisateur</TextButton></Button>
         }
 
         if(this.state.city  && !this.state.country){

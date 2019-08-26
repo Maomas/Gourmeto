@@ -1,6 +1,10 @@
 import React, {Component} from "react"
 import styled from 'styled-components'
 import 'firebase/auth'
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import 'firebase/auth'
+import firebase from 'firebase/app'
 
 const Container = styled.div`
 display: flex;
@@ -70,8 +74,33 @@ border: 1px solid black;
 
 class PlaceBoard extends Component {
 
+    handleDelete = event => {
+        confirmAlert({
+            title: 'Suppression du lieu',
+            message: 'Etes-vous sûr de vouloir supprimer ce lieu ?',
+            buttons: [
+              {
+                label: 'Oui',
+                onClick: () => {
+                    event.preventDefault()
+                    var placeId = this.state.id;
+                    firebase.database().ref('/places/place-' + placeId).remove().catch(function(error) {
+                        console.log(error)
+                    });
+                }
+              },
+              {
+                label: 'Annuler',
+                onClick: () => {}
+              }
+            ]
+          });
+      }
+
     state = {
+        id: this.props.id,
         name: this.props.name,
+        key: this.props.key,
         city: this.props.city,
         country: this.props.country,
         url: this.props.url,
@@ -79,11 +108,10 @@ class PlaceBoard extends Component {
     }
 
     render(){
-      
         let city, country, updateButton, deleteButton;
 
         updateButton = <Button><TextButton>Modifier le lieu</TextButton></Button>
-        deleteButton = <Button><TextButton>Supprimer le lieu</TextButton></Button> 
+        deleteButton = <Button onClick={this.handleDelete}><TextButton>Supprimer le lieu</TextButton></Button> 
 
         if(this.state.city  && !this.state.country){
             city=this.state.city

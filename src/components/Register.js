@@ -150,6 +150,7 @@ class Register extends Component{
             provider: this.state.provider,
             isAdmin: this.state.isAdmin
         }
+        base.post(`users/user-${currentUser.uid}/name`,{ data: currentUser.uid})
         base.post(`users/user-${currentUser.uid}/name`,{ data: currentUser.name})
         base.post(`users/user-${currentUser.uid}/email`, {data: currentUser.email})
         base.post(`users/user-${currentUser.uid}/url`,{ data: currentUser.url})

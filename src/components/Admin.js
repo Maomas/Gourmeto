@@ -8,6 +8,7 @@ import ViewBoard from "./ViewBoard"
 import UserBoard from "./UserBoard"
 import PlaceBoard from "./PlaceBoard"
 import FloatingButton from "../components/FloatingButton"
+import plus from "../images/plus.svg"
 
 const Title = styled.div`
 font-family: Roboto;
@@ -19,6 +20,25 @@ color: #EFEFEFEF;`
 
 const SpaceBetween = styled.div`
 width: 20px;
+`
+
+const Image = styled.img`
+display:flex;
+height:50px;
+width:50px;
+justify-content:center;
+`
+
+const AddButton = styled.div`
+cursor:pointer;
+margin-top:20px;
+display: flex;
+padding:15px;
+width: 50px;
+height: 50px;
+background: #EFEFEF;
+border-radius: 5px;
+word-wrap: break-word;
 `
 
 const Container = styled.div`
@@ -105,6 +125,7 @@ class Admin extends Component{
             context: this,
             state: 'places'
         })
+        
     }
 
     goToHomePage = event => {
@@ -133,7 +154,7 @@ class Admin extends Component{
         .map(key => (
             <>
             <UserBoard
-                key={key}
+                id={this.state.users[key].id}
                 city={this.state.users[key].city}
                 country={this.state.users[key].country}
                 isAdmin={this.state.users[key].isAdmin}
@@ -150,8 +171,8 @@ class Admin extends Component{
         .map(key => (
             <>
             <ViewBoard
-                key={key}
                 id={this.state.views[key].id}
+                placeId={this.state.views[key].placeId}
                 isUser={this.isUser}
                 name={this.state.views[key].userName}
                 time={this.state.views[key].time}
@@ -169,7 +190,7 @@ class Admin extends Component{
         .map(key => (
             <>
             <PlaceBoard
-                key={key}
+                id={this.state.places[key].id}
                 city={this.state.places[key].city}
                 country={this.state.places[key].country}
                 name={this.state.places[key].name}
@@ -201,6 +222,7 @@ class Admin extends Component{
                     <Highlighting />
                     <PlacesListContainer>
                         {places}
+                        <AddButton><Image src={plus} alt="add"/></AddButton>
                     </PlacesListContainer>
                 </PlacesContainer>
                 <ViewsContainer>

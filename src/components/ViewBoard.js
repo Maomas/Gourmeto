@@ -4,6 +4,10 @@ import heart from "../images/heart.svg"
 import redHeart from "../images/redHeart.svg"
 import base from '../base'
 import 'firebase/auth'
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
+import 'firebase/auth'
+import firebase from 'firebase/app'
 
 const Container = styled.div`
 display: flex;
@@ -75,6 +79,30 @@ const HeaderContainer = styled.div`
 display:flex;
 `
 
+const TextButton = styled.span`
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 26.3333px;
+line-height: 31px;
+border-radius: 4px;
+`
+
+const Button = styled.div`
+margin-top:20px;
+width: 400px;
+height: 60px;
+cursor:pointer;
+display: flex;
+justify-content: center;
+align-items: center;
+background: #C4C4C4;
+mix-blend-mode: hard-light;
+border: 1px solid black;
+backdrop-filter: blur(4px);
+border-radius: 4px;
+`
+
 class ViewBoard extends Component{
 
 
@@ -87,6 +115,8 @@ class ViewBoard extends Component{
 
 	state = {
 		id: this.props.id,
+		placeId: this.props.placeId,
+		key:this.props.key,
 		name: this.props.name,
 		time: this.props.time,
 		place: this.props.place,
@@ -102,6 +132,31 @@ class ViewBoard extends Component{
 		user: {},
 		admin: this.props.admin
 	}
+
+	
+    handleDelete = event => {
+        confirmAlert({
+            title: 'Suppression de l\'avis',
+            message: 'Etes-vous sûr de vouloir supprimer cet avis ?',
+            buttons: [
+              {
+                label: 'Oui',
+                onClick: () => {
+					console.log('id'+this.state.id)
+					event.preventDefault()
+					var viewId = this.state.id;
+                    firebase.database().ref('/views/view-' + viewId).remove().catch(function(error) {
+                        console.log(error)
+                    });
+                }
+              },
+              {
+                label: 'Annuler',
+                onClick: () => {}
+              }
+            ]
+          });
+      }
 
 	handleClick = event => {
 		event.preventDefault()
@@ -134,14 +189,17 @@ class ViewBoard extends Component{
 	}
 
 	render(){
-			let like;
+			let like, button;
 
-			if(this.state.admin === 'false'){
+			if(this.state.admin === 'false' || !this.state.admin){
 				if(this.state.isLiked){
 					like = <Like src={redHeart} onClick={this.handleClick} alt="like"></Like>
 				} else{
 					like = <Like onClick={this.handleClick} src={heart} alt="unlike"></Like>
 				}
+			}
+			else{
+				button=<Button onClick={this.handleDelete}><TextButton>Supprimer l'avis</TextButton></Button>
 			}
 
 			return (
@@ -155,9 +213,10 @@ class ViewBoard extends Component{
 							</Header>
 							{like}
 						</HeaderContainer>
-						<a href={`/place/${this.state.id}`} ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
-						<a href={`/place/${this.state.id}`}  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>
+						<a href={`/place/${this.state.placeId}`} ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
+						<a href={`/place/${this.state.placeId}`}  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>
 						<Text>{this.state.description}</Text>
+						{button}
 					</Container>
 				</>
 			)
