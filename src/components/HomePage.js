@@ -200,6 +200,7 @@ isUser = uid => uid === this.state.currentUser.uid
                 description={this.state.views[key].view}
                 url={this.state.views[key].url}
                 urlUser={this.state.views[key].urlUser}
+                admin='false'
                 />
           ))
 

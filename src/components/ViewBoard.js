@@ -32,7 +32,7 @@ margin-top: 10px;
 background-size: cover;
 margin-bottom: 10px;
 border: 1px solid black;
-`;
+`
 
 
 const Avatar = styled.div`
@@ -99,12 +99,12 @@ class ViewBoard extends Component{
 		isLiked: false,
 		like:'',
 		likeId: '',
-		user: {}
+		user: {},
+		admin: this.props.admin
 	}
 
 	handleClick = event => {
 		event.preventDefault()
-		console.log(this.state.like)
 		if(this.state.isLiked){
 			this.deleteLike(this.state.likeId)
 			this.setState({isLiked: false})
@@ -134,6 +134,16 @@ class ViewBoard extends Component{
 	}
 
 	render(){
+			let like;
+
+			if(this.state.admin === 'false'){
+				if(this.state.isLiked){
+					like = <Like src={redHeart} onClick={this.handleClick} alt="like"></Like>
+				} else{
+					like = <Like onClick={this.handleClick} src={heart} alt="unlike"></Like>
+				}
+			}
+
 			return (
 				<>
 					<Container>
@@ -143,11 +153,7 @@ class ViewBoard extends Component{
 								<a href={`/profile/${this.state.uid}`}  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.name}</StrongText></a>
 								<Text>Le {this.state.time}</Text>
 							</Header>
-							{this.state.isLiked ? (
-								<Like src={redHeart}  onClick={this.handleClick} alt="like"></Like>
-							) : (
-								<Like onClick={this.handleClick} src={heart} alt="unlike"></Like>
-							)}
+							{like}
 						</HeaderContainer>
 						<a href={`/place/${this.state.id}`} ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
 						<a href={`/place/${this.state.id}`}  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>

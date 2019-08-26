@@ -183,8 +183,7 @@ class Place extends Component{
                 url={this.state.views[key].url}
                 urlUser={this.state.views[key].urlUser}
                 uid={this.state.views[key].uid} 
-                />
-            
+                /> 
         ))
 
         if(this.state.goToHomePage){
