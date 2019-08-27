@@ -115,7 +115,6 @@ class Register extends Component{
         mailErrorCode: null,
         passwordErrorCode: null,
         provider: 'none',
-        isAdmin: false,
         users: {}
     }
 
@@ -132,12 +131,6 @@ class Register extends Component{
     }
 
     handleAuth = async authData => {
-        if(Object.keys(this.state.users).length === 0){
-            this.setState({isAdmin: true})
-        }
-        else{
-            this.setState({isAdmin: false})
-        }
         const currentUser = {
             uid: authData.user.uid,
             name: this.state.name,
@@ -148,9 +141,9 @@ class Register extends Component{
             country: this.state.country,
             city: this.state.city,
             provider: this.state.provider,
-            isAdmin: this.state.isAdmin
+            isAdmin: false
         }
-        base.post(`users/user-${currentUser.uid}/name`,{ data: currentUser.uid})
+        base.post(`users/user-${currentUser.uid}/id`,{ data: currentUser.uid})
         base.post(`users/user-${currentUser.uid}/name`,{ data: currentUser.name})
         base.post(`users/user-${currentUser.uid}/email`, {data: currentUser.email})
         base.post(`users/user-${currentUser.uid}/url`,{ data: currentUser.url})

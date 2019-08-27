@@ -105,7 +105,6 @@ class Login extends Component {
     state = {
         goToHomePage: false,
         goToRegister: false,
-        isAdmin: false,
         currentUser: {},
         email: '',
         password: '',
@@ -123,12 +122,7 @@ class Login extends Component {
 
 
     handleAuth = async authData => {
-        if(Object.keys(this.state.users).length === 0){
-            this.setState({isAdmin: true})
-        }
-        else{
-            this.setState({isAdmin: false})
-        }
+        
         const currentUser = {
             uid: authData.user.uid,
             name: authData.user.displayName,
@@ -138,27 +132,18 @@ class Login extends Component {
             viewsNumber: '0',
             country: '',
             city: '',
-            isAdmin: this.state.isAdmin,
             provider: this.state.provider
         }
-        this.setState({currentUser: currentUser})
-        firebase.database().ref('/users/user-' + this.state.currentUser.uid).once('value').then(snapshot => {
-            if(snapshot.val().isAdmin){
-                this.setState({isAdmin: snapshot.val().isAdmin})
-            }
-            else{
-                base.post(`users/user-${this.state.currentUser.uid}/isAdmin`, { data: this.state.currentUser.isAdmin})
-            }
-        })
-        await base.post(`users/user-${this.state.currentUser.uid}/id`,{ data: this.state.currentUser.uid})
-        await base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
-        await base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
-        await base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})
-        await base.post(`users/user-${this.state.currentUser.uid}/likesNumber`,{ data: this.state.currentUser.likesNumber})
-        await base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
-        await base.post(`users/user-${this.state.currentUser.uid}/country`, { data: this.state.currentUser.country})
-        await base.post(`users/user-${this.state.currentUser.uid}/city`, { data: this.state.currentUser.city})
-        await base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})
+        this.setState({currentUser: currentUser})          
+        base.post(`users/user-${this.state.currentUser.uid}/id`,{ data: this.state.currentUser.uid})
+        base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
+        base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
+        base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})
+        base.post(`users/user-${this.state.currentUser.uid}/likesNumber`,{ data: this.state.currentUser.likesNumber})
+        base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
+        base.post(`users/user-${this.state.currentUser.uid}/country`, { data: this.state.currentUser.country})
+        base.post(`users/user-${this.state.currentUser.uid}/city`, { data: this.state.currentUser.city})
+        base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})       
      }
 
     authenticateGoogle = () => {

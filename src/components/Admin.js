@@ -8,6 +8,7 @@ import ViewBoard from "./ViewBoard"
 import UserBoard from "./UserBoard"
 import PlaceBoard from "./PlaceBoard"
 import FloatingButton from "../components/FloatingButton"
+import PlaceForm from "../components/PlaceForm"
 import plus from "../images/plus.svg"
 
 const Title = styled.div`
@@ -101,6 +102,7 @@ class Admin extends Component{
 
     state= {
         isAdmin: null,
+        displayForm: false,
         goToHomePage: false,
         users: {},
         views: {},
@@ -133,6 +135,11 @@ class Admin extends Component{
         this.setState({ goToHomePage: true})
     }
 
+    handleClick = event => {
+        event.preventDefault()
+        this.setState({displayForm: true})
+    }
+
 
     handleAuth = async authData => {
         const currentUser = {
@@ -150,6 +157,7 @@ class Admin extends Component{
       }
 
     render() {
+    
         const users = Object.keys(this.state.users)
         .map(key => (
             <>
@@ -204,6 +212,7 @@ class Admin extends Component{
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
         }
+
         return(
             <>
             <Container>
@@ -222,7 +231,8 @@ class Admin extends Component{
                     <Highlighting />
                     <PlacesListContainer>
                         {places}
-                        <AddButton><Image src={plus} alt="add"/></AddButton>
+                        <PlaceForm displayForm={this.state.displayForm}/>
+                        <AddButton onClick={this.handleClick}><Image src={plus} alt="add"/></AddButton>
                     </PlacesListContainer>
                 </PlacesContainer>
                 <ViewsContainer>
