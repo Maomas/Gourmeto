@@ -122,7 +122,6 @@ class Login extends Component {
 
 
     handleAuth = async authData => {
-        
         const currentUser = {
             uid: authData.user.uid,
             name: authData.user.displayName,
@@ -134,16 +133,33 @@ class Login extends Component {
             city: '',
             provider: this.state.provider
         }
-        this.setState({currentUser: currentUser})          
-        base.post(`users/user-${this.state.currentUser.uid}/id`,{ data: this.state.currentUser.uid})
-        base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
-        base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
-        base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})
-        base.post(`users/user-${this.state.currentUser.uid}/likesNumber`,{ data: this.state.currentUser.likesNumber})
-        base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
-        base.post(`users/user-${this.state.currentUser.uid}/country`, { data: this.state.currentUser.country})
-        base.post(`users/user-${this.state.currentUser.uid}/city`, { data: this.state.currentUser.city})
-        base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})       
+        this.setState({currentUser: currentUser})
+        await firebase.database().ref('/users/user-' + this.state.currentUser.uid).once('value').then(snapshot => {
+            if(!snapshot.val()){
+                if(Object.keys(this.state.users).length === 0){
+                    base.post(`users/user-${this.state.currentUser.uid}/isAdmin`,{ data: true})
+                } else{
+                    base.post(`users/user-${this.state.currentUser.uid}/isAdmin`,{ data: false})
+                }
+                base.post(`users/user-${this.state.currentUser.uid}/id`,{ data: this.state.currentUser.uid})
+                base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
+                base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
+                base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})
+                base.post(`users/user-${this.state.currentUser.uid}/likesNumber`,{ data: this.state.currentUser.likesNumber})
+                base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
+                base.post(`users/user-${this.state.currentUser.uid}/country`, { data: this.state.currentUser.country})
+                base.post(`users/user-${this.state.currentUser.uid}/city`, { data: this.state.currentUser.city})
+                base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})  
+            }
+            else{
+                console.log('syncState')
+                base.syncState(`/user/${this.state.currentUser.uid}`, {
+                    context: this,
+                    state: 'currentUser'
+                })
+                console.log('currentUser'+JSON.stringify(this.state.currentUser))
+            }
+        })
      }
 
     authenticateGoogle = () => {

@@ -12,7 +12,7 @@ import 'firebase/auth'
 const SearchBarResults = styled.div`
 display:flex;
 flex-direction:column;
-visibility:hidden;
+display: none;
 position:absolute;
 margin-top: 102px;
 width: 730px;
@@ -93,7 +93,6 @@ font-size: 30px;
 line-height: 19px;
 color: #000000;
 `
-
 
 
 class HomePage extends Component {
@@ -185,7 +184,7 @@ isUser = uid => uid === this.state.currentUser.uid
       const places = Object.keys(this.state.places)
       .filter(this.searchingFor(this.state.search))
       .map(key => (
-        <SearchResult><a href={`/place/place-${key.substring(6)}`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><StrongText>{this.state.places[key].name}&nbsp;&nbsp;</StrongText><Text>{this.state.places[key].city}, {this.state.places[key].country}</Text></a></SearchResult>
+        <SearchResult><a href={`/place/${key.substring(6)}`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><StrongText>{this.state.places[key].name}&nbsp;&nbsp;</StrongText><Text>{this.state.places[key].city}, {this.state.places[key].country}</Text></a></SearchResult>
       ))
 
     const views = Object.keys(this.state.views)
@@ -227,9 +226,9 @@ isUser = uid => uid === this.state.currentUser.uid
       <TitleSearchBarContainer>
         <MainTitle />
         <SearchBarContainer>
-          <SearchBar onChange={this.handleSearch} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
+          <SearchBar onChange={this.handleSearch} onFocus={this.handleFocus} />
           {this.state.isSearchBarOnFocus ? (
-            <SearchBarResults style={{visibility: 'visible'}}>
+            <SearchBarResults style={{display: 'block'}}>
               {places}
             </SearchBarResults>
           ) : (

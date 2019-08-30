@@ -66,8 +66,7 @@ class ViewForm extends Component{
 
     state = {
         view: '',
-        id: this.props.id,
-        placeId: this.props.placeId,
+        placeId: this.props.id,
         length: this.props.length,
         place: this.props.place,
         url: this.props.url,
@@ -79,11 +78,10 @@ class ViewForm extends Component{
 
 
     createView = () => {
-        const {addView, id, placeId, length, place, url, uid, userName, urlUser, time } = this.props
-
+        const {addView, placeId, length, place, url, uid, userName, urlUser, time } = this.props
         const view = {
-            id: this.state.id,
-            placeId: this.state.placeId,
+            id: 0,
+            placeId: this.props.placeId,
             view: this.state.view,
             place: this.props.place,
             url: this.props.url,
@@ -93,21 +91,20 @@ class ViewForm extends Component{
             time: this.state.time
         }
         addView(view)
-        this.setState({ view: '', id, placeId, length, place, url, uid, userName, urlUser, time })
+        this.setState({ view: '', placeId, length, place, url, uid, userName, urlUser, time })
     }
 
     handleChange = event => {
         const view = event.target.value
         const length = this.props.length - view.length
-        const id= this.state.id
-        const placeId = this.state.placeId
+        const placeId= this.state.placeId
         const place = this.state.place
         const url = this.state.url
         const uid = this.props.uid
         const userName = this.props.userName
         const urlUser = this.props.urlUser
         const time = this.state.time
-        this.setState({ view, id, placeId, length, place, url, uid, userName, urlUser, time })
+        this.setState({ view, placeId, length, place, url, uid, userName, urlUser, time })
     }
 
     handleSubmit = event => {

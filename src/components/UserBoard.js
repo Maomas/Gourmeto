@@ -151,7 +151,7 @@ class UserBoard extends Component {
             <>
             <Container>
                 <HeaderContainer>
-                    <Avatar style={{ backgroundImage: `url(${this.state.url})`, backgroundColor: "white" }}/>
+                    <a href={`profile/${this.state.id}`}><Avatar style={{ backgroundImage: `url(${this.state.url})`, backgroundColor: "white" }}/></a>
                 </HeaderContainer>
                 <StrongText>{this.state.name}</StrongText>
                 <Text>{city}, {country}</Text>

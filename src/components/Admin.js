@@ -157,7 +157,6 @@ class Admin extends Component{
       }
 
     render() {
-    
         const users = Object.keys(this.state.users)
         .map(key => (
             <>
@@ -214,6 +213,7 @@ class Admin extends Component{
         }
 
         return(
+            
             <>
             <Container>
                 <Header>

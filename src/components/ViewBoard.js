@@ -38,7 +38,6 @@ margin-bottom: 10px;
 border: 1px solid black;
 `
 
-
 const Avatar = styled.div`
 width: 82.94px;
 height: 84.17px;
@@ -111,6 +110,9 @@ class ViewBoard extends Component{
 			context: this,
 			state: 'likes'
 		})
+		firebase.database().ref('/users/user-'+this.state.uid).once('value').then(snapshot => {
+            base.syncState(`/users/user-${this.state.uid}/likesNumber`, {context: this, state: 'likesNumber'})
+        })
 	}
 
 	state = {
@@ -124,6 +126,7 @@ class ViewBoard extends Component{
 		url: this.props.url,
 		uid: this.props.uid,
 		userName: this.props.userName,
+		likesNumber: '',
 		urlUser: this.props.urlUser,
 		likes: {},
 		isLiked: false,
@@ -142,9 +145,9 @@ class ViewBoard extends Component{
               {
                 label: 'Oui',
                 onClick: () => {
-					console.log('id'+this.state.id)
 					event.preventDefault()
 					var viewId = this.state.id;
+					console.log('/views/view-' + viewId)
                     firebase.database().ref('/views/view-' + viewId).remove().catch(function(error) {
                         console.log(error)
                     });
@@ -179,13 +182,17 @@ class ViewBoard extends Component{
 		const likes = {...this.state.likes}
 		likes[`like-${Date.now()}`] = like
 		this.setState({likeId: `like-${Date.now()}`})
-        this.setState({likes})
+		this.setState({likes})
+		var likesNumber = parseInt(this.state.likesNumber) + 1
+        this.setState({likesNumber: likesNumber.toString()})
 	}
 
 	deleteLike = key => {
 		const likes = {...this.state.likes}
 		likes[key] = null
 		this.setState({likes})
+		var likesNumber = parseInt(this.state.likesNumber) - 1
+        this.setState({likesNumber: likesNumber.toString()})
 	}
 
 	render(){

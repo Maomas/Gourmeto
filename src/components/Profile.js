@@ -135,7 +135,7 @@ class Profile extends Component{
 
         let adminButton;
 
-        if(this.state.isAdmin){
+        if(this.state.isAdmin && this.state.isUser){
             adminButton = <a href={`/admin`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Menu Admin"/></a>
         }
 
@@ -183,7 +183,7 @@ class Profile extends Component{
                         ) : (
                             <span></span>
                         )}  
-                        {adminButton}              
+                         {adminButton}           
                     </ProfileDataContainer>
                 </ProfileContainer>
 			</Container>

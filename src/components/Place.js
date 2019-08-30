@@ -90,6 +90,7 @@ class Place extends Component{
                 this.setState({goToNotFound:true})
             }
             else{
+                base.syncState(`/places/place-${this.state.id}/id`, {context: this,state: 'id'})
                 base.syncState(`/places/place-${this.state.id}/name`, {context: this,state: 'place'})
                 base.syncState(`/places/place-${this.state.id}/url`, {context: this,state: 'url'})
                 base.syncState(`/places/place-${this.state.id}/city`, {context: this,state: 'city'})
@@ -97,6 +98,10 @@ class Place extends Component{
                 base.syncState(`/places/place-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumberPlace'})
             }
         })
+        firebase.database().ref('/users/user-'+this.state.currentUser.uid).once('value').then(snapshot => {
+            base.syncState(`/users/user-${this.state.currentUser.uid}/viewsNumber`, {context: this, state: 'viewsNumberUser'})
+        })
+
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
                 this.handleAuth({ user })
@@ -154,7 +159,9 @@ class Place extends Component{
 
     addView = view => {
         const views = {...this.state.views}
-        views[`view-${Date.now()}`] = view
+        var id = Date.now()
+        view.id = id
+        views[`view-${id}`] = view
         this.setState({views})
         var viewsNumberUser = parseInt(this.state.viewsNumberUser) + 1
         var viewsNumberPlace = parseInt(this.state.viewsNumberPlace) + 1
@@ -173,8 +180,8 @@ class Place extends Component{
         const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard
-                key={key}
                 id={this.state.views[key].id}
+                placeId={this.state.views[key].placeId}
                 isUser={this.isUser}
                 name={this.state.views[key].userName}
                 time={this.state.views[key].time}
@@ -208,7 +215,7 @@ class Place extends Component{
                     </PlaceDataContainer>
                 </PlaceContainer>   
                 {this.state.currentUser.uid ? (
-                    <ViewForm length={340} addView={this.addView} id={this.state.id} place={this.state.place} url={this.state.url} uid={this.state.currentUser.uid} userName={this.state.currentUser.name} urlUser={this.state.currentUser.url} />
+                    <ViewForm length={340} addView={this.addView} placeId={this.state.id} place={this.state.place} url={this.state.url} uid={this.state.currentUser.uid} userName={this.state.currentUser.name} urlUser={this.state.currentUser.url} />
                 ) : (
                     <span></span>
                 )} 

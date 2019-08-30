@@ -70,7 +70,6 @@ color: #000000;`
 
 class PlaceForm extends Component {
 
-
     state = {
         country: '',
         city: '',
@@ -93,7 +92,6 @@ class PlaceForm extends Component {
         this.setState({name: ''})
         this.setState({url: ''})
         this.setState({id:''})
-
     }
 
     handleChangeCountry = event => {
@@ -117,6 +115,7 @@ class PlaceForm extends Component {
     }
 
     render(){
+
         let display;
 
         if(this.props.displayForm){

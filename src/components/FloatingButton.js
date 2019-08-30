@@ -13,7 +13,6 @@ background: #C4C4C4;
 mix-blend-mode: hard-light;
 border: 1px solid #FFFFFF;
 backdrop-filter: blur(4px);
-
 border-radius: 4px;
 `
 
