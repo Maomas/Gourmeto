@@ -26,6 +26,7 @@ align-items: center;
 flex-direction: column;
 margin-bottom: 100px;
 `
+
 const TitleSearchBarContainer = styled.div`
   margin-top: 300px;
   display: flex;
@@ -248,3 +249,4 @@ isUser = uid => uid === this.state.currentUser.uid
 }
 
 export default HomePage
+

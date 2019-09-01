@@ -66,6 +66,7 @@ class ViewForm extends Component{
 
     state = {
         view: '',
+        id: null,
         placeId: this.props.id,
         length: this.props.length,
         place: this.props.place,
@@ -73,14 +74,14 @@ class ViewForm extends Component{
         uid: this.props.uid,
         userName: this.props.userName,
         urlUser: this.props.urlUser,
+        likeId: null,
         time: null
     }
 
 
     createView = () => {
-        const {addView, placeId, length, place, url, uid, userName, urlUser, time } = this.props
+        const {addView, placeId, length, place, url, uid, userName, urlUser, time, likeId } = this.props
         const view = {
-            id: 0,
             placeId: this.props.placeId,
             view: this.state.view,
             place: this.props.place,
@@ -88,10 +89,11 @@ class ViewForm extends Component{
             uid: this.props.uid,
             userName: this.props.userName,
             urlUser: this.props.urlUser,
-            time: this.state.time
+            time: this.state.time,
+            likeId: null
         }
         addView(view)
-        this.setState({ view: '', placeId, length, place, url, uid, userName, urlUser, time })
+        this.setState({ view: '', likeId, placeId, length, place, url, uid, userName, urlUser, time })
     }
 
     handleChange = event => {

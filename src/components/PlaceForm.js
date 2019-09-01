@@ -4,6 +4,7 @@ import 'firebase/auth'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import 'firebase/auth'
 import base from '../base'
+import {Redirect} from 'react-router-dom'
 
 const Container = styled.div`
 display: flex;
@@ -70,14 +71,17 @@ color: #000000;`
 
 class PlaceForm extends Component {
 
+
     state = {
         country: '',
         city: '',
         name: '',
         url :'',
         viewsNumber: '0',
-        id: Date.now()
+        id: Date.now(),
+        goToAdmin: false
     }
+
 
     handleSubmit = event => {
         event.preventDefault()
@@ -87,11 +91,7 @@ class PlaceForm extends Component {
         base.post(`places/place-${this.state.id}/country`, {data: this.state.country})
         base.post(`places/place-${this.state.id}/url`, {data: this.state.url})
         base.post(`places/place-${this.state.id}/viewsNumber`, {data: this.state.viewsNumber})
-        this.setState({country: ''})
-        this.setState({city: ''})
-        this.setState({name: ''})
-        this.setState({url: ''})
-        this.setState({id:''})
+        this.setState({goToAdmin: true})
     }
 
     handleChangeCountry = event => {
@@ -117,6 +117,10 @@ class PlaceForm extends Component {
     render(){
 
         let display;
+
+        if(this.state.goToAdmin){
+            return <Redirect push to={'/admin'}></Redirect>
+        }
 
         if(this.props.displayForm){
             display=true

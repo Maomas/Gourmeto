@@ -159,10 +159,8 @@ class Place extends Component{
 
     addView = view => {
         const views = {...this.state.views}
-        var id = Date.now()
-        view.id = id
-        views[`view-${id}`] = view
-        this.setState({views})
+        views[`view-${Date.now()}`] = view
+        this.setState({views})    
         var viewsNumberUser = parseInt(this.state.viewsNumberUser) + 1
         var viewsNumberPlace = parseInt(this.state.viewsNumberPlace) + 1
         this.setState({viewsNumberPlace: viewsNumberPlace.toString()})

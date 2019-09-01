@@ -106,7 +106,8 @@ class Admin extends Component{
         goToHomePage: false,
         users: {},
         views: {},
-        places: {}
+        places: {},
+        currentUser: {}
     }
 
     componentDidMount(){

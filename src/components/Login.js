@@ -152,12 +152,10 @@ class Login extends Component {
                 base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})  
             }
             else{
-                console.log('syncState')
                 base.syncState(`/user/${this.state.currentUser.uid}`, {
                     context: this,
                     state: 'currentUser'
                 })
-                console.log('currentUser'+JSON.stringify(this.state.currentUser))
             }
         })
      }

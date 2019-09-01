@@ -143,16 +143,16 @@ class Register extends Component{
             provider: this.state.provider,
             isAdmin: false
         }
-        base.post(`users/user-${currentUser.uid}/id`,{ data: currentUser.uid})
-        base.post(`users/user-${currentUser.uid}/name`,{ data: currentUser.name})
-        base.post(`users/user-${currentUser.uid}/email`, {data: currentUser.email})
-        base.post(`users/user-${currentUser.uid}/url`,{ data: currentUser.url})
-        base.post(`users/user-${currentUser.uid}/city`,{ data: currentUser.city})
-        base.post(`users/user-${currentUser.uid}/country`,{ data: currentUser.country})
-        base.post(`users/user-${currentUser.uid}/isAdmin`,{ data: currentUser.isAdmin})
-        base.post(`users/user-${currentUser.uid}/likesNumber`,{ data: currentUser.likesNumber})
-        base.post(`users/user-${currentUser.uid}/viewsNumber`,{ data: currentUser.viewsNumber})
-        base.post(`users/user-${currentUser.uid}/provider`,{ data: currentUser.provider})
+        await base.post(`users/user-${currentUser.uid}/id`,{ data: currentUser.uid})
+        await base.post(`users/user-${currentUser.uid}/name`,{ data: currentUser.name})
+        await base.post(`users/user-${currentUser.uid}/email`, {data: currentUser.email})
+        await base.post(`users/user-${currentUser.uid}/url`,{ data: currentUser.url})
+        await base.post(`users/user-${currentUser.uid}/city`,{ data: currentUser.city})
+        await base.post(`users/user-${currentUser.uid}/country`,{ data: currentUser.country})
+        await base.post(`users/user-${currentUser.uid}/isAdmin`,{ data: currentUser.isAdmin})
+        await base.post(`users/user-${currentUser.uid}/likesNumber`,{ data: currentUser.likesNumber})
+        await base.post(`users/user-${currentUser.uid}/viewsNumber`,{ data: currentUser.viewsNumber})
+        await base.post(`users/user-${currentUser.uid}/provider`,{ data: currentUser.provider})
      }
 
     goToLogin = event => {
