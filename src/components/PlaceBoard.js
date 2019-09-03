@@ -83,8 +83,7 @@ class PlaceBoard extends Component {
                 label: 'Oui',
                 onClick: () => {
                     event.preventDefault()
-                    var id = this.state.id
-                    firebase.database().ref('/places/place-' + id).remove().catch(function(error) {
+                    firebase.database().ref('/places/' + this.state.id).remove().catch(function(error) {
                         console.log(error)
                     });
                 }

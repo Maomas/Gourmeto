@@ -9,7 +9,6 @@ import UserBoard from "./UserBoard"
 import PlaceBoard from "./PlaceBoard"
 import FloatingButton from "../components/FloatingButton"
 import PlaceForm from "../components/PlaceForm"
-import plus from "../images/plus.svg"
 
 const Title = styled.div`
 font-family: Roboto;
@@ -21,25 +20,6 @@ color: #EFEFEFEF;`
 
 const SpaceBetween = styled.div`
 width: 20px;
-`
-
-const Image = styled.img`
-display:flex;
-height:50px;
-width:50px;
-justify-content:center;
-`
-
-const AddButton = styled.div`
-cursor:pointer;
-margin-top:20px;
-display: flex;
-padding:15px;
-width: 50px;
-height: 50px;
-background: #EFEFEF;
-border-radius: 5px;
-word-wrap: break-word;
 `
 
 const Container = styled.div`
@@ -91,18 +71,19 @@ flex-wrap:wrap;
 const UsersListContainer = styled.div`
 display:flex;
 flex-direction:start;
+flex-wrap:wrap;
 `
 
 const PlacesListContainer = styled.div`
 display:flex;
 flex-direction:start;
+flex-wrap:wrap;
 `
 
 class Admin extends Component{
 
     state= {
         isAdmin: null,
-        displayForm: false,
         goToHomePage: false,
         users: {},
         views: {},
@@ -136,12 +117,6 @@ class Admin extends Component{
         this.setState({ goToHomePage: true})
     }
 
-    handleClick = event => {
-        event.preventDefault()
-        this.setState({displayForm: true})
-    }
-
-
     handleAuth = async authData => {
         const currentUser = {
             uid: authData.user.uid,
@@ -158,6 +133,7 @@ class Admin extends Component{
       }
 
     render() {
+        
         const users = Object.keys(this.state.users)
         .map(key => (
             <>
@@ -198,7 +174,7 @@ class Admin extends Component{
         .map(key => (
             <>
             <PlaceBoard
-                id={this.state.places[key].id}
+                id={key}
                 city={this.state.places[key].city}
                 country={this.state.places[key].country}
                 name={this.state.places[key].name}
@@ -212,7 +188,6 @@ class Admin extends Component{
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
         }
-
         return(
             
             <>
@@ -231,9 +206,8 @@ class Admin extends Component{
                     <Title>Gestion des lieux</Title>
                     <Highlighting />
                     <PlacesListContainer>
+                        <PlaceForm />
                         {places}
-                        <PlaceForm displayForm={this.state.displayForm}/>
-                        <AddButton onClick={this.handleClick}><Image src={plus} alt="add"/></AddButton>
                     </PlacesListContainer>
                 </PlacesContainer>
                 <ViewsContainer>

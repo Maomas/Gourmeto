@@ -2,9 +2,7 @@ import React, {Component} from "react"
 import styled from 'styled-components'
 import 'firebase/auth'
 import 'react-confirm-alert/src/react-confirm-alert.css'
-import 'firebase/auth'
-import base from '../base'
-import {Redirect} from 'react-router-dom'
+import firebase from 'firebase/app'
 
 const Container = styled.div`
 display: flex;
@@ -77,21 +75,25 @@ class PlaceForm extends Component {
         city: '',
         name: '',
         url :'',
-        viewsNumber: '0',
-        id: Date.now(),
-        goToAdmin: false
+        viewsNumber: '0'
     }
 
 
     handleSubmit = event => {
         event.preventDefault()
-        base.post(`places/place-${this.state.id}/id`,{ data: this.state.id}) 
-        base.post(`places/place-${this.state.id}/name`,{ data: this.state.name}) 
-        base.post(`places/place-${this.state.id}/city`,{ data: this.state.city}) 
-        base.post(`places/place-${this.state.id}/country`, {data: this.state.country})
-        base.post(`places/place-${this.state.id}/url`, {data: this.state.url})
-        base.post(`places/place-${this.state.id}/viewsNumber`, {data: this.state.viewsNumber})
-        this.setState({goToAdmin: true})
+        firebase.database().ref('places/place-' + Date.now()).set({
+            country: this.state.country,
+            city: this.state.city,
+            name: this.state.name,
+            url: this.state.url,
+            viewsNumber: this.state.viewsNumber
+          });
+        this.setState({
+            country: '',
+            name: '',
+            city: '',
+            url: ''
+        })
     }
 
     handleChangeCountry = event => {
@@ -116,44 +118,35 @@ class PlaceForm extends Component {
 
     render(){
 
-        let display;
-
-        if(this.state.goToAdmin){
-            return <Redirect push to={'/admin'}></Redirect>
-        }
-
-        if(this.props.displayForm){
-            display=true
-        }
-        else{
-            display=false
-        }
         return(
             <>
-            {display ? (
                 <Container>
                 <Form onSubmit={this.handleSubmit}>
                     <Title>Ajouter un lieu</Title>
                     <Input 
                     placeholder="Nom du lieu"
+                    value={this.state.name}
                     onChange={this.handleChangeName}
                     type="text"
                     required
                     />
                     <Input 
                     placeholder="Ville"
+                    value={this.state.city}
                     onChange={this.handleChangeCity}
                     type="text"
                     required
                     />
                     <Input 
                     placeholder="Pays"
+                    value={this.state.country}
                     onChange={this.handleChangeCountry}
                     type="text"
                     required
                     />
                     <Input 
                     placeholder="Url de la photo du lieu"
+                    value={this.state.url}
                     onChange={this.handleChangeUrl}
                     type="text"
                     required
@@ -161,9 +154,6 @@ class PlaceForm extends Component {
                     <Button type='submit'><Text>Ajouter</Text></Button>
                 </Form>
             </Container>
-            ) : (
-                <span></span>
-            )}
             <SpaceBetween/>
             </>
         )

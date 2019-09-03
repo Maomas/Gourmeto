@@ -181,7 +181,6 @@ isUser = uid => uid === this.state.currentUser.uid
 
 
   render(){
-    
       const places = Object.keys(this.state.places)
       .filter(this.searchingFor(this.state.search))
       .map(key => (
@@ -227,7 +226,7 @@ isUser = uid => uid === this.state.currentUser.uid
       <TitleSearchBarContainer>
         <MainTitle />
         <SearchBarContainer>
-          <SearchBar onChange={this.handleSearch} onFocus={this.handleFocus} />
+          <SearchBar onChange={this.handleSearch} onFocus={this.handleFocus} onBlur={this.onBlur}/>
           {this.state.isSearchBarOnFocus ? (
             <SearchBarResults style={{display: 'block'}}>
               {places}

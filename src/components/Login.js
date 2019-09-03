@@ -152,6 +152,7 @@ class Login extends Component {
                 base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})  
             }
             else{
+                console.log('currentUser'+JSON.stringify(this.state.currentUser))
                 base.syncState(`/user/${this.state.currentUser.uid}`, {
                     context: this,
                     state: 'currentUser'
@@ -203,6 +204,10 @@ class Login extends Component {
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
         .then(e => {
             this.setState({goToHomePage: true})
+            base.syncState(`/user/${this.state.currentUser.uid}`, {
+                context: this,
+                state: 'currentUser'
+            })
         })
         .catch(error => {
             var errorCode = error.code
@@ -216,8 +221,8 @@ class Login extends Component {
     }
 
     render(){
-
         let error;
+       
 
         if(this.state.goToHomePage){
             return <Redirect to={'/'}></Redirect>
