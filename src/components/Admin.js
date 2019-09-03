@@ -138,7 +138,7 @@ class Admin extends Component{
         .map(key => (
             <>
             <UserBoard
-                id={this.state.users[key].id}
+                id={key}
                 city={this.state.users[key].city}
                 country={this.state.users[key].country}
                 isAdmin={this.state.users[key].isAdmin}
@@ -155,7 +155,7 @@ class Admin extends Component{
         .map(key => (
             <>
             <ViewBoard
-                id={this.state.views[key].id}
+                id={key}
                 placeId={this.state.views[key].placeId}
                 isUser={this.isUser}
                 name={this.state.views[key].userName}

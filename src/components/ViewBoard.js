@@ -146,7 +146,7 @@ class ViewBoard extends Component{
                 label: 'Oui',
                 onClick: () => {
 					event.preventDefault()
-					var viewId = this.state.id;
+					var viewId = this.state.id.substring(5);
 					console.log('/views/view-' + viewId)
                     firebase.database().ref('/views/view-' + viewId).remove().catch(function(error) {
                         console.log(error)

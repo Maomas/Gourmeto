@@ -132,7 +132,7 @@ class PlaceBoard extends Component {
         return(
             <>
             <Container>
-                <a href={`place/${this.state.id}`}><PlacePhoto style={{ backgroundImage: `url(${this.state.url})` }} /></a>
+                <a href={`place/${this.state.id.substring(6)}`}><PlacePhoto style={{ backgroundImage: `url(${this.state.url})` }} /></a>
                 <StrongText>{this.state.name}</StrongText>
                 <Text>{city}, {country}</Text>
                 <Text>{this.state.viewsNumber} avis</Text>

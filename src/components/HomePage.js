@@ -190,7 +190,7 @@ isUser = uid => uid === this.state.currentUser.uid
     const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard
-                id={this.state.views[key].id}
+                id={key}
                 placeId={this.state.views[key].placeId}
                 uid={this.state.views[key].uid} 
                 name={this.state.views[key].userName}

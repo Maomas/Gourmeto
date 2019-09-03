@@ -105,7 +105,7 @@ class UserBoard extends Component {
                 label: 'Oui',
                 onClick: () => {
                     event.preventDefault()
-                    var userId = this.state.id;
+                    var userId = this.state.id.substring(5);
                     firebase.database().ref('/users/user-' + userId).remove().catch(function(error) {
                         console.log(error)
                     });
@@ -151,7 +151,7 @@ class UserBoard extends Component {
             <>
             <Container>
                 <HeaderContainer>
-                    <a href={`profile/${this.state.id}`}><Avatar style={{ backgroundImage: `url(${this.state.url})`, backgroundColor: "white" }}/></a>
+                    <a href={`profile/${this.state.id.substring(5)}`}><Avatar style={{ backgroundImage: `url(${this.state.url})`, backgroundColor: "white" }}/></a>
                 </HeaderContainer>
                 <StrongText>{this.state.name}</StrongText>
                 <Text>{city}, {country}</Text>

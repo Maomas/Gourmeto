@@ -90,7 +90,6 @@ class Place extends Component{
                 this.setState({goToNotFound:true})
             }
             else{
-                base.syncState(`/places/place-${this.state.id}/id`, {context: this,state: 'id'})
                 base.syncState(`/places/place-${this.state.id}/name`, {context: this,state: 'place'})
                 base.syncState(`/places/place-${this.state.id}/url`, {context: this,state: 'url'})
                 base.syncState(`/places/place-${this.state.id}/city`, {context: this,state: 'city'})
@@ -175,6 +174,7 @@ class Place extends Component{
     isUser = uid => uid === this.state.currentUser.uid
 
     render(){
+        console.log(this.state.id)
         const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard
