@@ -110,7 +110,8 @@ class Login extends Component {
         password: '',
         provider: '',
         errorCode: null,
-        users: {}
+        users: {},
+        isAdmin: false
     }
 
     componentDidMount(){
@@ -134,35 +135,43 @@ class Login extends Component {
             provider: this.state.provider
         }
         this.setState({currentUser: currentUser})
-        await firebase.database().ref('/users/user-' + this.state.currentUser.uid).once('value').then(snapshot => {
-            if(!snapshot.val()){
-                if(Object.keys(this.state.users).length === 0){
-                    base.post(`users/user-${this.state.currentUser.uid}/isAdmin`,{ data: true})
-                } else{
-                    base.post(`users/user-${this.state.currentUser.uid}/isAdmin`,{ data: false})
-                }
-                base.post(`users/user-${this.state.currentUser.uid}/id`,{ data: this.state.currentUser.uid})
-                base.post(`users/user-${this.state.currentUser.uid}/name`,{ data: this.state.currentUser.name})
-                base.post(`users/user-${this.state.currentUser.uid}/email`, {data: this.state.currentUser.email})
-                base.post(`users/user-${this.state.currentUser.uid}/url`,{ data: this.state.currentUser.url})
-                base.post(`users/user-${this.state.currentUser.uid}/likesNumber`,{ data: this.state.currentUser.likesNumber})
-                base.post(`users/user-${this.state.currentUser.uid}/viewsNumber`,{ data: this.state.currentUser.viewsNumber})
-                base.post(`users/user-${this.state.currentUser.uid}/country`, { data: this.state.currentUser.country})
-                base.post(`users/user-${this.state.currentUser.uid}/city`, { data: this.state.currentUser.city})
-                base.post(`users/user-${this.state.currentUser.uid}/provider`,{ data: this.state.currentUser.provider})  
-            }
-            else{
-                console.log('currentUser'+JSON.stringify(this.state.currentUser))
-                base.syncState(`/user/${this.state.currentUser.uid}`, {
+
+        await firebase.database().ref(`users/user-${this.state.currentUser.uid}/id`).on("value", snapshot => {
+            if (snapshot.val()){
+                base.syncState(`/users/user-${this.state.currentUser.uid}`, {
                     context: this,
                     state: 'currentUser'
                 })
             }
-        })
+            else{
+                firebase.database().ref('users/user-' + this.state.currentUser.uid).set({
+                    id: this.state.currentUser.uid,
+                    email: this.state.currentUser.email,
+                    name : this.state.currentUser.name,
+                    url: this.state.currentUser.url,
+                    likesNumber: this.state.currentUser.likesNumber,
+                    viewsNumber: this.state.currentUser.viewsNumber,
+                    country: this.state.currentUser.country,
+                    city: this.state.currentUser.city,
+                    provider: this.state.currentUser.provider,
+                    isAdmin: this.state.isAdmin
+                });
+            }
+         });
+         await firebase.database().ref(`users/user-${this.state.currentUser.uid}/id`).off()
      }
 
     authenticateGoogle = () => {
         const authProviderGoogle = new firebase.auth.GoogleAuthProvider()
+        firebase.database().ref("users").on("value", snapshot => {
+            if(snapshot.numChildren()===0){
+                this.setState({isAdmin: true})
+            }
+            else{
+                this.setState({isAdmin: false})
+            }
+        });
+        firebase.database().ref("users").off()
         this.setState({provider: 'google'})
         firebaseApp
         .auth()
@@ -172,6 +181,15 @@ class Login extends Component {
 
     authenticateFacebook = () => {
         const authProviderFacebook = new firebase.auth.FacebookAuthProvider()
+        firebase.database().ref("users").on("value", snapshot => {
+            if(snapshot.numChildren()===0){
+                this.setState({isAdmin: true})
+            }
+            else{
+                this.setState({isAdmin: false})
+            }
+        });
+        firebase.database().ref("users").off()
         this.setState({provider: 'facebook'})
         firebaseApp
         .auth()

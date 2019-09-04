@@ -106,16 +106,14 @@ class ViewBoard extends Component{
 
 
 	componentDidMount() {
-		base.syncState('/likes', {
-			context: this,
-			state: 'likes'
-		})
 		firebase.database().ref('/users/user-'+this.state.uid).once('value').then(snapshot => {
             base.syncState(`/users/user-${this.state.uid}/likesNumber`, {context: this, state: 'likesNumber'})
-        })
+		})
+		base.syncState(`views/${this.state.id}/likes`, {context: this, state: 'likes'})
 	}
 
 	state = {
+		currentUserId: this.props.currentUserId,
 		id: this.props.id,
 		placeId: this.props.placeId,
 		key:this.props.key,
@@ -129,11 +127,10 @@ class ViewBoard extends Component{
 		likesNumber: '',
 		urlUser: this.props.urlUser,
 		likes: {},
-		isLiked: false,
 		like:'',
-		likeId: '',
 		user: {},
-		admin: this.props.admin
+		admin: this.props.admin,
+		isLiked: false
 	}
 
 	
@@ -146,9 +143,8 @@ class ViewBoard extends Component{
                 label: 'Oui',
                 onClick: () => {
 					event.preventDefault()
-					var viewId = this.state.id.substring(5);
-					console.log('/views/view-' + viewId)
-                    firebase.database().ref('/views/view-' + viewId).remove().catch(function(error) {
+					var viewId = this.state.id;
+                    firebase.database().ref('/views/' + viewId).remove().catch(function(error) {
                         console.log(error)
                     });
                 }
@@ -165,16 +161,14 @@ class ViewBoard extends Component{
 		event.preventDefault()
 		if(this.state.isLiked){
 			this.deleteLike(this.state.likeId)
-			this.setState({isLiked: false})
 		}
 		else{
 			const like = {
-				uid: this.props.uid,
-				placeId: this.state.id
+				uid: this.state.uid,
+				placeId: this.state.placeId
 			}
 			this.addLike(like)
 			this.setState({like})
-			this.setState({isLiked: true})
 		}
 	}
 
@@ -183,6 +177,7 @@ class ViewBoard extends Component{
 		likes[`like-${Date.now()}`] = like
 		this.setState({likeId: `like-${Date.now()}`})
 		this.setState({likes})
+		this.setState({isLiked:true})
 		var likesNumber = parseInt(this.state.likesNumber) + 1
         this.setState({likesNumber: likesNumber.toString()})
 	}
@@ -191,6 +186,7 @@ class ViewBoard extends Component{
 		const likes = {...this.state.likes}
 		likes[key] = null
 		this.setState({likes})
+		this.setState({isLiked: false})
 		var likesNumber = parseInt(this.state.likesNumber) - 1
         this.setState({likesNumber: likesNumber.toString()})
 	}

@@ -74,7 +74,6 @@ class ViewForm extends Component{
         uid: this.props.uid,
         userName: this.props.userName,
         urlUser: this.props.urlUser,
-        likeId: null,
         time: null
     }
 
@@ -89,8 +88,7 @@ class ViewForm extends Component{
             uid: this.props.uid,
             userName: this.props.userName,
             urlUser: this.props.urlUser,
-            time: this.state.time,
-            likeId: null
+            time: this.state.time
         }
         addView(view)
         this.setState({ view: '', likeId, placeId, length, place, url, uid, userName, urlUser, time })

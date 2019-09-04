@@ -77,6 +77,14 @@ height: 50px;
 align-items:center;
 `
 
+const SuggestionContainer = styled.div`
+font-family: Roboto;
+font-style: normal;
+font-size: 30px;
+line-height: 19px;
+color: #EFEFEF;
+`
+
 const StrongText = styled.span`
 font-family: Roboto;
 font-style: normal;
@@ -107,7 +115,8 @@ class HomePage extends Component {
     likes: {},
     currentUser: {},
     search: '',
-    isSearchBarOnFocus: false
+    isSearchBarOnFocus: false,
+    isAdmin: false
   }
     
 
@@ -144,8 +153,7 @@ handleAuth = async authData => {
       email: authData.user.email,
       url: authData.user.photoURL
   }
-  this.setState({currentUser: currentUser})
-  
+  this.setState({currentUser: currentUser})  
 }
 
 logout = async () => {
@@ -163,8 +171,6 @@ handleBlur = event => {
   this.setState({isSearchBarOnFocus: false})
 }
 
-isUser = uid => uid === this.state.currentUser.uid
-
   goToLogin = event => {
     event.preventDefault()
     this.setState({ goToLogin: true})
@@ -181,6 +187,21 @@ isUser = uid => uid === this.state.currentUser.uid
 
 
   render(){
+
+    let suggestionContainer;
+
+    firebase.database().ref('/users/user-' + this.state.currentUser.uid).once('value').then(snapshot => {
+      if(snapshot.val()){
+        this.setState({isAdmin: snapshot.val().isAdmin})
+      }
+    });
+
+    if(!this.state.isAdmin){
+      suggestionContainer = <SuggestionContainer>
+      Vous ne trouvez pas le lieu que vous avez visité ? <a href="/suggestion">Faites une suggestion</a>
+    </SuggestionContainer>
+    }
+
       const places = Object.keys(this.state.places)
       .filter(this.searchingFor(this.state.search))
       .map(key => (
@@ -199,6 +220,7 @@ isUser = uid => uid === this.state.currentUser.uid
                 description={this.state.views[key].view}
                 url={this.state.views[key].url}
                 urlUser={this.state.views[key].urlUser}
+                currentUserId={this.state.currentUser.uid}
                 admin='false'
                 />
           ))
@@ -238,6 +260,7 @@ isUser = uid => uid === this.state.currentUser.uid
           )}
         </SearchBarContainer>
       </TitleSearchBarContainer>
+      {suggestionContainer}
       <ViewsList>
         <ListTitle>Avis</ListTitle>
           { views }

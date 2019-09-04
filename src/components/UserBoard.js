@@ -105,8 +105,9 @@ class UserBoard extends Component {
                 label: 'Oui',
                 onClick: () => {
                     event.preventDefault()
-                    var userId = this.state.id.substring(5);
-                    firebase.database().ref('/users/user-' + userId).remove().catch(function(error) {
+                    var userId = this.state.id;
+                    console.log(userId)
+                    firebase.database().ref('/users/' + userId).remove().catch(function(error) {
                         console.log(error)
                     });
                 }

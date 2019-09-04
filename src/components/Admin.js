@@ -7,6 +7,7 @@ import {Redirect} from 'react-router-dom'
 import ViewBoard from "./ViewBoard"
 import UserBoard from "./UserBoard"
 import PlaceBoard from "./PlaceBoard"
+import SuggestionBoard from "./SuggestionBoard"
 import FloatingButton from "../components/FloatingButton"
 import PlaceForm from "../components/PlaceForm"
 
@@ -62,7 +63,17 @@ display:flex;
 flex-direction:column;
 `
 
+const SuggestionsContainer = styled.div`
+display:flex;
+flex-direction:column;
+`
+
 const ViewsListContainer = styled.div`
+display:flex;
+flex-direction:flex-start;
+flex-wrap:wrap;
+`
+const SuggestionsListContainer = styled.div`
 display:flex;
 flex-direction:flex-start;
 flex-wrap:wrap;
@@ -88,6 +99,7 @@ class Admin extends Component{
         users: {},
         views: {},
         places: {},
+        suggestions: {},
         currentUser: {}
     }
 
@@ -108,6 +120,10 @@ class Admin extends Component{
         base.syncState('/places', {
             context: this,
             state: 'places'
+        })
+        base.syncState('/suggestions', {
+            context: this,
+            state: 'suggestions'
         })
         
     }
@@ -133,7 +149,20 @@ class Admin extends Component{
       }
 
     render() {
-        
+
+        const suggestions = Object.keys(this.state.suggestions)
+        .map(key => (
+            <>
+            <SuggestionBoard
+                id={key}
+                name={this.state.suggestions[key].name}
+                url={this.state.suggestions[key].url}
+                city={this.state.suggestions[key].city}
+                country={this.state.suggestions[key].country}
+            />
+            <SpaceBetween />
+            </>
+        ))
         const users = Object.keys(this.state.users)
         .map(key => (
             <>
@@ -165,6 +194,7 @@ class Admin extends Component{
                 url={this.state.views[key].url}
                 urlUser={this.state.views[key].urlUser}
                 uid={this.state.views[key].uid}
+                currentUserId={this.state.currentUser.uid}
                 admin='true'
             /> 
             <SpaceBetween/>
@@ -217,6 +247,13 @@ class Admin extends Component{
                     {views}
                     </ViewsListContainer>
                 </ViewsContainer>
+                <SuggestionsContainer>
+                    <Title>Gestion des suggestions</Title>
+                    <Highlighting />
+                    <SuggestionsListContainer>
+                        {suggestions}
+                    </SuggestionsListContainer>
+                </SuggestionsContainer>
             </Container>
             </>
         )

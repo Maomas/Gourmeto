@@ -12,6 +12,7 @@ import ProfileUpdate from './components/ProfileUpdate'
 import NotFound from './components/NotFound'
 import UserNotFound from './components/UserNotFound'
 import PlaceNotFound from './components/PlaceNotFound'
+import Suggestion from './components/Suggestion'
 import Admin from './components/Admin'
 
 const Root = () => (
@@ -26,6 +27,7 @@ const Root = () => (
             <Route exact path='/userNotFound' component={UserNotFound}></Route>
             <Route exact path='/placeNotFound' component={PlaceNotFound}></Route>
             <Route exact path='/place/:id' component={Place}></Route>
+            <Route exact path='/suggestion' component={Suggestion}></Route>
             <Route component={NotFound}></Route>
         </Switch>
     </BrowserRouter>

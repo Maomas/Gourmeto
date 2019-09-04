@@ -174,11 +174,10 @@ class Place extends Component{
     isUser = uid => uid === this.state.currentUser.uid
 
     render(){
-        console.log(this.state.id)
         const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard
-                id={this.state.views[key].id}
+                id={key}
                 placeId={this.state.views[key].placeId}
                 isUser={this.isUser}
                 name={this.state.views[key].userName}
@@ -188,6 +187,7 @@ class Place extends Component{
                 url={this.state.views[key].url}
                 urlUser={this.state.views[key].urlUser}
                 uid={this.state.views[key].uid} 
+                currentUserId={this.state.currentUser.uid}
                 /> 
         ))
 
