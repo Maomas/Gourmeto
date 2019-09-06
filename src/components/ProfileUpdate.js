@@ -66,7 +66,11 @@ margin-left: 50px;`
 const ProfileContainer = styled.div`
 display: flex;
 flex-direction: row;
-justify-content: space-evenly;`
+justify-content: space-evenly;
+@media (max-width: 768px) {
+    flex-direction: column;
+    align-items:center;
+  }`
 
 const Image = styled.div`
 width: 360px;

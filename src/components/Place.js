@@ -34,6 +34,9 @@ margin-top: 300px;
 display: flex;
 flex-direction: row;
 justify-content: space-evenly;
+@media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 const PlaceDataContainer = styled.div`

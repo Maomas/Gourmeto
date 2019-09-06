@@ -15,6 +15,9 @@ const Container = styled.div`
 margin-top: 15%;
 display: flex;
 justify-content:center;
+@media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 const InputsContainer = styled.div`
@@ -123,6 +126,7 @@ class Login extends Component {
 
 
     handleAuth = async authData => {
+
         const currentUser = {
             uid: authData.user.uid,
             name: authData.user.displayName,
@@ -136,7 +140,7 @@ class Login extends Component {
         }
         this.setState({currentUser: currentUser})
 
-        await firebase.database().ref(`users/user-${this.state.currentUser.uid}/id`).on("value", snapshot => {
+        await firebase.database().ref(`users/user-${this.state.currentUser.uid}`).on("value", snapshot => {
             if (snapshot.val()){
                 base.syncState(`/users/user-${this.state.currentUser.uid}`, {
                     context: this,
@@ -158,7 +162,6 @@ class Login extends Component {
                 });
             }
          });
-         await firebase.database().ref(`users/user-${this.state.currentUser.uid}/id`).off()
      }
 
     authenticateGoogle = () => {
@@ -189,7 +192,6 @@ class Login extends Component {
                 this.setState({isAdmin: false})
             }
         });
-        firebase.database().ref("users").off()
         this.setState({provider: 'facebook'})
         firebaseApp
         .auth()

@@ -33,6 +33,9 @@ const TitleSearchBarContainer = styled.div`
   align-content: center;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 const ListTitle = styled.div`
@@ -43,7 +46,8 @@ font-size: 51.6px;
 line-height: 60px;
 margin-top: 200px;
 color: #EFEFEF;
-margin-bottom: 20px;`
+margin-bottom: 20px;
+`
 
 
 const ViewsList = styled.div`
@@ -78,10 +82,15 @@ align-items:center;
 `
 
 const SuggestionContainer = styled.div`
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 font-family: Roboto;
 font-style: normal;
 font-size: 30px;
 line-height: 19px;
+margin-top:100px;
 color: #EFEFEF;
 `
 
@@ -168,7 +177,9 @@ handleFocus = event => {
 
 handleBlur = event => {
   event.preventDefault()
-  this.setState({isSearchBarOnFocus: false})
+  setTimeout(function() { 
+    this.setState({isSearchBarOnFocus: false})
+}.bind(this), 100)
 }
 
   goToLogin = event => {
@@ -187,18 +198,12 @@ handleBlur = event => {
 
 
   render(){
-
     let suggestionContainer;
 
-    firebase.database().ref('/users/user-' + this.state.currentUser.uid).once('value').then(snapshot => {
-      if(snapshot.val()){
-        this.setState({isAdmin: snapshot.val().isAdmin})
-      }
-    });
 
-    if(!this.state.isAdmin){
+    if(this.state.currentUser.uid){
       suggestionContainer = <SuggestionContainer>
-      Vous ne trouvez pas le lieu que vous avez visité ? <a href="/suggestion">Faites une suggestion</a>
+      <span>Vous ne trouvez pas le lieu que vous avez visité ?&nbsp;&nbsp;</span><a style={{ marginTop: '10px' }} href="/suggestion">Faites une suggestion</a>
     </SuggestionContainer>
     }
 
@@ -248,7 +253,7 @@ handleBlur = event => {
       <TitleSearchBarContainer>
         <MainTitle />
         <SearchBarContainer>
-          <SearchBar onChange={this.handleSearch} onFocus={this.handleFocus} onBlur={this.onBlur}/>
+          <SearchBar onChange={this.handleSearch} onFocus={this.handleFocus} onBlur={this.handleBlur}/>
           {this.state.isSearchBarOnFocus ? (
             <SearchBarResults style={{display: 'block'}}>
               {places}

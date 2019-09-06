@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import FloatingButton from './FloatingButton'
 import styled, {createGlobalStyle} from 'styled-components'
-import background from '../images/background.jpg'
+import background from '../images/background.gif'
 import {Redirect} from 'react-router-dom'
 
 

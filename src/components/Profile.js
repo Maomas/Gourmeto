@@ -25,7 +25,10 @@ align-content:space-between;`
 const ProfileContainer = styled.div`
 display: flex;
 flex-direction: row;
-justify-content: space-evenly;`
+justify-content: space-evenly;
+@media (max-width: 768px) {
+    flex-direction: column;
+  }`
 
 const ViewsLikesContainer = styled.div`
 display: flex;`
