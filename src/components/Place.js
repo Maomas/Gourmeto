@@ -27,6 +27,9 @@ width: 600px;
 display: flex;
 justify-content:center;
 align-items: center;
+@media (max-width: 768px) {
+    left: 50px;
+  }
 `
 
 const PlaceContainer = styled.div`
@@ -36,6 +39,8 @@ flex-direction: row;
 justify-content: space-evenly;
 @media (max-width: 768px) {
     flex-direction: column;
+    justify-content:center;
+    align-items: center;
   }
 `
 
@@ -50,7 +55,11 @@ width: 360px;
 height: 360px;
 border-radius: 10.6303px;
 border: 1px solid black;
-background-size: cover;`
+background-size: cover;
+@media (max-width: 768px){
+    width: 280px;
+    height: 141px;
+}`
 
 const Title = styled.div`
 font-family: Roboto;
@@ -58,7 +67,11 @@ font-style: normal;
 font-weight: normal;
 font-size: 64px;
 line-height: 75px;
-color: #EFEFEFEF;`
+color: #EFEFEFEF;
+@media (max-width:768px){
+    font-size: 32px;
+    line-height: 37px;
+}`
 
 const PlaceWrapper = styled.div`
 font-family: Roboto;
@@ -66,7 +79,11 @@ font-style: normal;
 font-weight: normal;
 font-size: 32px;
 line-height: 37px;
-color: #EFEFEF;`
+color: #EFEFEF;
+@media (max-width: 768px){
+    font-size: 16px;
+    line-height: 19px;
+}`
 
 const ListTitle = styled.div`
 font-family: Roboto;
@@ -76,7 +93,11 @@ font-size: 51.6px;
 line-height: 60px;
 margin-top: 200px;
 color: #EFEFEF;
-margin-bottom: 20px;`
+margin-bottom: 20px;
+@media (max-width: 768px){
+    font-size: 24px;
+    line-height: 28px;
+}`
 
 
 const ViewsList = styled.div`
