@@ -17,7 +17,8 @@ display: flex;
 justify-content:center;
 @media (max-width: 768px) {
     flex-direction: column;
-  }
+    align-items: center;
+}
 `
 
 const InputsContainer = styled.div`
@@ -25,6 +26,7 @@ display:flex;
 flex-direction:column;
 margin-left: 45px;
 justify-content:center;
+align-items:center;
 `
 
 const LoginContainer = styled.div`
@@ -32,6 +34,10 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 margin-left: 35px;
+@media (max-width: 768px){
+    align-items:center;
+    margin-left: 0px;
+}
 `
 
 const LoginChoiceContainer = styled.div`
@@ -56,6 +62,13 @@ font-size: 26.3333px;
 line-height: 31px;
 margin-top: 25px;
 color: #000000;
+@media (max-width: 768px) {
+    width: 238.5px;
+    height: 36px;
+    font-size: 12px;
+    line-height: 14px;
+     padding: 2px;
+}
 `
 
 const Button = styled.button`
@@ -70,8 +83,11 @@ mix-blend-mode: hard-light;
 border: 1.0022px solid #FFFFFF;
 backdrop-filter: blur(4.00879px);
 border-radius: 7.40084px;
-margin-top:30px
-`
+margin-top:30px;
+@media (max-width: 768px){
+    width: 236px;
+    height: 28px;
+}`
 const Text = styled.span`
 font-family: Roboto;
 font-style: normal;
@@ -80,16 +96,22 @@ font-size: 26.3333px;
 line-height: 31px;
 color: #FFFFFF;
 border-radius: 4px;
-`
+@media (max-width: 768px){
+    font-size: 12.5571px;
+    line-height: 15px;
+}`
 
 const Header = styled.div`
 position: absolute;
 left: 80%;
-top: 69px;
+top: 29px;
 width: 600px;
 display: flex;
 justify-content:center;
 align-items: center;
+@media (max-width: 768px){
+    left: 20%;
+}
 `
 
 const Error = styled.div`
@@ -100,6 +122,10 @@ font-size: 26.3333px;
 line-height: 31px;
 color: #D51515;
 border-radius: 4px;
+@media (max-width: 768px){
+    font-size: 12.5571px;
+    line-height: 15px;
+}
 `
 
 class Login extends Component {

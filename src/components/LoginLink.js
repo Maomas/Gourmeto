@@ -14,6 +14,11 @@ color: #FFFFFF;
 width: 142px;
 height: 43px;
 cursor:pointer;
+@media (max-width: 768px) {
+    font-size: 15px;
+    line-height: 18px;
+    height: 20px;
+}
 `
 
 const TextLoginWrapper = styled.div`
@@ -29,6 +34,11 @@ color: #FFFFFF;
 width: 210.22px;
 height: 43px;
 cursor:pointer;
+@media (max-width: 768px) {
+    font-size: 15px;
+    line-height: 18px;
+    height: 20px;
+}
 `
 
 const Highlighting = styled.div`
@@ -36,6 +46,10 @@ background: #C4C4C4;
 border-radius: 12.069px;
 width: 146px;
 height: 12px;
+@media (max-width: 768px){
+    width: 62px;
+    height: 5px;
+}
 `
 
 const HighlightingTwo = styled.div`
@@ -43,6 +57,10 @@ background: #C4C4C4;
 border-radius: 12.069px;
 width: 210px;
 height: 12.07px;
+@media (max-width: 768px){
+    width: 87px;
+    height: 5px;
+}
 `
 
 const TransparentHighlighting = styled.div`
@@ -57,6 +75,9 @@ const LoginContainer = styled.div`
 display:flex;
 flex-direction:column;
 justify-content:center;
+@media (max-width: 768px){
+    align-items:center;
+}
 `
 
 const LoginLink = ({contain, location, onClick}) => {
