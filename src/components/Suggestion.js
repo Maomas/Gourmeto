@@ -12,7 +12,10 @@ display: flex;
 justify-content: center;
 align-items: center;
 align-content:center;
-flex-direction: column;`
+flex-direction: column;
+@media (max-width: 768px) {
+    margin-top: 30%;
+}`
 
 const Header = styled.div`
 position: absolute;
@@ -21,12 +24,16 @@ top: 69px;
 width: 600px;
 display: flex;
 justify-content:center;
-align-items: center;`
+align-items: center;
+@media (max-width: 768px) {
+    left: 80px;
+}`
 
 const SuggestionContainer = styled.div`
 display: flex;
 flex-direction: column;
-justify-content: space-evenly;`
+justify-content: space-evenly;
+`
 
 const Title = styled.div`
 font-family: Roboto;
@@ -34,7 +41,10 @@ font-style: normal;
 font-weight: normal;
 font-size: 64px;
 line-height: 75px;
-color: #EFEFEFEF;`
+color: #EFEFEFEF;
+@media (max-width: 768px) {
+    font-size: 32px;
+}`
 
 const Subtitle = styled.div`
 font-family: Roboto;
@@ -42,7 +52,10 @@ font-style: normal;
 font-weight: normal;
 font-size: 32px;
 line-height: 75px;
-color: #EFEFEFEF;`
+color: #EFEFEFEF;
+@media (max-width: 768px) {
+    font-size: 16px;
+}`
 
 const TitleContainer = styled.div`
 display:flex;
@@ -58,6 +71,9 @@ const Highlighting = styled.div`
 background: #EFEFEFEF;
 border-radius: 12.069px;
 height: 12px;
+@media (max-width: 768px) {
+    height: 6px;
+}
 `
 
 const Image = styled.div`
@@ -65,7 +81,12 @@ height: 360px;
 border-radius: 10.6303px;
 border: 1px solid black;
 background-size: cover;
-margin-top:50px;`
+margin-top:50px;
+@media (max-width: 768px) {
+    height: 120px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}`
 
 const Input = styled.input`
 height: 79px;
@@ -77,7 +98,12 @@ font-style: normal;
 font-weight: normal;
 font-size: 26.3333px;
 line-height: 31px;
-color: #000000;`
+color: #000000;
+@media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 10px;
+    height: 30px;
+}`
 
 const Text = styled.div`
 font-family: Roboto;
@@ -86,6 +112,10 @@ font-weight: normal;
 font-size: 40px;
 line-height: 75px;
 color: #EFEFEFEF;
+@media (max-width: 768px) {
+    font-size: 20px;
+    line-height: 20px;
+}
 `
 
 const Button = styled.button`
@@ -101,6 +131,9 @@ backdrop-filter: blur(4.00879px);
 border-radius: 7.40084px;
 margin-top:30px;
 margin-bottom: 100px;
+@media (max-width: 768px) {
+    height: 45px;
+}
 `
 
 class Suggestion extends Component {

@@ -17,7 +17,10 @@ font-style: normal;
 font-weight: normal;
 font-size: 64px;
 line-height: 75px;
-color: #EFEFEFEF;`
+color: #EFEFEFEF;
+@media (max-width: 768px) {
+    font-size: 32px;
+}`
 
 const SpaceBetween = styled.div`
 width: 20px;
@@ -30,7 +33,9 @@ flex-direction:column;
 margin-top: 10%;
 margin-left: 5%;
 margin-right: 5%;
-`
+@media (max-width: 768px) {
+    margin-top: 150px;
+}`
 
 const Header = styled.div`
 position: absolute;
@@ -40,12 +45,17 @@ width: 600px;
 display: flex;
 justify-content:center;
 align-items: center;
-`
+@media (max-width: 768px) {
+    left: 80px;
+}`
 
 const Highlighting = styled.div`
 background: #C4C4C4;
 border-radius: 12.069px;
 height: 12px;
+@media (max-width: 768px) {
+    height: 6px;
+}
 `
 
 const UsersContainer = styled.div`
@@ -159,6 +169,7 @@ class Admin extends Component{
                 url={this.state.suggestions[key].url}
                 city={this.state.suggestions[key].city}
                 country={this.state.suggestions[key].country}
+                uid={this.state.suggestions[key].uid}
             />
             <SpaceBetween />
             </>

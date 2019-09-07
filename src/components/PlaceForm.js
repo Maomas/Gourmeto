@@ -15,7 +15,10 @@ border-radius: 5px;
 margin-top:20px;
 word-wrap: break-word;
 justify-content:center;
-`
+@media (max-width: 768px) {
+	width: 266.86px;
+	height: 250px;
+}`
 
 const Title = styled.div`
 font-family: Roboto;
@@ -23,7 +26,10 @@ font-style: normal;
 font-weight: normal;
 font-size: 32px;
 line-height: 75px;
-color: #000000;`
+color: #000000;
+@media (max-width: 768px) {
+	font-size: 20px;
+}`
 
 const SpaceBetween = styled.div`
 width: 20px;
@@ -45,6 +51,12 @@ font-size: 26.3333px;
 line-height: 31px;
 padding: 10px;
 color: #000000;
+@media (max-width: 768px) {
+    height: 10px;
+    font-size: 15px;
+    line-height: 10px;
+    margin-bottom: 1px;
+}
 `
 
 const Button = styled.button`
@@ -57,7 +69,12 @@ justify-content:center;
 border-radius: 7.40084px;
 padding:15px;
 margin-top:20px;
-cursor:pointer;`
+cursor:pointer;
+@media (max-width: 768px) {
+    margin-top: 5px;
+    height: 20px;
+}
+`
 
 const Text = styled.span`
 font-family: Roboto;
@@ -65,7 +82,11 @@ font-style: normal;
 font-weight: normal;
 font-size: 26.3912px;
 line-height: 31px;
-color: #000000;`
+color: #000000;
+@media (max-width: 768px) {
+    font-size: 15px;
+    line-height:5px;
+}`
 
 class PlaceForm extends Component {
 

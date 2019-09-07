@@ -16,6 +16,10 @@ background: #EFEFEF;
 border-radius: 5px;
 margin-top:20px;
 word-wrap: break-word;
+@media (max-width: 768px) {
+	width: 266.86px;
+	height: 200px;
+}
 `
 const StrongText = styled.div`
 margin-top: 10px;
@@ -25,7 +29,10 @@ font-weight: bold;
 font-size: 25px;
 line-height: 19px;
 color: #000000;
-`
+@media (max-width: 768px) {
+	font-size: 12px;
+	line-height: 8px;
+}`
 
 const Avatar = styled.div`
 width: 150px;
@@ -33,7 +40,10 @@ height: 150px;
 background-size: cover;
 border-radius:5px;
 border: 1px solid black;
-`
+@media (max-width: 768px) {
+	width: 32.22px;
+	height: 32.7px;
+}`
 
 const RedText = styled.div`
 font-family: Roboto;
@@ -43,6 +53,10 @@ font-size: 20px;
 line-height: 19px;
 margin-top: 10px;
 color: #D51515;
+@media (max-width: 768px) {
+	font-size: 12px;
+	line-height: 8px;
+}
 `
 
 const Text = styled.div`
@@ -53,6 +67,10 @@ font-size: 20px;
 line-height: 19px;
 margin-top: 10px;
 color: #000000;
+@media (max-width: 768px) {
+	font-size: 12px;
+	line-height: 8px;
+}
 `
 const TextButton = styled.span`
 font-family: Roboto;
@@ -61,6 +79,9 @@ font-weight: normal;
 font-size: 26.3333px;
 line-height: 31px;
 border-radius: 4px;
+@media (max-width: 768px) {
+    font-size: 13px;
+}
 `
 
 const Button = styled.div`
@@ -76,7 +97,10 @@ mix-blend-mode: hard-light;
 border: 1px solid black;
 backdrop-filter: blur(4px);
 border-radius: 4px;
-`
+@media (max-width: 768px) {
+    width: 200px;
+    height: 20px;
+}`
 
 const HeaderContainer = styled.div`
 display:flex;
