@@ -48,6 +48,11 @@ const PlaceDataContainer = styled.div`
 diplay:flex;
 margin-left: 10px;
 align-content:space-between;
+@media (max-width: 768px){
+    align-items:center;
+    justify-content: center;
+    flex-direction:center;
+}
 `
 
 const Image = styled.div`

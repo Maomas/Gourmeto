@@ -17,7 +17,7 @@ border-radius: 4px;
 @media (max-width: 768px) {
     width: 96px;
     height: 28.13px;
-    margin-right: 0px;
+    margin-right: 10px;
   }
 `
 

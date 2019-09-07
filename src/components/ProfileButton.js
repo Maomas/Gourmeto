@@ -11,7 +11,11 @@ justify-content:center;
 border-radius: 7.40084px;
 padding:15px;
 margin-top:20px;
-cursor:pointer;`
+cursor:pointer;
+@media (max-width: 768px){
+    width: 220px;
+    padding: 5px;
+}`
 
 const TextWrapper = styled.span`
 font-family: Roboto;
@@ -19,7 +23,11 @@ font-style: normal;
 font-weight: normal;
 font-size: 26.3912px;
 line-height: 31px;
-color: #000000;`
+color: #000000;
+@media (max-width: 768px){
+    font-size: 12.56px;
+    line-height: 15px;
+}`
 
 
 export const ProfileButton = ({contain}) => {

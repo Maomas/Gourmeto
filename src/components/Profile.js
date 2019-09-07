@@ -15,12 +15,20 @@ display: flex;
 justify-content: center;
 align-items: center;
 align-content:center;
-flex-direction: column;`
+flex-direction: column;
+@media (max-width: 768px){
+    margin-top: 20%;
+}`
 
 const ProfileDataContainer = styled.div`
-diplay:flex;
+display:flex;
 margin-left: 10px;
-align-content:space-between;`
+align-content:space-between;
+flex-direction:column;
+@media (max-width: 768px){
+    align-items:center;
+}
+`
 
 const ProfileContainer = styled.div`
 display: flex;
@@ -28,6 +36,8 @@ flex-direction: row;
 justify-content: space-evenly;
 @media (max-width: 768px) {
     flex-direction: column;
+    justify-content:center;
+    align-items:center;
   }`
 
 const ViewsLikesContainer = styled.div`
@@ -38,7 +48,11 @@ width: 360px;
 height: 360px;
 border-radius: 10.6303px;
 border: 1px solid black;
-background-size: cover;`
+background-size: cover;
+@media (max-width: 768px){
+    width: 128px;
+    height: 119px;
+}`
 
 const Title = styled.div`
 font-family: Roboto;
@@ -46,7 +60,11 @@ font-style: normal;
 font-weight: normal;
 font-size: 64px;
 line-height: 75px;
-color: #EFEFEFEF;`
+color: #EFEFEFEF;
+@media (max-width: 768px){
+    font-size: 32px;
+    line-height: 37px;
+}`
 
 const Place = styled.div`
 font-family: Roboto;
@@ -54,7 +72,11 @@ font-style: normal;
 font-weight: normal;
 font-size: 32px;
 line-height: 37px;
-color: #EFEFEF;`
+color: #EFEFEF;
+@media (max-width: 768px){
+    font-size: 20px;
+    line-height: 19px;
+}`
 
 const Header = styled.div`
 position: absolute;
@@ -64,6 +86,10 @@ width: 600px;
 display: flex;
 justify-content:center;
 align-items: center;
+@media (max-width: 768px) {
+    left: 130px;
+    top: 29px;
+  }
 `
 
 

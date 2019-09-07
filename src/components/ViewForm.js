@@ -11,6 +11,10 @@ height: 400px;
 margin-top: 30px;
 background: #EFEFEF;
 border-radius: 5px;
+@media (max-width: 768px){
+    width: 400px;
+    height: 200px;
+}
 `
 
 const Form = styled.form`
@@ -31,6 +35,12 @@ font-size: 26.3333px;
 line-height: 31px;
 padding: 10px;
 color: #000000;
+@media (max-width: 768px){
+    width: 380px;
+    height: 110px;
+    font-size: 14px;
+    line-height: 10px;
+}
 `
 
 const Button = styled.button`
@@ -51,7 +61,12 @@ font-style: normal;
 font-weight: normal;
 font-size: 26.3912px;
 line-height: 31px;
-color: #000000;`
+color: #000000;
+@media (max-width: 768px){
+    font-size: 15px;
+    line-height: 9px;
+    margin-top: 2px;
+}`
 
 class ViewForm extends Component{
 

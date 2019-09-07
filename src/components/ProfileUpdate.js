@@ -16,7 +16,10 @@ display: flex;
 justify-content: center;
 align-items: center;
 align-content:center;
-flex-direction: column;`
+flex-direction: column;
+@media (max-width: 768px){
+    margin-top: 20%;
+}`
 
 const Button = styled.button`
 cursor:pointer;
@@ -30,7 +33,11 @@ mix-blend-mode: hard-light;
 border: 1.0022px solid #FFFFFF;
 backdrop-filter: blur(4.00879px);
 border-radius: 7.40084px;
-margin-top:30px
+margin-top:30px;
+@media (max-width: 768px){
+    width: 236px;
+    height: 28px;
+}
 `
 
 const RedButton = styled.button`
@@ -45,7 +52,11 @@ mix-blend-mode: hard-light;
 border: 1.0022px solid #FFFFFF;
 backdrop-filter: blur(4.00879px);
 border-radius: 7.40084px;
-margin-top:30px
+margin-top:30px;
+@media (max-width: 768px){
+    width: 236px;
+    height: 28px;
+}
 `
 const Text = styled.span`
 font-family: Roboto;
@@ -55,13 +66,20 @@ font-size: 26.3333px;
 line-height: 31px;
 color: #FFFFFF;
 border-radius: 4px;
+@media (max-width: 768px){
+    font-size: 12.5571px;
+    line-height: 15px;
+}
 `
 
 const ProfileDataContainer = styled.div`
 diplay:flex;
 margin-left: 10px;
 align-content:space-between;
-margin-left: 50px;`
+margin-left: 50px;
+@media (max-width: 768px){
+    margin-left: 0px;
+}`
 
 const ProfileContainer = styled.div`
 display: flex;
@@ -77,7 +95,11 @@ width: 360px;
 height: 360px;
 border-radius: 10.6303px;
 border: 1px solid black;
-background-size: cover;`
+background-size: cover;
+@media (max-width: 768px){
+    width: 128px;
+    height: 119px;
+}`
 
 const Title = styled.div`
 font-family: Roboto;
@@ -85,7 +107,11 @@ font-style: normal;
 font-weight: normal;
 font-size: 64px;
 line-height: 75px;
-color: #EFEFEFEF;`
+color: #EFEFEFEF;
+@media (max-width: 768px){
+    font-size: 32px;
+    line-height: 37px;
+}`
 
 const Form = styled.form`
 display: flex;
@@ -105,6 +131,13 @@ font-size: 26.3333px;
 line-height: 31px;
 margin-top: 25px;
 color: #000000;
+@media (max-width: 768px){
+    width: 238.5px;
+    height: 36px;
+    font-size: 12px;
+    line-height: 14px;
+     padding: 2px;
+}
 `
 
 const Header = styled.div`
@@ -115,6 +148,10 @@ width: 600px;
 display: flex;
 justify-content:center;
 align-items: center;
+@media (max-width: 768px) {
+    left: 130px;
+    top: 29px;
+  }
 `
 
 

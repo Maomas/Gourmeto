@@ -112,6 +112,10 @@ font-size: 30px;
 line-height: 19px;
 margin-top:100px;
 color: #EFEFEF;
+@media (max-width: 768px) {
+  font-size: 20px;
+  line-height: 23px;
+}
 `
 
 const StrongText = styled.span`
