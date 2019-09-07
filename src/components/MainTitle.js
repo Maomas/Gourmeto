@@ -12,6 +12,12 @@ color: #EFEFEF;
 display:flex;
 justify-content: center;
 align-items:center;
+@media (max-width: 768px) {
+  width: 235px;
+  height: 91px;
+  font-size: 64px;
+  line-height: 92px;
+}
 `
 
 const MainTitle = () => {

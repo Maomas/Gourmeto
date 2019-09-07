@@ -14,8 +14,11 @@ display:flex;
 flex-direction:column;
 display: none;
 position:absolute;
-margin-top: 102px;
-width: 730px;
+margin-top: 70px;
+width: 430px;
+@media (max-width: 768px) {
+  margin-top: 60px;
+}
 `
 
 const Container = styled.div`
@@ -47,27 +50,40 @@ line-height: 60px;
 margin-top: 200px;
 color: #EFEFEF;
 margin-bottom: 20px;
+@media (max-width: 768px) {
+  font-size: 20px;
+  line-height: 23px;
+}
 `
-
-
 const ViewsList = styled.div`
 display:flex;
-flex-direction:column;`
+flex-direction:column;
+@media (max-width: 768px) {
+  justify-content:center;
+  align-items: center;
+}
+`
 
 const Header = styled.div`
 position: absolute;
-left: 80%;
+right: 10px;
 top: 69px;
 width: 600px;
 display: flex;
 justify-content:center;
 align-items: center;
+@media (max-width: 768px) {
+  left: 50px;
+}
 `
 
 const SearchBarContainer = styled.div`
 display: flex;
 flex-direction: column;
 margin-left: 70px;
+@media (max-width: 768px) {
+  margin-left: 0px;
+}
 `
 
 const SearchResult = styled.div`
@@ -79,6 +95,10 @@ cursor:pointer;
 flex-direction:row;
 height: 50px;
 align-items:center;
+@media (max-width: 768px) {
+  height: 20px;
+  width: 310px;
+}
 `
 
 const SuggestionContainer = styled.div`
@@ -101,6 +121,9 @@ font-weight: bold;
 font-size: 30px;
 line-height: 19px;
 color: #000000;
+@media (max-width: 768px) {
+  font-size: 15px;
+}
 `
 
 const Text = styled.span`
@@ -110,6 +133,9 @@ font-weight: normal;
 font-size: 30px;
 line-height: 19px;
 color: #000000;
+@media (max-width: 768px) {
+  font-size: 15px;
+}
 `
 
 

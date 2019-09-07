@@ -14,6 +14,11 @@ mix-blend-mode: hard-light;
 border: 1px solid #FFFFFF;
 backdrop-filter: blur(4px);
 border-radius: 4px;
+@media (max-width: 768px) {
+    width: 96px;
+    height: 28.13px;
+    margin-right: 0px;
+  }
 `
 
 const Text = styled.span`
@@ -23,7 +28,10 @@ font-weight: normal;
 font-size: 26.3333px;
 line-height: 31px;
 color: #FFFFFF;
-border-radius: 4px
+border-radius: 4px;
+@media (max-width: 768px) {
+    font-size: 15px;
+}
 `
 
 

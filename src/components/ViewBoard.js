@@ -10,6 +10,7 @@ import 'firebase/auth'
 import firebase from 'firebase/app'
 
 const Container = styled.div`
+position: relative;
 display: flex;
 flex-direction:column;
 padding:15px;
@@ -19,13 +20,22 @@ background: #EFEFEF;
 border-radius: 5px;
 margin-top:20px;
 word-wrap: break-word;
+@media (max-width: 768px) {
+	width: 266.86px;
+	height: 200px;
+}
 `
 
 const Like = styled.img`
+position:absolute;
+right: 50px;
 height: 60px;
 width: 60px;
-margin-left: 150px;
-margin-top: 10px;
+@media (max-width: 768px) {
+	height: 30px;
+	width: 30px;
+	right: 20px;
+}
 `
 
 const PlacePhoto = styled.div`
@@ -36,6 +46,10 @@ margin-top: 10px;
 background-size: cover;
 margin-bottom: 10px;
 border: 1px solid black;
+@media (max-width: 768px) {
+	width: 252.44px;
+	height: 50.06px;
+}
 `
 
 const Avatar = styled.div`
@@ -45,6 +59,10 @@ background-size: cover;
 border-radius:5px;
 cursor:pointer;
 border: 1px solid black;
+@media (max-width: 768px) {
+	width: 32.22px;
+	height: 32.7px;
+}
 `
 
 const Text = styled.div`
@@ -55,6 +73,10 @@ font-size: 20px;
 line-height: 19px;
 margin-top: 10px;
 color: #000000;
+@media (max-width: 768px) {
+	font-size: 12px;
+	line-height: 8px;
+}
 `
 
 const StrongText = styled.div`
@@ -65,6 +87,10 @@ font-size: 25px;
 line-height: 19px;
 color: #000000;
 cursor:pointer;
+@media (max-width: 768px) {
+	font-size: 12px;
+	line-height: 8px;
+}
 `
 
 const Header = styled.div`
