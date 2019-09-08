@@ -14,8 +14,9 @@ mix-blend-mode: hard-light;
 border: 1px solid #FFFFFF;
 backdrop-filter: blur(4px);
 border-radius: 4px;
+margin-bottom: 10px;
 @media (max-width: 768px) {
-    width: 96px;
+    width: 120px;
     height: 28.13px;
     margin-right: 10px;
   }

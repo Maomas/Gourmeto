@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import styled from 'styled-components'
 import heart from "../images/heart.svg"
 import redHeart from "../images/redHeart.svg"
+import crossImage from "../images/cross.png"
 import base from '../base'
 import 'firebase/auth'
 import { confirmAlert } from 'react-confirm-alert'
@@ -26,11 +27,24 @@ word-wrap: break-word;
 }
 `
 
-const Like = styled.img`
+const Cross = styled.img`
 position:absolute;
-right: 50px;
+right: 30px;
 height: 60px;
 width: 60px;
+cursor:pointer;
+@media (max-width: 768px) {
+	height: 30px;
+	width: 30px;
+	right: 20px;
+}`
+
+const Like = styled.img`
+position:absolute;
+right: 100px;
+height: 60px;
+width: 60px;
+cursor:pointer;
 @media (max-width: 768px) {
 	height: 30px;
 	width: 30px;
@@ -75,7 +89,7 @@ margin-top: 10px;
 color: #000000;
 @media (max-width: 768px) {
 	font-size: 12px;
-	line-height: 8px;
+	line-height: 12px;
 }
 `
 
@@ -111,6 +125,9 @@ font-weight: normal;
 font-size: 26.3333px;
 line-height: 31px;
 border-radius: 4px;
+@media (max-width: 768px) {
+	font-size: 13px;
+}
 `
 
 const Button = styled.div`
@@ -126,6 +143,10 @@ mix-blend-mode: hard-light;
 border: 1px solid black;
 backdrop-filter: blur(4px);
 border-radius: 4px;
+@media (max-width: 768px) {
+	width: 200px;
+    height: 20px;
+}
 `
 
 class ViewBoard extends Component{
@@ -181,8 +202,8 @@ class ViewBoard extends Component{
               }
             ]
           });
-      }
-
+	  }
+	  
 	handleClick = event => {
 		event.preventDefault()
 		if(this.state.isLiked){
@@ -218,17 +239,22 @@ class ViewBoard extends Component{
 	}
 
 	render(){
-			let like, button;
+			let like, button, cross;
 
-			if(this.state.admin === 'false' || !this.state.admin){
-				if(this.state.isLiked){
-					like = <Like src={redHeart} onClick={this.handleClick} alt="like"></Like>
-				} else{
-					like = <Like onClick={this.handleClick} src={heart} alt="unlike"></Like>
-				}
+			if(this.state.currentUserId===this.state.uid){
+				cross = <Cross src={crossImage} onClick={this.handleDelete} alt="cross"></Cross>
 			}
-			else{
+
+			if(this.state.isLiked){
+				like = <Like src={redHeart} onClick={this.handleClick} alt="like"></Like>
+			} else{
+				like = <Like onClick={this.handleClick} src={heart} alt="unlike"></Like>
+			}
+
+			if(this.state.admin === 'true'){
 				button=<Button onClick={this.handleDelete}><TextButton>Supprimer l'avis</TextButton></Button>
+				like=<span></span>
+				cross=<span></span>
 			}
 
 			return (
@@ -241,6 +267,7 @@ class ViewBoard extends Component{
 								<Text>Le {this.state.time}</Text>
 							</Header>
 							{like}
+							{cross}
 						</HeaderContainer>
 						<a href={`/place/${this.state.placeId}`} ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
 						<a href={`/place/${this.state.placeId}`}  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>

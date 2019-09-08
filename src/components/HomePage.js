@@ -15,11 +15,10 @@ flex-direction:column;
 display: none;
 position:absolute;
 margin-top: 105px;
-width: 430px;
+width: 720px;
 @media (max-width: 768px) {
   margin-top: 60px;
-}
-`
+}`
 
 const Container = styled.div`
 height:100%;
@@ -66,11 +65,12 @@ flex-direction:column;
 
 const Header = styled.div`
 position: absolute;
-right: 10px;
+right: 100px;
 top: 69px;
 width: 600px;
 display: flex;
 justify-content:center;
+flex-direction: column;
 align-items: center;
 @media (max-width: 768px) {
   left: 50px;
@@ -101,10 +101,16 @@ align-items:center;
 }
 `
 
+const SuggestionText = styled.div`
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+`
+
 const SuggestionContainer = styled.div`
 display:flex;
 flex-direction:column;
-justify-content:center;
 align-items:center;
 font-family: Roboto;
 font-style: normal;
@@ -233,7 +239,7 @@ handleBlur = event => {
 
     if(this.state.currentUser.uid){
       suggestionContainer = <SuggestionContainer>
-      <span>Vous ne trouvez pas le lieu que vous avez visité ?&nbsp;&nbsp;</span><a style={{ marginTop: '10px' }} href="/suggestion">Faites une suggestion</a>
+      <SuggestionText>Vous ne trouvez pas le lieu que vous avez visité ?&nbsp;&nbsp;</SuggestionText><a style={{ marginTop: '10px' }} href="/suggestion">Faites une suggestion</a>
     </SuggestionContainer>
     }
 
