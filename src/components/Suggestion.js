@@ -7,7 +7,7 @@ import firebase from 'firebase/app'
 import {Redirect} from 'react-router-dom'
 
 const Container = styled.div`
-margin-top: 15%;
+margin-top: 20px;
 display: flex;
 justify-content: center;
 align-items: center;

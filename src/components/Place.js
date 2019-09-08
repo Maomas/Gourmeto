@@ -17,6 +17,7 @@ justify-content: center;
 align-items: center;
 align-content:center;
 flex-direction: column;
+margin-top: 20px;
 `
 
 const Header = styled.div`

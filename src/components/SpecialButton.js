@@ -30,7 +30,7 @@ margin-left: 60px;
 @media (max-width: 768px){
     font-size: 12.5571px;
     line-height: 15px;
-    margin-left: 45px;
+    margin-left: 15px;
 }
 `
 

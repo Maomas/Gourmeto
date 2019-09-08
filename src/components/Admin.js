@@ -30,7 +30,7 @@ const Container = styled.div`
 display: flex;
 align-content:center;
 flex-direction:column;
-margin-top: 5%;
+margin-top: 20px;
 margin-left: 5%;
 margin-right: 5%;
 @media (max-width: 768px) {

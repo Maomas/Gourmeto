@@ -10,10 +10,12 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 
 const SearchBarResults = styled.div`
+position:absolute;
 display:flex;
 flex-direction:column;
 display: none;
 width: 720px;
+margin-top: 102px;
 @media (max-width: 768px) {
   margin-top: 60px;
 }`
@@ -21,6 +23,7 @@ width: 720px;
 const Container = styled.div`
 height:100%;
 display: flex;
+margin-top: 20px;
 justify-content: center;
 align-items: center;
 flex-direction: column;
@@ -73,6 +76,7 @@ display: flex;
 const SearchBarContainer = styled.div`
 display: flex;
 flex-direction: column;
+position:relative;
 margin-left: 70px;
 @media (max-width: 768px) {
   margin-left: 0px;
@@ -85,12 +89,12 @@ background-color: #EFEFEF;
 padding:10px;
 border: 1px solid #C4C4C4;
 cursor:pointer;
-flex-direction:row;
 height: 50px;
 align-items:center;
+width: 673px;
 @media (max-width: 768px) {
   height: 20px;
-  width: 310px;
+  width: 276px;
 }
 `
 
@@ -114,8 +118,7 @@ color: #EFEFEF;
 @media (max-width: 768px) {
   font-size: 20px;
   line-height: 23px;
-}
-`
+}`
 
 const StrongText = styled.span`
 font-family: Roboto;
@@ -208,7 +211,7 @@ handleBlur = event => {
   event.preventDefault()
   setTimeout(function() { 
     this.setState({isSearchBarOnFocus: false})
-}.bind(this), 100)
+}.bind(this), 300)
 }
 
   goToLogin = event => {
@@ -235,13 +238,11 @@ handleBlur = event => {
       <SuggestionText>Vous ne trouvez pas le lieu que vous avez visité ?&nbsp;&nbsp;</SuggestionText><a style={{ marginTop: '10px' }} href="/suggestion">Faites une suggestion</a>
     </SuggestionContainer>
     }
-
       const places = Object.keys(this.state.places)
       .filter(this.searchingFor(this.state.search))
       .map(key => (
         <SearchResult><a href={`/place/${key.substring(6)}`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><StrongText>{this.state.places[key].name}&nbsp;&nbsp;</StrongText><Text>{this.state.places[key].city}, {this.state.places[key].country}</Text></a></SearchResult>
       ))
-
     const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard

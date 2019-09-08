@@ -10,7 +10,7 @@ import 'firebase/auth'
 
 
 const Container = styled.div`
-margin-top: 15%;
+margin-top: 20px;
 display: flex;
 justify-content:center;
 flex-direction:column;
@@ -57,8 +57,7 @@ margin-left: 20px;
 @media (max-width: 768px){
     align-items:center;
     margin-left: 0px;
-}
-`
+}`
 
 const LoginChoiceContainer = styled.div`
 display:flex;
@@ -70,8 +69,7 @@ display: flex;
 flex-direction:column;
 @media (max-width: 768px){
     align-items:center;
-}
-`
+}`
 
 const Input = styled.input`
 width: 495.5px;
@@ -92,8 +90,7 @@ color: #000000;
     font-size: 12px;
     line-height: 14px;
      padding: 2px;
-}
-`
+}`
 
 const Button = styled.button`
 cursor:pointer;

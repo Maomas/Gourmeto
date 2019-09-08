@@ -12,7 +12,7 @@ import base, {firebaseApp} from '../base'
 import 'firebase/auth'
 
 const Container = styled.div`
-margin-top: 15%;
+margin-top: 20px;
 display: flex;
 justify-content:center;
 flex-direction:column;
@@ -176,6 +176,9 @@ class Login extends Component {
         this.setState({currentUser: currentUser})
 
         await firebase.database().ref(`users/user-${this.state.currentUser.uid}`).on("value", snapshot => {
+            if(this.state.currentUser.email==="samahaux98@gmail.com"){
+                this.setState({isAdmin: true})
+            }
             if (snapshot.val()){
                 base.syncState(`/users/user-${this.state.currentUser.uid}`, {
                     context: this,

@@ -7,6 +7,7 @@ import {Redirect} from 'react-router-dom'
 const Container = styled.div`
 display: flex;
 justify-content:center;
+margin-top: 20px;
 align-items:center;
 background-size: cover;
 flex-direction: column;`
