@@ -13,22 +13,30 @@ const Container = styled.div`
 margin-top: 15%;
 display: flex;
 justify-content:center;
+flex-direction:column;
+margin-bottom: 200px;
 @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
 }`
 
-const Header = styled.div`
-position: absolute;
-left: 80%;
-top: 69px;
-width: 600px;
+const SecondContainer = styled.div`
+margin-top: 15%;
 display: flex;
 justify-content:center;
-align-items: center;
-@media (max-width: 768px){
-    left: 20%;
-    top: 29px;
+@media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+}
+`
+
+const Header = styled.div`
+margin-top: 69px;
+display: flex;
+justify-content:center;
+align-tems:center;
+@media (max-width: 768px) {
+  margin-top: 29px;
 }
 `
 
@@ -266,6 +274,7 @@ class Register extends Component{
                 <Header>
                     <a href="/"  onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
                 </Header>
+                <SecondContainer>
                 <MainTitle />
                 <InputsContainer>
                     <LoginChoiceContainer>
@@ -312,6 +321,7 @@ class Register extends Component{
                        <Button type='submit'><Text>S'inscrire</Text></Button>
                     </Form>
                 </InputsContainer>
+                </SecondContainer>
             </Container>
         )
     }

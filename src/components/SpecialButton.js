@@ -26,7 +26,7 @@ font-size: 26.3333px;
 line-height: 31px;
 color: #FFFFFF;
 border-radius: 4px;
-margin-left: 90px;
+margin-left: 60px;
 @media (max-width: 768px){
     font-size: 12.5571px;
     line-height: 15px;
@@ -35,7 +35,6 @@ margin-left: 90px;
 `
 
 const Icon = styled.div`
-position: absolute;
 width: 45px;
 height: 50px;
 margin-left: 5px;

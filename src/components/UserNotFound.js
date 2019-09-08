@@ -42,7 +42,10 @@ line-height: 214px;
 color: #EFEFEF;
 display:flex;
 justify-content: center;
-align-items:center;`
+align-items:center;
+@media (max-width: 768px){
+  font-size: 64px;
+}`
 
 const Text = styled.span`
 font-family: Roboto;
@@ -51,7 +54,10 @@ font-weight: normal;
 font-size: 26.3333px;
 line-height: 31px;
 color: #FFFFFF;
-border-radius: 4px;`
+border-radius: 4px;
+@media (max-width: 768px){
+  font-size: 18px;
+}`
 
 class UserNotFound extends Component{
 

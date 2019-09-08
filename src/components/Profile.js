@@ -10,14 +10,13 @@ import 'firebase/auth'
 import firebase from 'firebase/app'
 
 const Container = styled.div`
-margin-top: 15%;
 display: flex;
 justify-content: center;
 align-items: center;
 align-content:center;
 flex-direction: column;
 @media (max-width: 768px){
-    margin-top: 20%;
+    margin-top: 50px;
 }`
 
 const ProfileDataContainer = styled.div`
@@ -79,17 +78,13 @@ color: #EFEFEF;
 }`
 
 const Header = styled.div`
-position: absolute;
-left: 80%;
-top: 69px;
-width: 600px;
+margin-top: 69px;
+margin-bottom: 100px;
 display: flex;
-justify-content:center;
-align-items: center;
 @media (max-width: 768px) {
-    left: 130px;
-    top: 29px;
-  }
+  margin-top: 0px;
+  margin-bottom: 100px;
+}
 `
 
 

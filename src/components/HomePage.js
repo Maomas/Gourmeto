@@ -13,8 +13,6 @@ const SearchBarResults = styled.div`
 display:flex;
 flex-direction:column;
 display: none;
-position:absolute;
-margin-top: 105px;
 width: 720px;
 @media (max-width: 768px) {
   margin-top: 60px;
@@ -37,6 +35,7 @@ const TitleSearchBarContainer = styled.div`
   align-items: center;
   @media (max-width: 768px) {
     flex-direction: column;
+      margin-top: 100px;
   }
 `
 
@@ -64,16 +63,10 @@ flex-direction:column;
 `
 
 const Header = styled.div`
-position: absolute;
-right: 100px;
-top: 69px;
-width: 600px;
+margin-top: 69px;
 display: flex;
-justify-content:center;
-flex-direction: column;
-align-items: center;
 @media (max-width: 768px) {
-  left: 50px;
+  margin-top: 29px;
 }
 `
 

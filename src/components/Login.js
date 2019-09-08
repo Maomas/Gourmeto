@@ -15,6 +15,18 @@ const Container = styled.div`
 margin-top: 15%;
 display: flex;
 justify-content:center;
+flex-direction:column;
+align-tems:center;
+margin-bottom: 200px;
+@media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+}`
+
+const SecondContainer = styled.div`
+margin-top: 15%;
+display: flex;
+justify-content:center;
 @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
@@ -102,15 +114,12 @@ border-radius: 4px;
 }`
 
 const Header = styled.div`
-position: absolute;
-left: 80%;
-top: 29px;
-width: 600px;
+margin-top: 69px;
 display: flex;
 justify-content:center;
-align-items: center;
-@media (max-width: 768px){
-    left: 20%;
+align-tems:center;
+@media (max-width: 768px) {
+  margin-top: 29px;
 }
 `
 
@@ -289,6 +298,7 @@ class Login extends Component {
                 <Header>
                     <a href="/" onClick={this.goToHomePage} style={{ textDecoration: 'none', color:'#EFEFEF' }}><FloatingButton>Accueil</FloatingButton></a>
                 </Header>
+                <SecondContainer>
                 <MainTitle />
                 <InputsContainer>
                     <LoginChoiceContainer>
@@ -318,6 +328,7 @@ class Login extends Component {
                     <SpecialButton contain="Connectez-vous avec Google" onClick={this.authenticateGoogle} icon={googleBrand}/>
                     <SpecialButton onClick={this.authenticateFacebook} contain="Connectez-vous avec Facebook" icon={facebookBrand}/>
                 </InputsContainer>
+                </SecondContainer>
             </Container>
         )
     }

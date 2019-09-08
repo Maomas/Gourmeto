@@ -20,16 +20,11 @@ flex-direction: column;
 `
 
 const Header = styled.div`
-position: absolute;
-left: 80%;
-top: 69px;
-width: 600px;
+margin-top: 69px;
 display: flex;
-justify-content:center;
-align-items: center;
 @media (max-width: 768px) {
-    left: 50px;
-  }
+  margin-top: 29px;
+}
 `
 
 const PlaceContainer = styled.div`
@@ -41,6 +36,7 @@ justify-content: space-evenly;
     flex-direction: column;
     justify-content:center;
     align-items: center;
+    margin-top: 100px;
   }
 `
 

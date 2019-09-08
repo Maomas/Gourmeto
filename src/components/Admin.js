@@ -30,7 +30,7 @@ const Container = styled.div`
 display: flex;
 align-content:center;
 flex-direction:column;
-margin-top: 10%;
+margin-top: 5%;
 margin-left: 5%;
 margin-right: 5%;
 @media (max-width: 768px) {
@@ -38,15 +38,13 @@ margin-right: 5%;
 }`
 
 const Header = styled.div`
-position: absolute;
-left: 80%;
-top: 69px;
-width: 600px;
+margin-top: 10px;
 display: flex;
 justify-content:center;
-align-items: center;
+align-items:center;
+margin-bottom: 70px;
 @media (max-width: 768px) {
-    left: 80px;
+  margin-top: 29px;
 }`
 
 const Highlighting = styled.div`

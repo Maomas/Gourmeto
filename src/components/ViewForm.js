@@ -12,7 +12,7 @@ margin-top: 30px;
 background: #EFEFEF;
 border-radius: 5px;
 @media (max-width: 768px){
-    width: 400px;
+    width: 350px;
     height: 200px;
 }
 `
@@ -36,7 +36,7 @@ line-height: 31px;
 padding: 10px;
 color: #000000;
 @media (max-width: 768px){
-    width: 380px;
+    width: 330px;
     height: 110px;
     font-size: 14px;
     line-height: 10px;

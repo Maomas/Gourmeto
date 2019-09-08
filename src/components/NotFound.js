@@ -1,20 +1,15 @@
 import React, {Component} from "react"
 import FloatingButton from './FloatingButton'
 import styled, {createGlobalStyle} from 'styled-components'
-import background from '../images/background.gif'
 import {Redirect} from 'react-router-dom'
 
 
 const Container = styled.div`
-height:1600px;
 display: flex;
-background: url(${background});
+justify-content:center;
+align-items:center;
 background-size: cover;
-box-shadow: inset 0px 10px 250px #000000;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-`
+flex-direction: column;`
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -24,13 +19,13 @@ const GlobalStyles = createGlobalStyle`
 `
 
 const Header = styled.div`
-position: absolute;
-left: 80%;
-top: 69px;
-width: 600px;
+margin-top: 69px;
 display: flex;
 justify-content:center;
-align-items: center;
+align-content:center;
+@media (max-width: 768px) {
+  margin-top: 29px;
+}
 `
 
 const Title = styled.div`
@@ -42,16 +37,23 @@ line-height: 214px;
 color: #EFEFEF;
 display:flex;
 justify-content: center;
-align-items:center;`
+align-items:center;
+@media (max-width: 768px){
+  font-size: 64px;
+}`
 
 const Text = styled.span`
+text-align:center;
 font-family: Roboto;
 font-style: normal;
 font-weight: normal;
 font-size: 26.3333px;
 line-height: 31px;
 color: #FFFFFF;
-border-radius: 4px;`
+border-radius: 4px;
+@media (max-width: 768px){
+  font-size: 18px;
+}`
 
 class NotFound extends Component{
 

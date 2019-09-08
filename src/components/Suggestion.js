@@ -14,19 +14,16 @@ align-items: center;
 align-content:center;
 flex-direction: column;
 @media (max-width: 768px) {
-    margin-top: 30%;
+    margin-top: 10%;
+    padding: 20px;
 }`
 
 const Header = styled.div`
-position: absolute;
-left: 80%;
-top: 69px;
-width: 600px;
+margin-top: 69px;
 display: flex;
-justify-content:center;
-align-items: center;
 @media (max-width: 768px) {
-    left: 80px;
+  margin-top: 29px;
+  margin-bottom: 100px;
 }`
 
 const SuggestionContainer = styled.div`
@@ -44,6 +41,7 @@ line-height: 75px;
 color: #EFEFEFEF;
 @media (max-width: 768px) {
     font-size: 32px;
+    line-height: 30px;
 }`
 
 const Subtitle = styled.div`
@@ -55,6 +53,8 @@ line-height: 75px;
 color: #EFEFEFEF;
 @media (max-width: 768px) {
     font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 30px;
 }`
 
 const TitleContainer = styled.div`
@@ -103,6 +103,7 @@ color: #000000;
     font-size: 14px;
     line-height: 10px;
     height: 30px;
+    margin-bottom: 20px;
 }`
 
 const Text = styled.div`
@@ -115,6 +116,7 @@ color: #EFEFEFEF;
 @media (max-width: 768px) {
     font-size: 20px;
     line-height: 20px;
+    margin-bottom: 5px;
 }
 `
 
