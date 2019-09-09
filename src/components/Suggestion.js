@@ -163,6 +163,7 @@ state = {
     url: '',
     city: '',
     country: '',
+    urlSite: '',
     goToHomePage: false,
     currentUser: {}
 }
@@ -170,6 +171,11 @@ state = {
 handleChangeUrl = event => {
     const url = event.target.value
     this.setState({ url })
+}
+
+handleChangeUrlSite = event => {
+    const urlSite = event.target.value
+    this.setState({ urlSite })
 }
 
 handleChangeName = event => {
@@ -189,12 +195,14 @@ handleChangeCountry = event => {
 
 handleSubmit = event => {
     event.preventDefault()  
+
     firebase.database().ref('suggestions/suggestion-' + Date.now()).set({
         name: this.state.name,
         url: this.state.url,
         city: this.state.city,
         country: this.state.country,
-        uid: this.state.currentUser.uid
+        uid: this.state.currentUser.uid,
+        urlSite: this.state.urlSite
       });
     this.setState({goToHomePage: true})
 }
@@ -231,6 +239,14 @@ render(){
                     <Input
                         value={this.state.name}
                         onChange={this.handleChangeName}
+                        type="text"
+                        required
+                    />
+                    <Text>Url du site du lieu</Text>
+                    <Input
+                        value={this.state.urlSite}
+                        onChange={this.handleChangeUrlSite}
+                        placeholder="Copier l'adresse du site web du lieu en ligne et coller-la dans ce champ."
                         type="text"
                         required
                     />

@@ -104,6 +104,7 @@ class PlaceBoard extends Component {
         id: this.props.id,
         name: this.props.name,
         url: this.props.url,
+        urlSite: this.props.urlSite,
         city: this.props.city,
         country: this.props.country,
         uid: this.props.uid,
@@ -122,6 +123,7 @@ class PlaceBoard extends Component {
                     firebase.database().ref('/places/place-' + Date.now()).set({
                         name: this.state.name,
                         url: this.state.url,
+                        urlSite: this.state.urlSite,
                         city: this.state.city,
                         country: this.state.country,
                         viewsNumber: '0'

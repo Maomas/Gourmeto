@@ -41,7 +41,7 @@ cursor:pointer;
 
 const Like = styled.img`
 position:absolute;
-right: 100px;
+right: 30px;
 height: 60px;
 width: 60px;
 cursor:pointer;
@@ -177,7 +177,8 @@ class ViewBoard extends Component{
 		like:'',
 		user: {},
 		admin: this.props.admin,
-		isLiked: false
+		isLiked: false,
+		likeId: ''
 	}
 
 	
@@ -206,12 +207,12 @@ class ViewBoard extends Component{
 	  
 	handleClick = event => {
 		event.preventDefault()
-		if(this.state.isLiked){
-			this.deleteLike(this.state.likeId)
+		if(this.state.isLiked || 'like-'+this.state.currentUserId in this.state.likes){
+			this.deleteLike('like-'+this.state.currentUserId)
 		}
 		else{
 			const like = {
-				uid: this.state.uid,
+				uid: this.state.currentUserId,
 				placeId: this.state.placeId
 			}
 			this.addLike(like)
@@ -221,8 +222,8 @@ class ViewBoard extends Component{
 
 	addLike = like => {
 		const likes = {...this.state.likes}
-		likes[`like-${Date.now()}`] = like
-		this.setState({likeId: `like-${Date.now()}`})
+		likes[`like-${this.state.currentUserId}`] = like
+		this.setState({likeId: `like-${this.state.currentUserId}`})
 		this.setState({likes})
 		this.setState({isLiked:true})
 		var likesNumber = parseInt(this.state.likesNumber) + 1
@@ -245,10 +246,12 @@ class ViewBoard extends Component{
 				cross = <Cross src={crossImage} onClick={this.handleDelete} alt="cross"></Cross>
 			}
 
-			if(this.state.isLiked){
-				like = <Like src={redHeart} onClick={this.handleClick} alt="like"></Like>
-			} else{
-				like = <Like onClick={this.handleClick} src={heart} alt="unlike"></Like>
+			else{
+				if(this.state.isLiked || 'like-'+this.state.currentUserId in this.state.likes){
+					like = <Like src={redHeart} onClick={this.handleClick} alt="like"></Like>
+				} else{
+					like = <Like onClick={this.handleClick} src={heart} alt="unlike"></Like>
+				}
 			}
 
 			if(this.state.admin === 'true'){

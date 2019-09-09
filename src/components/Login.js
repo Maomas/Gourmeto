@@ -157,6 +157,9 @@ class Login extends Component {
 			context: this,
 			state: 'users'
         })
+        if(this.state.currentUser.email==="samahaux98@gmail.com"){
+            this.setState({isAdmin: true})
+        }
     }
 
 
@@ -176,9 +179,6 @@ class Login extends Component {
         this.setState({currentUser: currentUser})
 
         await firebase.database().ref(`users/user-${this.state.currentUser.uid}`).on("value", snapshot => {
-            if(this.state.currentUser.email==="samahaux98@gmail.com"){
-                this.setState({isAdmin: true})
-            }
             if (snapshot.val()){
                 base.syncState(`/users/user-${this.state.currentUser.uid}`, {
                     context: this,
@@ -186,6 +186,7 @@ class Login extends Component {
                 })
             }
             else{
+                if(this.state.currentUser.email==="samahaux98@gmail.com"){
                 firebase.database().ref('users/user-' + this.state.currentUser.uid).set({
                     id: this.state.currentUser.uid,
                     email: this.state.currentUser.email,
@@ -196,23 +197,28 @@ class Login extends Component {
                     country: this.state.currentUser.country,
                     city: this.state.currentUser.city,
                     provider: this.state.currentUser.provider,
-                    isAdmin: this.state.isAdmin
+                    isAdmin: true
                 });
+                } else{
+                    firebase.database().ref('users/user-' + this.state.currentUser.uid).set({
+                        id: this.state.currentUser.uid,
+                        email: this.state.currentUser.email,
+                        name : this.state.currentUser.name,
+                        url: this.state.currentUser.url,
+                        likesNumber: this.state.currentUser.likesNumber,
+                        viewsNumber: this.state.currentUser.viewsNumber,
+                        country: this.state.currentUser.country,
+                        city: this.state.currentUser.city,
+                        provider: this.state.currentUser.provider,
+                        isAdmin: false
+                    });
+                }
             }
          });
      }
 
     authenticateGoogle = () => {
         const authProviderGoogle = new firebase.auth.GoogleAuthProvider()
-        firebase.database().ref("users").on("value", snapshot => {
-            if(snapshot.numChildren()===0){
-                this.setState({isAdmin: true})
-            }
-            else{
-                this.setState({isAdmin: false})
-            }
-        });
-        firebase.database().ref("users").off()
         this.setState({provider: 'google'})
         firebaseApp
         .auth()
@@ -222,14 +228,6 @@ class Login extends Component {
 
     authenticateFacebook = () => {
         const authProviderFacebook = new firebase.auth.FacebookAuthProvider()
-        firebase.database().ref("users").on("value", snapshot => {
-            if(snapshot.numChildren()===0){
-                this.setState({isAdmin: true})
-            }
-            else{
-                this.setState({isAdmin: false})
-            }
-        });
         this.setState({provider: 'facebook'})
         firebaseApp
         .auth()

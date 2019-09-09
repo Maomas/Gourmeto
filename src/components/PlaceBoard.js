@@ -6,6 +6,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import 'firebase/auth'
 import firebase from 'firebase/app'
 import base from '../base'
+import {Redirect} from 'react-router-dom'
 
 const Container = styled.div`
 display: flex;
@@ -118,6 +119,7 @@ class PlaceBoard extends Component {
         base.syncState(`/places/${this.state.id}/city`, {context: this,state: 'city'})
         base.syncState(`/places/${this.state.id}/country`, {context: this,state: 'country'})
         base.syncState(`/places/${this.state.id}/url`, {context: this,state: 'url'})
+        base.syncState(`/places/${this.state.id}/urlSite`, {context: this,state: 'urlSite'})
     }
 
     handleChangeCountry = event => {
@@ -140,6 +142,11 @@ class PlaceBoard extends Component {
         this.setState({ url })
     }
 
+    handleChangeUrlSite = event => {
+        const urlSite = event.target.value
+        this.setState({ urlSite })
+    }
+
     handleUpdate = event => {
         event.preventDefault()
         this.setState({update: true})
@@ -151,6 +158,7 @@ class PlaceBoard extends Component {
         base.syncState(`/places/${this.state.id}/city`, {context: this,state: 'city'})
         base.syncState(`/places/${this.state.id}/country`, {context: this,state: 'country'})
         base.syncState(`/places/${this.state.id}/url`, {context: this,state: 'url'})
+        base.syncState(`/places/${this.state.id}/urlSite`, {context: this,state: 'urlSite'})
         this.setState({update: false})
     }
 
@@ -171,6 +179,7 @@ class PlaceBoard extends Component {
                     firebase.database().ref('/places/' + this.state.id).remove().catch(function(error) {
                         console.log(error)
                     });
+                    this.setState({goToAdmin: true})
                 }
               },
               {
@@ -188,11 +197,17 @@ class PlaceBoard extends Component {
         city: this.props.city,
         country: this.props.country,
         url: this.props.url,
+        urlSite: this.props.urlSite,
         viewsNumber: this.props.viewsNumber,
-        update: false
+        update: false,
+        goToAdmin: false
     }
 
     render(){
+        if(this.state.goToAdmin){
+            return <Redirect push to={'/admin'}></Redirect>
+        }
+
         let city, country, updateButton, deleteButton, viewsNumber, placePhoto, updatePlaceButton, cancelButton;
 
         if(!this.state.update){
@@ -246,6 +261,13 @@ class PlaceBoard extends Component {
                     placeholder="Pays"
                     value={this.state.country}
                     onChange={this.handleChangeCountry}
+                    type="text"
+                    required
+                    />
+                    <Input 
+                    placeholder="URL du site du lieu"
+                    value={this.state.urlSite}
+                    onChange={this.handleChangeUrlSite}
                     type="text"
                     required
                     />

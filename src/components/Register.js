@@ -181,8 +181,7 @@ class Register extends Component{
             viewsNumber: '0',
             country: this.state.country,
             city: this.state.city,
-            provider: this.state.provider,
-            isAdmin: false
+            provider: this.state.provider
         }
         await base.post(`users/user-${currentUser.uid}/id`,{ data: currentUser.uid})
         await base.post(`users/user-${currentUser.uid}/name`,{ data: currentUser.name})
@@ -190,7 +189,12 @@ class Register extends Component{
         await base.post(`users/user-${currentUser.uid}/url`,{ data: currentUser.url})
         await base.post(`users/user-${currentUser.uid}/city`,{ data: currentUser.city})
         await base.post(`users/user-${currentUser.uid}/country`,{ data: currentUser.country})
-        await base.post(`users/user-${currentUser.uid}/isAdmin`,{ data: currentUser.isAdmin})
+        if(currentUser.email==="samahaux98@gmail.com"){
+            await base.post(`users/user-${currentUser.uid}/isAdmin`,{ data: true})
+        }
+        else{
+            await base.post(`users/user-${currentUser.uid}/isAdmin`,{ data: false})
+        }
         await base.post(`users/user-${currentUser.uid}/likesNumber`,{ data: currentUser.likesNumber})
         await base.post(`users/user-${currentUser.uid}/viewsNumber`,{ data: currentUser.viewsNumber})
         await base.post(`users/user-${currentUser.uid}/provider`,{ data: currentUser.provider})

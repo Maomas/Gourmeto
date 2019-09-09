@@ -8,6 +8,7 @@ import ViewBoard from "./ViewBoard"
 import base from '../base'
 import 'firebase/auth'
 import firebase from 'firebase/app'
+import {ProfileButton} from './ProfileButton'
 
 
 
@@ -118,6 +119,7 @@ class Place extends Component{
             else{
                 base.syncState(`/places/place-${this.state.id}/name`, {context: this,state: 'place'})
                 base.syncState(`/places/place-${this.state.id}/url`, {context: this,state: 'url'})
+                base.syncState(`/places/place-${this.state.id}/urlSite`, {context: this,state: 'urlSite'})
                 base.syncState(`/places/place-${this.state.id}/city`, {context: this,state: 'city'})
                 base.syncState(`/places/place-${this.state.id}/country`, {context: this,state: 'country'})
                 base.syncState(`/places/place-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumberPlace'})
@@ -147,6 +149,7 @@ class Place extends Component{
         place: '',
         city: '',
         url: '',
+        urlSite: '',
         country: '',
         viewsNumberPlace: '',
         viewsNumberUser: '',
@@ -200,6 +203,9 @@ class Place extends Component{
     isUser = uid => uid === this.state.currentUser.uid
 
     render(){
+        let siteButton;
+
+        siteButton = <a href={this.state.urlSite} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Site web"/></a>
         const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard
@@ -236,8 +242,9 @@ class Place extends Component{
                         <Title>{this.state.place}</Title>
                         <PlaceWrapper>{this.state.city}, {this.state.country}</PlaceWrapper>
                         <ViewsNumber viewsNumber={this.state.viewsNumberPlace}/>
+                        {siteButton} 
                     </PlaceDataContainer>
-                </PlaceContainer>   
+                </PlaceContainer>  
                 {this.state.currentUser.uid ? (
                     <ViewForm length={340} addView={this.addView} placeId={this.state.id} place={this.state.place} url={this.state.url} uid={this.state.currentUser.uid} userName={this.state.currentUser.name} urlUser={this.state.currentUser.url} />
                 ) : (

@@ -5,6 +5,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import 'firebase/auth'
 import firebase from 'firebase/app'
+import { Redirect } from 'react-router-dom'
 
 const Container = styled.div`
 display: flex;
@@ -117,7 +118,8 @@ class UserBoard extends Component {
         likesNumber: this.props.likesNumber,
         provider: this.props.provider,
         url: this.props.url,
-        viewsNumber: this.props.viewsNumber
+        viewsNumber: this.props.viewsNumber,
+        goToAdmin: false
     }
 
     handleDelete = event => {
@@ -130,10 +132,10 @@ class UserBoard extends Component {
                 onClick: () => {
                     event.preventDefault()
                     var userId = this.state.id;
-                    console.log(userId)
                     firebase.database().ref('/users/' + userId).remove().catch(function(error) {
                         console.log(error)
                     });
+                    this.setState({goToAdmin: true})
                 }
               },
               {
@@ -146,6 +148,10 @@ class UserBoard extends Component {
 
     render(){
         let city, country, role, button;
+
+        if(this.state.goToAdmin){
+            return <Redirect push to={'/admin'}></Redirect>
+        }
 
         if(this.state.isAdmin){
             role='Administrateur du site'

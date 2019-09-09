@@ -165,6 +165,7 @@ class Admin extends Component{
                 id={key}
                 name={this.state.suggestions[key].name}
                 url={this.state.suggestions[key].url}
+                urlSite={this.state.suggestions[key].urlSite}
                 city={this.state.suggestions[key].city}
                 country={this.state.suggestions[key].country}
                 uid={this.state.suggestions[key].uid}
@@ -219,6 +220,7 @@ class Admin extends Component{
                 name={this.state.places[key].name}
                 url={this.state.places[key].url}
                 viewsNumber={this.state.places[key].viewsNumber}
+                urlSite={this.state.places[key].urlSite}
             />
             <SpaceBetween/>
             </>

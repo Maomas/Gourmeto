@@ -96,7 +96,8 @@ class PlaceForm extends Component {
         city: '',
         name: '',
         url :'',
-        viewsNumber: '0'
+        viewsNumber: '0',
+        urlSite: ''
     }
 
 
@@ -107,13 +108,15 @@ class PlaceForm extends Component {
             city: this.state.city,
             name: this.state.name,
             url: this.state.url,
+            urlSite: this.state.urlSite,
             viewsNumber: this.state.viewsNumber
           });
         this.setState({
             country: '',
             name: '',
             city: '',
-            url: ''
+            url: '',
+            urlSite: ''
         })
     }
 
@@ -135,6 +138,11 @@ class PlaceForm extends Component {
     handleChangeUrl = event => {
         const url = event.target.value
         this.setState({ url })
+    }
+
+    handleChangeUrlSite = event => {
+        const urlSite = event.target.value
+        this.setState({ urlSite })
     }
 
     render(){
@@ -162,6 +170,13 @@ class PlaceForm extends Component {
                     placeholder="Pays"
                     value={this.state.country}
                     onChange={this.handleChangeCountry}
+                    type="text"
+                    required
+                    />
+                    <Input 
+                    placeholder="Url du site du lieu"
+                    value={this.state.urlSite}
+                    onChange={this.handleChangeUrlSite}
                     type="text"
                     required
                     />

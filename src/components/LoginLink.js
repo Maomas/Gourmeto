@@ -69,6 +69,10 @@ border-radius: 12.069px;
 width: 146px;
 height: 12px;
 visibility: hidden;
+@media (max-width: 768px){
+    width: 87px;
+    height: 5px;
+}
 `
 
 const LoginContainer = styled.div`
