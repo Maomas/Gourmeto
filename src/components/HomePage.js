@@ -162,6 +162,7 @@ class HomePage extends Component {
     
 
   componentDidMount() {
+
     base.syncState('/views', {
         context: this,
         state: 'views'
@@ -174,6 +175,7 @@ class HomePage extends Component {
       context: this,
       state:'places'
     })
+    firebase.database().ref()
     firebase.auth().onAuthStateChanged(user => {
         if(user){
           this.handleAuth({ user })
@@ -195,6 +197,10 @@ handleAuth = async authData => {
       url: authData.user.photoURL
   }
   this.setState({currentUser: currentUser})  
+  base.syncState('/users/user-'+this.state.currentUser.uid+'/isAdmin', {
+    context: this,
+    state: 'isAdmin'
+  })
 }
 
 logout = async () => {
@@ -232,8 +238,7 @@ handleBlur = event => {
   render(){
     let suggestionContainer;
 
-
-    if(this.state.currentUser.uid){
+    if(this.state.currentUser.uid && !this.state.isAdmin){
       suggestionContainer = <SuggestionContainer>
       <SuggestionText>Vous ne trouvez pas le lieu que vous avez visité ?&nbsp;&nbsp;</SuggestionText><a style={{ marginTop: '10px' }} href="/suggestion">Faites une suggestion</a>
     </SuggestionContainer>

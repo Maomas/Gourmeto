@@ -19,6 +19,7 @@ align-items: center;
 align-content:center;
 flex-direction: column;
 margin-top: 20px;
+margin-bottom: 100px;
 `
 
 const Header = styled.div`
@@ -206,21 +207,23 @@ class Place extends Component{
         let siteButton;
 
         siteButton = <a href={this.state.urlSite} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Site web"/></a>
+
         const views = Object.keys(this.state.views)
-        .map(key => (
-                <ViewBoard
-                id={key}
-                placeId={this.state.views[key].placeId}
-                isUser={this.isUser}
-                name={this.state.views[key].userName}
-                time={this.state.views[key].time}
-                place={this.state.views[key].place}
-                description={this.state.views[key].view}
-                url={this.state.views[key].url}
-                urlUser={this.state.views[key].urlUser}
-                uid={this.state.views[key].uid} 
-                currentUserId={this.state.currentUser.uid}
-                /> 
+        .map(key => (     
+                    <ViewBoard
+                    id={key}
+                    placeId={this.state.views[key].placeId}
+                    isUser={this.isUser}
+                    name={this.state.views[key].userName}
+                    time={this.state.views[key].time}
+                    place={this.state.views[key].place}
+                    description={this.state.views[key].view}
+                    url={this.state.views[key].url}
+                    urlUser={this.state.views[key].urlUser}
+                    uid={this.state.views[key].uid} 
+                    currentUserId={this.state.currentUser.uid}
+                    currentPlaceId={this.state.placeId}
+                    />
         ))
 
         if(this.state.goToHomePage){

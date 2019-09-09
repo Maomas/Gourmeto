@@ -161,6 +161,7 @@ class ViewBoard extends Component{
 
 	state = {
 		currentUserId: this.props.currentUserId,
+		currentPlaceId: this.props.currentPlaceId,
 		id: this.props.id,
 		placeId: this.props.placeId,
 		key:this.props.key,
