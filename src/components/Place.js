@@ -11,7 +11,6 @@ import firebase from 'firebase/app'
 import {ProfileButton} from './ProfileButton'
 
 
-
 const Container = styled.div`
 display: flex;
 justify-content: center;

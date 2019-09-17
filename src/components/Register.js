@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import firebase from 'firebase/app'
 import base from '../base'
 import 'firebase/auth'
-
+import { GoogleComponent } from 'react-google-location' 
 
 const Container = styled.div`
 margin-top: 20px;

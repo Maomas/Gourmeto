@@ -15,8 +15,10 @@ justify-content: center;
 align-items: center;
 align-content:center;
 flex-direction: column;
+margin-bottom: 100px;
 @media (max-width: 768px){
     margin-top: 50px;
+    margin-bottom: 100px;
 }`
 
 const ProfileDataContainer = styled.div`

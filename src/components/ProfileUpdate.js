@@ -11,14 +11,15 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 const Container = styled.div`
-margin-top: 15%;
 display: flex;
 justify-content: center;
 align-items: center;
 align-content:center;
 flex-direction: column;
+margin-bottom: 100px;
 @media (max-width: 768px){
     margin-top: 20%;
+    margin-bottom: 100px;
 }`
 
 const Button = styled.button`
@@ -141,17 +142,13 @@ color: #000000;
 `
 
 const Header = styled.div`
-position: absolute;
-left: 80%;
-top: 69px;
-width: 600px;
 display: flex;
-justify-content:center;
-align-items: center;
+margin-top: 69px;
+margin-bottom: 100px;
 @media (max-width: 768px) {
-    left: 130px;
-    top: 29px;
-  }
+  margin-top: 0px;
+  margin-bottom: 100px;
+}
 `
 
 
@@ -310,7 +307,7 @@ class ProfileUpdate extends Component {
 
     render(){
 
-        let inputImage, inputPassword;
+        let inputImage, inputPassword, inputEmail;
 
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>
@@ -324,6 +321,7 @@ class ProfileUpdate extends Component {
         }
         if(this.state.provider==='google' || this.state.provider==='facebook'){
             inputImage = <span></span>
+            inputEmail = <span></span>
             inputPassword = <span></span>
         } else{
             inputImage = <Input type="text" value={this.state.url} onChange={this.handleChangeImage} placeholder="Lien de l'avatar"/>
@@ -332,6 +330,13 @@ class ProfileUpdate extends Component {
             onChange={this.handleChangePassword}
             placeholder='Mot de passe'
             type='password'
+            />
+            inputEmail = <Input
+            value={this.state.email}
+            onChange={this.handleChangeEmail}
+            placeholder='Email'
+            type="email"
+            required
             />
         }
         return(
@@ -352,13 +357,7 @@ class ProfileUpdate extends Component {
                             type="text"
                             required
                             />
-                            <Input
-                            value={this.state.email}
-                            onChange={this.handleChangeEmail}
-                            placeholder='Email'
-                            type="email"
-                            required
-                            />
+                            {inputEmail}
                             <Input
                             value={this.state.city}
                             onChange={this.handleChangeCity}

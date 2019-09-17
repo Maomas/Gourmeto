@@ -236,6 +236,7 @@ handleBlur = event => {
 
 
   render(){
+
     let suggestionContainer;
 
     if(this.state.currentUser.uid && !this.state.isAdmin){

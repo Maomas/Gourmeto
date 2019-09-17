@@ -154,7 +154,11 @@ class ViewBoard extends Component{
 
 	componentDidMount() {
 		firebase.database().ref('/users/user-'+this.state.uid).once('value').then(snapshot => {
-            base.syncState(`/users/user-${this.state.uid}/likesNumber`, {context: this, state: 'likesNumber'})
+			base.syncState(`/users/user-${this.state.uid}/likesNumber`, {context: this, state: 'likesNumber'})
+			base.syncState(`/users/user-${this.state.uid}/viewsNumber`, {context: this, state: 'viewsNumberUser'})
+		})
+		firebase.database().ref('/places/place-'+this.state.placeId).once('value').then(snapshot => {
+            base.syncState(`/places/place-${this.state.placeId}/viewsNumber`, {context: this, state: 'viewsNumberPlace'})
 		})
 		base.syncState(`views/${this.state.id}/likes`, {context: this, state: 'likes'})
 	}
@@ -174,6 +178,8 @@ class ViewBoard extends Component{
 		userName: this.props.userName,
 		likesNumber: '',
 		urlUser: this.props.urlUser,
+		viewsNumberUser: '',
+		viewsNumberPlace: '',
 		likes: {},
 		like:'',
 		user: {},
@@ -195,7 +201,11 @@ class ViewBoard extends Component{
 					var viewId = this.state.id;
                     firebase.database().ref('/views/' + viewId).remove().catch(function(error) {
                         console.log(error)
-                    });
+					});
+					var viewsNumberPlace = parseInt(this.state.viewsNumberPlace) - 1
+					this.setState({viewsNumberPlace: viewsNumberPlace.toString()})
+					var viewsNumberUser = parseInt(this.state.viewsNumberUser) - 1
+        			this.setState({viewsNumberUser: viewsNumberUser.toString()})
                 }
               },
               {
@@ -246,7 +256,6 @@ class ViewBoard extends Component{
 			if(this.state.currentUserId===this.state.uid){
 				cross = <Cross src={crossImage} onClick={this.handleDelete} alt="cross"></Cross>
 			}
-
 			else{
 				if(this.state.isLiked || 'like-'+this.state.currentUserId in this.state.likes){
 					like = <Like src={redHeart} onClick={this.handleClick} alt="like"></Like>
