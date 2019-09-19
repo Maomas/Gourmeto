@@ -12,7 +12,7 @@ margin-top: 30px;
 background: #EFEFEF;
 border-radius: 5px;
 @media (max-width: 768px){
-    width: 350px;
+    width: 320px;
     height: 200px;
 }
 `
@@ -36,7 +36,7 @@ line-height: 31px;
 padding: 10px;
 color: #000000;
 @media (max-width: 768px){
-    width: 330px;
+    width: 300px;
     height: 110px;
     font-size: 14px;
     line-height: 10px;
@@ -53,7 +53,22 @@ justify-content:center;
 border-radius: 7.40084px;
 padding:15px;
 margin-top:20px;
-cursor:pointer;`
+cursor:pointer;
+@media (max-width: 768px){
+    height: 20px;
+}`
+
+const TextButton = styled.span`
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 26.3912px;
+line-height: 31px;
+color: #000000;
+@media (max-width: 768px){
+    font-size: 15px;
+    line-height: 0px;
+}`
 
 const Text = styled.span`
 font-family: Roboto;
@@ -64,8 +79,8 @@ line-height: 31px;
 color: #000000;
 @media (max-width: 768px){
     font-size: 15px;
-    line-height: 9px;
-    margin-top: 2px;
+    margin-top:7px;
+    line-height: 0px;
 }`
 
 class ViewForm extends Component{
@@ -139,7 +154,7 @@ class ViewForm extends Component{
                     <Form onSubmit={this.handleSubmit}>
                         <Input value={this.state.view} onChange={this.handleChange} onKeyUp={this.handleKeyUp} maxLength={this.props.length} placeholder="Donnez votre avis sur ce lieu (maximum 340 caractères)." type="text" required/>
                         <Text>{this.state.length} caractères restants</Text>
-                        <Button type='submit'><Text>Valider</Text></Button>
+                        <Button type='submit'><TextButton>Valider</TextButton></Button>
                     </Form>               
                 </Container>
             )

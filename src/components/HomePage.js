@@ -175,7 +175,7 @@ class HomePage extends Component {
       context: this,
       state:'places'
     })
-    firebase.database().ref()
+
     firebase.auth().onAuthStateChanged(user => {
         if(user){
           this.handleAuth({ user })
@@ -244,11 +244,17 @@ handleBlur = event => {
       <SuggestionText>Vous ne trouvez pas le lieu que vous avez visité ?&nbsp;&nbsp;</SuggestionText><a style={{ marginTop: '10px' }} href="/suggestion">Faites une suggestion</a>
     </SuggestionContainer>
     }
+    let cpt = 0;
       const places = Object.keys(this.state.places)
       .filter(this.searchingFor(this.state.search))
-      .map(key => (
-        <SearchResult><a href={`/place/${key.substring(6)}`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><StrongText>{this.state.places[key].name}&nbsp;&nbsp;</StrongText><Text>{this.state.places[key].city}, {this.state.places[key].country}</Text></a></SearchResult>
-      ))
+      .map(key => {
+      cpt = cpt + 1;
+      if(cpt < 6){
+        return (
+          <SearchResult><a href={`/place/${key.substring(6)}`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><StrongText>{this.state.places[key].name}&nbsp;&nbsp;</StrongText><Text>{this.state.places[key].city}, {this.state.places[key].country}</Text></a></SearchResult>
+        )}else{return null}
+      })
+
     const views = Object.keys(this.state.views)
         .map(key => (
                 <ViewBoard

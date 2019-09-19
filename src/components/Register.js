@@ -7,13 +7,13 @@ import styled from 'styled-components'
 import firebase from 'firebase/app'
 import base from '../base'
 import 'firebase/auth'
-import { GoogleComponent } from 'react-google-location' 
 
 const Container = styled.div`
 margin-top: 20px;
 display: flex;
 justify-content:center;
 flex-direction:column;
+align-tems:center;
 margin-bottom: 200px;
 @media (max-width: 768px) {
     flex-direction: column;
@@ -53,15 +53,17 @@ const LoginContainer = styled.div`
 display:flex;
 flex-direction:column;
 justify-content:center;
-margin-left: 20px;
-@media (max-width: 768px){
-    align-items:center;
-    margin-left: 0px;
-}`
+align-items:center;
+margin-left: 30px;
+@media (max-width: 468px){
+    margin-left: 34px;
+}
+`
 
 const LoginChoiceContainer = styled.div`
 display:flex;
 justify-content:center;
+align-tems:center;
 `
 
 const Form = styled.form`
@@ -142,6 +144,7 @@ border-radius: 4px;
 class Register extends Component{
 
     state = {
+        place: null,
         goToLogin: false,
         goToHomePage: false,
         currentUser: {},

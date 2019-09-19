@@ -39,21 +39,22 @@ flex-direction:column;
 margin-left: 45px;
 justify-content:center;
 align-items:center;
+@media (max-width: 468px){
+    margin-left: 0px;
+}
 `
 
 const LoginContainer = styled.div`
 display:flex;
 flex-direction:column;
 justify-content:center;
-margin-left: 35px;
-@media (max-width: 768px){
-    align-items:center;
-    margin-left: 0px;
-}
+align-items:center;
 `
 
 const LoginChoiceContainer = styled.div`
 display:flex;
+justify-content:center;
+align-items:center;
 `
 
 const Form = styled.form`
