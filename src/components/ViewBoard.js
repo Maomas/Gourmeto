@@ -52,6 +52,15 @@ cursor:pointer;
 }
 `
 
+const LittleLike = styled.img`
+height: 20px;
+width: 20px;
+@media (max-width: 768px) {
+	height: 15px;
+	width: 15px;
+}
+`
+
 const PlacePhoto = styled.div`
 width: 525px;
 height: 160px;
@@ -116,6 +125,22 @@ justify-content:center;
 
 const HeaderContainer = styled.div`
 display:flex;
+`
+
+const LikesNumber = styled.div`
+display: flex;
+align-items:center;
+margin-top: 5px;
+`
+
+const LikeText = styled.div`
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 15px;
+margin-left: 2px;
+line-height: 19px;
+color: #000000;
 `
 
 const TextButton = styled.span`
@@ -284,6 +309,9 @@ class ViewBoard extends Component{
 						</HeaderContainer>
 						<a href={`/place/${this.state.placeId}`} ><PlacePhoto  style={{ backgroundImage: `url(${this.state.url})` }} /></a>
 						<a href={`/place/${this.state.placeId}`}  style={{ textDecoration: 'none', color: '#EFEFEF' }}><StrongText>{this.state.place}</StrongText></a>
+						<LikesNumber>
+							<LittleLike src={redHeart} onClick={this.handleClick} alt="like"></LittleLike><LikeText>{this.state.likesNumber}</LikeText>
+						</LikesNumber>
 						<Text>{this.state.description}</Text>
 						{button}
 					</Container>
