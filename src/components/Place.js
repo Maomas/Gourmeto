@@ -208,7 +208,9 @@ class Place extends Component{
         siteButton = <a href={this.state.urlSite} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Site web"/></a>
 
         const views = Object.keys(this.state.views)
-        .map(key => (     
+        .map(key => { 
+            if(this.state.views[key].placeId === this.state.id){
+                return( 
                     <ViewBoard
                     id={key}
                     placeId={this.state.views[key].placeId}
@@ -223,7 +225,12 @@ class Place extends Component{
                     currentUserId={this.state.currentUser.uid}
                     currentPlaceId={this.state.placeId}
                     />
-        ))
+                )
+            }
+            else{
+                return null
+            }
+        })
 
         if(this.state.goToHomePage){
             return <Redirect push to={'/'}></Redirect>

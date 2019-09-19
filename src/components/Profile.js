@@ -4,6 +4,7 @@ import FloatingButton from '../components/FloatingButton'
 import {Redirect} from 'react-router-dom'
 import { ViewsNumber } from './ViewsNumber'
 import {LikesNumber} from './LikesNumber'
+import ViewBoard from "./ViewBoard"
 import {ProfileButton} from './ProfileButton'
 import base from '../base'
 import 'firebase/auth'
@@ -86,8 +87,25 @@ display: flex;
 @media (max-width: 768px) {
   margin-top: 0px;
   margin-bottom: 100px;
-}
-`
+}`
+
+const ListTitle = styled.div`
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 51.6px;
+line-height: 60px;
+margin-top: 200px;
+color: #EFEFEF;
+margin-bottom: 20px;
+@media (max-width: 768px){
+    font-size: 24px;
+    line-height: 28px;
+}`
+
+const ViewsList = styled.div`
+display:flex;
+flex-direction:column;`
 
 
 class Profile extends Component{
@@ -112,6 +130,10 @@ class Profile extends Component{
                 base.syncState(`/users/user-${this.state.id}/likesNumber`, {context: this,state: 'likesNumber'})
                 base.syncState(`/users/user-${this.state.id}/viewsNumber`, {context: this,state: 'viewsNumber'})
             }
+        })
+        base.syncState('/views', {
+            context: this,
+            state: 'views'
         })
         
     }
@@ -139,6 +161,7 @@ class Profile extends Component{
         name: '',
         city: '',
         url: '',
+        views: {},
         country: '',
         viewsNumber: '',
         likesNumber: '',
@@ -160,6 +183,31 @@ class Profile extends Component{
     render(){
 
         let adminButton;
+
+        const views = Object.keys(this.state.views)
+        .map(key => { 
+            if(this.state.views[key].uid === this.state.id){
+                return( 
+                    <ViewBoard
+                    id={key}
+                    placeId={this.state.views[key].placeId}
+                    isUser={this.isUser}
+                    name={this.state.views[key].userName}
+                    time={this.state.views[key].time}
+                    place={this.state.views[key].place}
+                    description={this.state.views[key].view}
+                    url={this.state.views[key].url}
+                    urlUser={this.state.views[key].urlUser}
+                    uid={this.state.views[key].uid} 
+                    currentUserId={this.state.currentUser.uid}
+                    currentPlaceId={this.state.placeId}
+                    />
+                )
+            }
+            else{
+                return null
+            }
+        })
 
         if(this.state.isAdmin && this.state.isUser){
             adminButton = <a href={`/admin`} style={{ textDecoration: 'none', color:'#EFEFEF' }}><ProfileButton contain="Menu Admin"/></a>
@@ -212,6 +260,10 @@ class Profile extends Component{
                          {adminButton}           
                     </ProfileDataContainer>
                 </ProfileContainer>
+                <ViewsList>
+                        <ListTitle>Avis</ListTitle>
+                        { views }
+                </ViewsList>
 			</Container>
             </>
 	    )
